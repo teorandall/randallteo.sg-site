@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Recap — H1 2026 | Randall Teo</title>
+<meta name="description" content="A review of major global market events and trends shaping H1 2026, together with a focused analysis of PRULink top and bottom fund performers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ── Breadcrumb ── */
+  .breadcrumb{
+    padding:14px 0;
+    border-bottom:1px solid var(--color-line);
+    font-size:13px;
+    color:var(--color-ink-soft);
+  }
+  .breadcrumb a{color:var(--color-copper-text);font-weight:500;}
+  .breadcrumb a:hover{text-decoration:underline;}
+  .breadcrumb span{margin:0 8px;opacity:0.4;}
+
+  /* ── Article wrapper ── */
+  .article-wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+
+  /* ── Article styles (from original, scoped within article-wrap) ── */
+  .article-wrap {
+    --green-deep:   #1B3A2D;
+    --green-mid:    #2C5540;
+    --green-light:  #3D7057;
+    --cream:        #F5F0E8;
+    --cream-warm:   #EDE5D4;
+    --copper:       #B87333;
+    --copper-light: #D4913F;
+    --divider:      #D4C9B0;
+    --text-dark:    #1A1A18;
+    --text-mid:     #3D3D35;
+    --text-muted:   #7A7A6E;
+    --white:        #FFFFFF;
+    --positive:     #1E6B3C;
+    --pos-bg:       #EBF5F0;
+    --negative:     #9B3A2A;
+    --neg-bg:       #FBF0EE;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--green-deep);
+    padding: 56px 56px 48px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-top: 36px;
+    margin-bottom: 0;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle at top right, rgba(184,115,51,0.18) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -70px; right: -70px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 44px solid rgba(184,115,51,0.08);
+  }
+  .cover-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--copper-light); margin-bottom: 24px;
+    font-family: 'Inter', sans-serif;
+  }
+  .cover-rule { width: 44px; height: 2px; background: var(--copper); margin-bottom: 28px; }
+  .cover-title {
+    font-family: 'Fraunces', serif;
+    font-size: 48px; font-weight: 300;
+    color: #fff; line-height: 1.05; margin-bottom: 6px; max-width: 560px;
+  }
+  .cover-title em { font-style: italic; color: var(--copper-light); }
+  .cover-sub {
+    font-size: 14px; font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    margin-top: 12px; margin-bottom: 44px; max-width: 480px;
+    font-family: 'Inter', sans-serif;
+  }
+  .cover-meta {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    border-top: 1px solid rgba(212,193,176,0.22);
+    padding-top: 24px;
+  }
+  .cover-meta-item label {
+    display: block; font-size: 9px; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--copper-light); margin-bottom: 3px;
+    font-family: 'Inter', sans-serif;
+  }
+  .cover-meta-item span { font-size: 12.5px; color: var(--cream); font-family: 'Inter', sans-serif; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--green-mid);
+    padding: 28px 56px 32px;
+    margin-bottom: 0;
+  }
+  .toc-title {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--copper-light); margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+  .toc-items { display: flex; gap: 0; flex-direction: column; }
+  .toc-item {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid rgba(212,193,176,0.15);
+    color: var(--cream); font-size: 13px;
+    font-family: 'Inter', sans-serif;
+  }
+  .toc-item:last-child { border-bottom: none; }
+  .toc-num {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 11px; color: var(--copper-light); min-width: 20px;
+  }
+  .toc-label { font-weight: 400; }
+  .toc-desc { font-size: 11px; color: rgba(245,240,232,0.5); margin-left: auto; }
+
+  /* ── PAGE / INNER ── */
+  .article-inner { padding: 44px 0 0; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section-num {
+    font-family: 'Fraunces', serif; font-size: 11px;
+    font-weight: 400; font-style: italic; color: var(--copper); min-width: 24px;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif; font-size: 24px;
+    font-weight: 400; color: var(--green-deep); line-height: 1.1;
+  }
+
+  /* ── MACRO BAR ── */
+  .macro-bar {
+    background: var(--green-deep); color: var(--cream);
+    border-radius: 3px; padding: 20px 28px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin-bottom: 36px; text-align: center;
+  }
+  .macro-bar-item {
+    padding: 8px 4px;
+    border-right: 1px solid rgba(245,240,232,0.15);
+  }
+  .macro-bar-item:last-child { border-right: none; }
+  .macro-bar-value {
+    font-family: 'Fraunces', serif; font-size: 22px;
+    font-weight: 300; color: var(--copper-light); display: block;
+  }
+  .macro-bar-label {
+    font-size: 9.5px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(245,240,232,0.6);
+    display: block; margin-top: 2px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── TREND CARDS ── */
+  .trends-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px;
+  }
+  .trend-card {
+    background: var(--white); border: 1px solid var(--divider);
+    border-left: 3px solid var(--copper); padding: 18px 20px; border-radius: 2px;
+  }
+  .trend-card.green-accent { border-left-color: var(--green-mid); }
+  .trend-card-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--copper); margin-bottom: 5px;
+    font-family: 'Inter', sans-serif;
+  }
+  .trend-card.green-accent .trend-card-label { color: var(--green-mid); }
+  .trend-card-title {
+    font-family: 'Fraunces', serif; font-size: 14px;
+    font-weight: 400; color: var(--green-deep); margin-bottom: 7px; line-height: 1.25;
+  }
+  .trend-card-body { font-size: 12px; color: var(--text-mid); line-height: 1.6; font-family: 'Inter', sans-serif; }
+  .trend-card-impact {
+    margin-top: 9px; padding-top: 9px;
+    border-top: 1px solid var(--cream-warm);
+    font-size: 11px; color: var(--text-muted); font-style: italic;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── ANALYSIS BOX ── */
+  .analysis-box {
+    background: var(--white); border: 1px solid var(--divider);
+    border-top: 3px solid var(--copper); padding: 22px 26px;
+    border-radius: 2px; margin-bottom: 22px;
+  }
+  .analysis-box-title {
+    font-family: 'Fraunces', serif; font-size: 14px;
+    font-weight: 400; color: var(--green-deep); margin-bottom: 10px;
+  }
+  .analysis-box-body { font-size: 12px; color: var(--text-mid); line-height: 1.7; font-family: 'Inter', sans-serif; }
+  .analysis-box-body p + p { margin-top: 8px; }
+
+  /* ── PAGE DIVIDER ── */
+  .page-divider { border: none; border-top: 1px solid var(--divider); margin: 36px 0; }
+
+  /* ── RANK BADGE ── */
+  .rank-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    font-family: 'Fraunces', serif; font-size: 13px;
+    font-weight: 400; font-style: italic; flex-shrink: 0;
+  }
+  .rank-badge.pos { background: var(--pos-bg); color: var(--positive); }
+  .rank-badge.neg { background: var(--neg-bg); color: var(--negative); }
+
+  /* ── FUND CARD ── */
+  .fund-card {
+    display: grid; grid-template-columns: 36px 1fr auto;
+    gap: 0 16px; align-items: start;
+    background: var(--white); border: 1px solid var(--divider);
+    border-radius: 3px; padding: 18px 20px; margin-bottom: 10px;
+  }
+  .fund-card.top { border-left: 4px solid var(--positive); }
+  .fund-card.bot { border-left: 4px solid var(--negative); }
+  .fund-card-name {
+    font-family: 'Fraunces', serif; font-size: 15px;
+    font-weight: 400; color: var(--green-deep); line-height: 1.2; margin-bottom: 4px;
+  }
+  .fund-card-desc { font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-family: 'Inter', sans-serif; }
+  .fund-card-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+  .stat-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 1px;
+    font-family: 'Inter', sans-serif;
+  }
+  .stat-value { font-size: 12px; font-weight: 600; color: var(--text-dark); font-family: 'Inter', sans-serif; }
+  .stat-value.pos { color: var(--positive); }
+  .stat-value.neg { color: var(--negative); }
+  .stat-value.na  { color: var(--text-muted); font-weight: 400; font-style: italic; }
+  .fund-card-return {
+    text-align: right; flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: flex-end;
+  }
+  .return-number {
+    font-family: 'Fraunces', serif; font-size: 28px;
+    font-weight: 300; line-height: 1; margin-bottom: 2px;
+  }
+  .return-number.pos { color: var(--positive); }
+  .return-number.neg { color: var(--negative); }
+  .return-label {
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── ANALYSIS NOTE ── */
+  .analysis-note {
+    background: var(--cream-warm); border-left: 3px solid var(--copper);
+    padding: 13px 16px; border-radius: 0 2px 2px 0;
+    font-size: 11.5px; color: var(--text-mid); line-height: 1.65; margin-top: 10px;
+    font-family: 'Inter', sans-serif;
+  }
+  .analysis-note strong { color: var(--green-deep); }
+
+  /* ── CONTEXT BAR ── */
+  .context-bar {
+    background: var(--green-deep); color: var(--cream);
+    padding: 14px 20px; border-radius: 3px;
+    margin-bottom: 26px; font-size: 11.5px; line-height: 1.65;
+    font-family: 'Inter', sans-serif;
+  }
+  .context-bar strong { color: var(--copper-light); }
+
+  /* ── NOTICE BOX ── */
+  .notice-box {
+    background: var(--white); border: 1px solid var(--divider);
+    border-top: 3px solid var(--copper); padding: 13px 17px; border-radius: 2px;
+    font-size: 11.5px; color: var(--text-mid); line-height: 1.65; margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+  }
+  .notice-box strong { color: var(--green-deep); }
+
+  /* ── TOC clickable ── */
+  a.toc-item {
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-radius: 2px;
+    margin: 0 -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  a.toc-item:hover { background: rgba(250,247,240,0.08); }
+  a.toc-item:hover .toc-label { color: var(--copper-light); }
+  a.toc-item .toc-num,
+  a.toc-item .toc-label,
+  a.toc-item .toc-desc { transition: color 0.15s ease; }
+
+  /* ── INLINE NOTE ── */
+  .inline-note { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 16px; font-family: 'Inter', sans-serif; }
+
+  /* ── ARTICLE FOOTER ── */
+  .article-footer-disclaimer {
+    background: var(--green-deep); color: rgba(245,240,232,0.5);
+    padding: 20px 28px; font-size: 9.5px; line-height: 1.6;
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 20px; flex-wrap: wrap;
+    border-radius: 4px; margin-top: 40px;
+    font-family: 'Inter', sans-serif;
+  }
+  .article-footer-disclaimer strong { color: var(--cream); }
+  .article-footer-right { text-align: right; flex-shrink: 0; }
+
+  /* ── Back link ── */
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:14px;font-weight:600;color:var(--color-copper-text);
+    margin-top:32px;margin-bottom:8px;
+  }
+  .back-link:hover{color:var(--color-green-deep);}
+  .back-link svg{transition:transform 0.2s ease;}
+  .back-link:hover svg{transform:translateX(-3px);}
+
+  /* ── Mobile ── */
+  @media(max-width:680px){
+    .article-wrap{padding:0 18px 56px;}
+    .cover{padding:32px 22px 28px;margin-top:24px;}
+    .cover-title{font-size:32px;}
+    .toc{padding:20px 22px 24px;}
+    .toc-desc{display:none;}
+    .macro-bar{grid-template-columns:repeat(2,1fr);}
+    .trends-grid{grid-template-columns:1fr;}
+    .fund-card{grid-template-columns:36px 1fr;gap:0 12px;}
+    .fund-card-return{display:none;}
+    .cover-meta{gap:20px;}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">Randall Teo</span>
+        <span class="brand-sub">Estate &amp; Legacy Planning</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="finance.html" class="active">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="index.html#contact" class="btn btn-primary">Schedule a consultation</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <a href="finance.html">Finance</a>
+    <span>›</span>
+    Financial Recap — H1 2026
+  </div>
+</div>
+
+<!-- ARTICLE CONTENT -->
+<div class="article-wrap">
+
+  <a href="finance.html" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Finance
+  </a>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-rule"></div>
+    <h1 class="cover-title"><em>Financial Recap</em></h1>
+    <p class="cover-sub">
+      A review of major global market events and trends shaping H1 2026,
+      together with a focused analysis of PRULink top and bottom fund performers.
+    </p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><label>Report Period</label><span>January – June 2026</span></div>
+      <div class="cover-meta-item"><label>Prepared By</label><span>Randall Teo Wei Lun</span></div>
+      <div class="cover-meta-item"><label>Data As Of</label><span>27 June 2026</span></div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-items">
+      <a href="#section-01" class="toc-item">
+        <span class="toc-num">01</span>
+        <span class="toc-label">Global Market Landscape — H1 2026</span>
+        <span class="toc-desc">Key macro events, themes &amp; their market impact</span>
+      </a>
+      <a href="#section-02" class="toc-item">
+        <span class="toc-num">02</span>
+        <span class="toc-label">Top 5 PRULink Fund Performers</span>
+        <span class="toc-desc">Best 1-year returns with commentary</span>
+      </a>
+      <a href="#section-03" class="toc-item">
+        <span class="toc-num">03</span>
+        <span class="toc-label">Bottom 5 PRULink Fund Performers</span>
+        <span class="toc-desc">Weakest 1-year returns with outlook notes</span>
+      </a>
+      <a href="#section-04" class="toc-item">
+        <span class="toc-num">04</span>
+        <span class="toc-label">What to Expect — and What to Consider</span>
+        <span class="toc-desc">Forward-looking views and portfolio considerations</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="article-inner">
+
+    <!-- SECTION 1 -->
+    <div class="section-header" id="section-01">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Global Market Landscape — H1 2026</h2>
+    </div>
+
+    <div class="macro-bar">
+      <div class="macro-bar-item">
+        <span class="macro-bar-value">+7%</span>
+        <span class="macro-bar-label">Thematic Stocks YTD<br>(AI, Energy, Defence)</span>
+      </div>
+      <div class="macro-bar-item">
+        <span class="macro-bar-value">Sticky</span>
+        <span class="macro-bar-label">Global Inflation<br>Renewed Pressure</span>
+      </div>
+      <div class="macro-bar-item">
+        <span class="macro-bar-value">Paused</span>
+        <span class="macro-bar-label">Rate Cut Cycles<br>Most Major CBs</span>
+      </div>
+      <div class="macro-bar-item">
+        <span class="macro-bar-value">Resilient</span>
+        <span class="macro-bar-label">Risk Assets<br>Amid Volatility</span>
+      </div>
+    </div>
+
+    <div class="trends-grid">
+      <div class="trend-card">
+        <div class="trend-card-label">Geopolitical Shock</div>
+        <h3 class="trend-card-title">Iran–US Conflict &amp; Strait of Hormuz Disruption</h3>
+        <div class="trend-card-body">Escalating tensions in the Middle East disrupted shipping through the Strait of Hormuz — a critical passage for global oil supply — triggering an energy supply shock that reverberated across bond and equity markets. The conflict drove structurally higher energy prices and renewed inflationary pressures globally, fundamentally altering the investment outlook for H1 2026.</div>
+        <div class="trend-card-impact">Market impact: Energy, defence, and AI infrastructure stocks outperformed; central banks paused rate-cutting cycles; bond yields rose under dual inflation and growth pressure.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-card-label">Technology Megatrend</div>
+        <h3 class="trend-card-title">AI Investment Cycle Dominates Market Leadership</h3>
+        <div class="trend-card-body">AI remained the dominant growth driver across global markets. Global AI usage rose approximately 250% since January 2026. Hyperscaler technology companies announced even larger capital expenditure plans, while AI infrastructure, memory chips, and energy demand for data centres became primary investment themes.</div>
+        <div class="trend-card-impact">Market impact: PRULink Global Technology Fund delivered ~+45% over 1 year. Concentration risk grew as a small set of AI-linked names drove the majority of global equity returns.</div>
+      </div>
+      <div class="trend-card green-accent">
+        <div class="trend-card-label">Monetary Policy</div>
+        <h3 class="trend-card-title">Rate Cut Expectations Walked Back</h3>
+        <div class="trend-card-body">Prior to the Middle East conflict, markets expected at least two Fed rate cuts in 2026. With inflation re-emerging, central banks — including the Fed under its new chair (Jerome Powell's term ended May 2026) — adopted a cautious hold stance. The Bank of Japan raised rates to their highest level in decades, and the ECB's path became more uncertain.</div>
+        <div class="trend-card-impact">Market impact: Upward pressure on long bond yields; fixed-income funds faced headwinds; equity multiples faced compression pressure, partially offset by strong earnings growth.</div>
+      </div>
+      <div class="trend-card green-accent">
+        <div class="trend-card-label">Multipolar World</div>
+        <h3 class="trend-card-title">Geopolitical Fragmentation &amp; Trade Realignment</h3>
+        <div class="trend-card-body">Nations accelerated moves toward self-sufficiency in energy, critical minerals, semiconductors, and technology supply chains. China's export surge to non-US markets deepened, though domestic deflation from real estate weakness continued. Trump–Xi diplomatic engagements shaped near-term trade dynamics across H1 2026.</div>
+        <div class="trend-card-impact">Market impact: ASEAN and Asian equity funds surged on supply chain diversification inflows. Emerging markets broadly outperformed, with PRULink Emerging Markets Fund delivering ~+60% over 1 year.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-card-label">Macro Fundamentals</div>
+        <h3 class="trend-card-title">US Growth &amp; Corporate Earnings Resilience</h3>
+        <div class="trend-card-body">Despite macro headwinds, US economic growth and corporate earnings proved more robust than expected, providing a floor for risk assets. Earnings growth accelerated year-on-year, supported by business capital expenditure tied to AI. The S&amp;P 500's concentration in AI-linked names meant the headline index remained supported even as breadth narrowed.</div>
+        <div class="trend-card-impact">Market impact: Investors cautioned that resilience does not equal calm — volatility episodes remained frequent, particularly around energy price moves and central bank signalling.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-card-label">Emerging Markets</div>
+        <h3 class="trend-card-title">APAC Outperformance &amp; China Recovery</h3>
+        <div class="trend-card-body">Asia Pacific emerged as a favoured region among global allocators. Strong AI-related semiconductor demand, rising metals prices, and improving terms of trade benefited APAC economies. China's policy stimulus and recovering corporate earnings, particularly in technology, drove Greater China equities to be among 2026's standout performers globally.</div>
+        <div class="trend-card-impact">Market impact: PRULink Asian Equity Fund ~+55% and Emerging Markets Fund ~+60% over 1 year. India Equity soft-closed February 2026 — a signal of very strong inflow demand.</div>
+      </div>
+    </div>
+
+    <div class="analysis-box">
+      <div class="analysis-box-title">Key Takeaway for ILP Policyholders</div>
+      <div class="analysis-box-body">
+        <p>H1 2026 has been defined by a collision of forces: the AI-driven growth supercycle and an energy supply shock from the Middle East conflict. Together, these created a strongly positive but selective environment — funds with exposure to emerging market equities, Asian equities, and technology delivered exceptional returns, while fixed income and macro strategies lagged.</p>
+        <p>The broad PRULink fund universe performed well in this period. Even the "bottom 5" by 1-year return are largely modest negatives or near-flat — a reflection of how constructive the overall market backdrop has been. Investors in equity-oriented PRULink funds will have seen meaningful appreciation. Those in fixed income should be aware that the rate environment remains challenging until central banks resume cutting cycles in earnest.</p>
+      </div>
+    </div>
+
+    <hr class="page-divider">
+
+    <!-- SECTION 2 -->
+    <div class="section-header" id="section-02">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Top 5 PRULink Fund Performers</h2>
+    </div>
+
+    <p class="inline-note">Performance figures are approximate ranges sourced from Prudential Singapore's official PRULink fund listing (prudential.com.sg), verified 27 June 2026. Bid prices are exact per Prudential's fund pricing PDF. Basis: bid-bid, dividends reinvested. Past performance is not indicative of future results.</p>
+
+    <div class="context-bar">
+      Funds launched after mid-2025 (PRUPrime CIO series, Asian Low Vol, India Opp, Strategic Invest Income, Global Bal/Bond Income) show no 1-year track record and are excluded from this ranking.
+    </div>
+
+    <div class="fund-card top">
+      <div><span class="rank-badge pos">1</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Emerging Markets Fund</div>
+        <div class="fund-card-desc">Long-term capital growth through emerging market equities — managed by J.P. Morgan Investment Management</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+60%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+20%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value pos">~+3%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 2.9207</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it outperformed:</strong> A broad-based EM recovery driven by China's technology rebound, ASEAN supply chain inflows, Latin American commodity exporters benefiting from the energy price spike, and strong AI-linked semiconductor demand across Asia. The diversified EM mandate captured the global rotation away from expensive US equities into under-valued EM names. <strong>Key risk:</strong> EM funds carry currency, political and liquidity risks — performance can reverse sharply if the USD strengthens or global risk appetite deteriorates.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+60%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card top">
+      <div><span class="rank-badge pos">2</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Asian Equity Fund</div>
+        <div class="fund-card-desc">Long-term capital growth through Asian equities across the region — inception October 1995</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+55%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+25%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value pos">~+7.5%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 3.9065</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it outperformed:</strong> China's technology rebound, Taiwan's AI semiconductor tailwind, South Korea's memory chip revival, and broad ASEAN strength combined to produce exceptional returns. The fund's long inception track record (1995) reflects genuine long-run compounding. The 3-year p.a. of ~+25% is among the strongest multi-year figures in the PRULink universe. <strong>Key risk:</strong> Sensitive to US-China trade tensions and any regional geopolitical escalation.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+55%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card top">
+      <div><span class="rank-badge pos">3</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Global Climate Change Equity Fund (Acc)</div>
+        <div class="fund-card-desc">Equities of companies positioned to benefit from climate change mitigation — managed by GMO / Grantham Mayo Van Otterloo</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+50%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value neg">~−1%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value na">—</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 0.9221</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it outperformed:</strong> A surprise top-3 finish — driven by a sharp re-rating of clean energy and climate transition equities as the Middle East energy shock accelerated policy urgency around energy security and diversification. Renewables, grid infrastructure, energy efficiency and critical minerals all saw strong re-ratings. <strong>Important caveat:</strong> The bid price of SGD 0.9221 remains below par and the 3-year return is still mildly negative — investors who entered at inception are only just recovering prior losses. A long-term view is essential for this fund.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+50%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card top">
+      <div><span class="rank-badge pos">4</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Asian Income Fund</div>
+        <div class="fund-card-desc">Asian income-generating assets — equities and fixed income with regular distribution capability</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+50%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+22%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value pos">~+6%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 1.4157</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it outperformed:</strong> A dual-engine fund — the income sleeve (dividends and coupons) provided downside cushion while the Asian equity component drove outsized capital gains in a year when Asian equities surged broadly. The 3-year p.a. of ~+22% is impressive for an income-oriented fund and signals strong active management. Marked with a distribution tick on Prudential's platform, making it suitable for investors seeking both growth and regular income. <strong>Key risk:</strong> Higher equity weighting than a pure bond income fund means greater drawdown risk in a risk-off environment.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+50%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card top">
+      <div><span class="rank-badge pos">5</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Global Technology Fund</div>
+        <div class="fund-card-desc">Global equities — companies with innovative products, processes or services including AI and technology</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+45%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+30%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value pos">~+15%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 5.8575</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it outperformed:</strong> The AI capital expenditure supercycle drove exceptional earnings growth in semiconductor, hyperscaler, and AI infrastructure companies globally. This is the fund's third consecutive strong year — the 3-year p.a. of ~+30% and 5-year p.a. of ~+15% are the most consistent long-run track records in the PRULink equity universe. The SGD 5.86 bid price reflects significant compounding since the fund's 2001 inception. <strong>Key risk:</strong> If AI earnings disappoint or valuations compress, this fund would be most exposed to a sharp correction given its concentrated mandate.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+45%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <hr class="page-divider">
+
+    <!-- SECTION 3 -->
+    <div class="section-header" id="section-03">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Bottom 5 PRULink Fund Performers</h2>
+    </div>
+
+    <div class="notice-box">
+      <strong>Context:</strong> Unlike prior years where bottom performers showed deeply negative returns, the overall PRULink fund universe performed strongly in the 1-year period to June 2026. The "bottom 5" here reflects the weakest relative performers — most still delivered modest positive or near-flat returns. This is a sign of a broadly constructive market environment.
+    </div>
+
+    <div class="fund-card bot">
+      <div><span class="rank-badge neg">1</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Asian Fixed-Income Fund (Accumulation)</div>
+        <div class="fund-card-desc">Asian bonds and debt securities, accumulation class — inception January 2021</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value neg">~−7.5%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+1%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value neg">~−2%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 0.8295</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it underperformed:</strong> Asian fixed income faced a perfect storm — the Middle East energy shock reignited inflation, pushing central banks to pause rate cuts (bond prices move inversely to yields). Asian credit markets were further pressured by lingering China property sector stress and the Bank of Japan's historic rate hike cycle. The bid price of SGD 0.8295 against a SGD 1.00 inception price reflects cumulative losses. <strong>Outlook:</strong> Recovery is contingent on a sustained rate-cutting cycle — when central banks eventually pivot, this fund is positioned to benefit.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number neg">~−7.5%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card bot">
+      <div><span class="rank-badge neg">2</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Asian Fixed-Income Fund (Distribution)</div>
+        <div class="fund-card-desc">Same underlying fund as Accumulation class — pays income out periodically to unitholders</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value neg">~−7.5%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+1%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value neg">~−2%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 0.6658</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it underperformed:</strong> Identical underlying drivers as the Accumulation class. The lower bid price (SGD 0.6658 vs Acc at SGD 0.8295) is not a sign of worse performance — it reflects that distributions have been paid out over the fund's life, reducing the NAV. On a total return basis, both classes perform identically. <strong>For investors comparing the two:</strong> choose the Distribution class if regular cashflow is needed; choose Accumulation if reinvesting for long-term compounding.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number neg">~−7.5%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card bot">
+      <div><span class="rank-badge neg">3</span></div>
+      <div>
+        <div class="fund-card-name">PRULink China India Fund</div>
+        <div class="fund-card-desc">Capital growth through Chinese and Indian equity securities — inception June 2004</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value neg">~−5%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+5%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value neg">~−2%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 4.1807</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it underperformed:</strong> A notable laggard despite both China and India having strong standalone markets. The blended mandate works against it when the two markets are out of sync — India equities pulled back from stretched valuations in the past year, while the China allocation's recovery may not have fully offset that drag within this structure. <strong>Investors seeking pure China exposure</strong> are better served by the PRULink Greater China Fund. For India, the newly launched PRULink India Opp Equity Fund (February 2026) is worth monitoring as it builds a track record.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number neg">~−5%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card bot">
+      <div><span class="rank-badge neg">4</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Global Episode Macro Fund (Accumulation)</div>
+        <div class="fund-card-desc">Global macro, event-driven strategy — inception February 2024</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value neg">~−0.25%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value na">—</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value na">—</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 0.9864</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it underperformed:</strong> On paper, 2026 should have been ideal for a macro strategy — but macro funds often struggle when market moves are rapid and one-directional, as positioning shifts result in whipsaw losses. The fund is very young (inception February 2024) with no 3-year track record to assess strategy consistency. The near-flat return of ~−0.25% is not a disaster, but disappointing in a year when most equity funds delivered double-digit gains. <strong>Patience required:</strong> macro strategies tend to shine in prolonged multi-year dislocations rather than sharp single-year rallies.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number neg">~−0.25%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <div class="fund-card bot">
+      <div><span class="rank-badge neg">5</span></div>
+      <div>
+        <div class="fund-card-name">PRULink Global Fixed-Income Fund (Accumulation)</div>
+        <div class="fund-card-desc">Globally diversified fixed income — inception January 2021</div>
+        <div class="fund-card-stats">
+          <div><span class="stat-label">1-Year</span><span class="stat-value pos">~+1%</span></div>
+          <div><span class="stat-label">3-Year p.a.</span><span class="stat-value pos">~+2.5%</span></div>
+          <div><span class="stat-label">5-Year p.a.</span><span class="stat-value neg">~−0.5%</span></div>
+          <div><span class="stat-label">Bid Price</span><span class="stat-value">SGD 0.9074</span></div>
+        </div>
+        <div class="analysis-note"><strong>Why it underperformed:</strong> Global investment-grade bonds faced the same structural headwind as Asian fixed income — sticky inflation from the energy shock delayed rate cuts, keeping bond prices suppressed. The modest ~+1% 1-year return is dwarfed by equity funds in this ranking. The bid price of SGD 0.9074 below par reflects the cumulative impact of the 2022–2023 global rate hiking cycle, from which bond markets have been slow to recover. <strong>Relative to Asian Fixed-Income:</strong> the global diversification provides marginally better resilience (less exposure to China credit stress), which is why the 1-year return is positive rather than negative. Recovery catalyst: a sustained global rate-cutting cycle.</div>
+      </div>
+      <div class="fund-card-return">
+        <div class="return-number pos">~+1%</div>
+        <div class="return-label">1-Year Return</div>
+      </div>
+    </div>
+
+    <hr class="page-divider">
+
+    <!-- SECTION 4 -->
+    <div class="section-header" id="section-04">
+      <span class="section-num">04</span>
+      <h2 class="section-title">What to Expect — and What to Consider</h2>
+    </div>
+
+    <div class="analysis-box">
+      <div class="analysis-box-title">The Macro Backdrop Heading into H2 2026</div>
+      <div class="analysis-box-body">
+        <p>The second half of 2026 is unlikely to be as straightforward as the first. The conditions that drove exceptional returns in the top-performing PRULink funds — a broad EM rally, AI exuberance, and a surprise clean energy re-rating — are not guaranteed to repeat at the same intensity. That does not mean markets will fall, but it does mean investors should calibrate expectations more carefully.</p>
+        <p>The single biggest variable is the interest rate outlook. Central banks have largely paused their rate-cutting cycles in response to renewed inflation from the Middle East energy shock. If inflation begins to ease in H2 2026, the door opens for rate cuts to resume — which would be a significant tailwind for bond funds, REITs, and broadly for equity valuations. If inflation remains sticky, the higher-for-longer rate environment continues, which keeps pressure on fixed income while selectively supporting equities (particularly those with strong earnings, not just growth hopes).</p>
+        <p>Geopolitical risk has not gone away. The Middle East situation remains fluid, and US–China trade dynamics — while diplomatically managed — can shift quickly. These are not reasons to exit markets, but they are reasons to ensure portfolios are not overly concentrated in a single region or theme.</p>
+      </div>
+    </div>
+
+    <div class="analysis-box">
+      <div class="analysis-box-title">My View on Key Themes</div>
+      <div class="analysis-box-body">
+        <p><strong>AI remains a structural story, but the easy gains may be behind us.</strong> The PRULink Global Technology Fund's ~+45% 1-year return reflects genuine earnings growth, not just speculation. However, at current valuations, the AI trade requires continued execution from the underlying companies. I think AI infrastructure spending will remain elevated through 2026 and into 2027 — but stock-level volatility within this theme will increase as the market separates genuine winners from laggards. Investors already holding this fund have done well; new investors should understand they are entering at a higher base.</p>
+        <p><strong>Emerging markets and Asia look attractive on a medium-term view.</strong> The PRULink Emerging Markets and Asian Equity Funds posted exceptional 1-year numbers, but more importantly, the structural drivers — supply chain diversification, demographics, AI hardware demand, and relatively cheap valuations versus developed markets — remain intact. I believe Asia continues to be one of the more compelling multi-year stories in the PRULink fund universe. The near-term risk is a stronger USD or a global risk-off episode, which tends to hit EM hardest and fastest.</p>
+        <p><strong>Fixed income deserves a second look — but not yet a full embrace.</strong> The two Asian Fixed-Income funds are the weakest performers in this period, and the global bond environment remains challenging. That said, bonds are now offering yields not seen in over a decade. When rate cuts do eventually resume, bond prices will reprice upward and investors who have been building positions will benefit. I think a patient, gradual approach to fixed income — rather than waiting for the "perfect moment" — makes sense, particularly for investors with a 3–5 year horizon and a need for income stability.</p>
+        <p><strong>The China India Fund is a cautionary tale about blended mandates.</strong> Despite both markets having their own merits, the fund's blended structure dragged returns when India corrected and China recovered unevenly. Investors seeking targeted exposure are better served by dedicated funds — the PRULink Greater China Fund for China-specific conviction, and the newer PRULink India Opp Equity Fund as India exposure builds its track record.</p>
+      </div>
+    </div>
+
+    <div class="analysis-box">
+      <div class="analysis-box-title">Portfolio Considerations by Investor Profile</div>
+      <div class="analysis-box-body">
+        <p><strong>For income-seeking investors:</strong> My preferred vehicle here is the <strong>PRULink StrategicInvest Income Fund</strong>. Rather than chasing yield through a pure bond fund — which has faced significant headwinds in this rate environment — the StrategicInvest Income Fund offers diversified income exposure across underlying funds, with a monthly distribution of 0.51 cents per unit. It is designed to provide steady, predictable cashflow without the concentrated credit or duration risk that has hurt more traditional fixed income funds. For investors who want their money working without overexposure to market swings, this is where I would anchor the income sleeve of a portfolio.</p>
+        <p><strong>For growth-oriented investors — the core:</strong> Despite not appearing in this year's top 5, my consistent core recommendation for growth portfolios remains the <strong>PRULink Global Equity Growth Fund</strong>. The reason is simple: it offers broad global equity exposure with a meaningfully lower risk profile compared to thematic or single-region funds. In a year where the top performers were driven by narrow themes — AI, EM recovery, climate re-rating — the Global Equity Growth Fund may look unexciting. But a core holding is not meant to be exciting. It is meant to be reliable, diversified, and compounding steadily over time. Chasing last year's top performer as your core is one of the most common and costly mistakes investors make.</p>
+        <p><strong>For growth-oriented investors — the tilts:</strong> Around that core, I believe selective satellite allocations can meaningfully enhance returns for investors with higher risk tolerance and a longer horizon. Three tilts I find compelling at this point in the cycle:</p>
+        <p>— <strong>PRULink Singapore Growth Fund</strong>: Singapore equities remain attractively valued relative to global peers, with strong banking sector earnings, a stable currency, and a structural role as Asia's premier wealth and business hub. A Singapore tilt adds both regional diversity and a degree of defensiveness given the STI's dividend-paying composition.</p>
+        <p>— <strong>PRULink Global Technology Fund</strong>: For investors who can stomach concentration risk, the AI infrastructure supercycle is not over. I view this as a high-conviction satellite position — sized appropriately, not as a core holding — for those with a 5-year-plus horizon and comfort with volatility.</p>
+        <p>— <strong>PRULink Emerging Markets Fund</strong>: EM is worth considering as a tilt for investors who want exposure to the broader Asia and developing world recovery story beyond just Singapore. The 1-year return of ~+60% has been exceptional, but the medium-term structural drivers — demographics, supply chain reshoring, AI hardware demand — remain intact. Position sizing matters here given EM's inherent volatility.</p>
+        <p><strong>In all cases:</strong> this recap is a starting point for thinking, not a substitute for a proper financial review. The right fund mix depends entirely on your personal goals, time horizon, and risk tolerance — not on what performed best in the last 12 months.</p>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="article-footer-disclaimer">
+      <div style="max-width:580px">
+        <strong>Important Disclaimer</strong><br>
+        This document is prepared for informational purposes only and does not constitute financial advice. Past performance of PRULink ILP sub-funds is not indicative of future performance. The value of units and income accruing to units may fall or rise. Performance figures are approximate ranges based on Prudential Singapore's official PRULink fund listing (prudential.com.sg) as at 27 June 2026 — exact figures should always be verified directly on the platform. Bid prices sourced from Prudential's fund pricing PDF (5 June 2026). Readers should read the relevant Product Summary, Fund Information Booklet and Product Highlights Sheet and seek professional advice before making any investment decisions.
+      </div>
+      <div class="article-footer-right">
+        <strong>Randall Teo Wei Lun</strong>
+      </div>
+    </div>
+
+  </div><!-- /article-inner -->
+
+</div><!-- /article-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="https://maps.app.goo.gl/VTTpCj8CKtKTAmtx9" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          1 Pasir Panjang Rd, Labrador Tower
+        </a>
+        <a class="item" href="tel:+6589495099">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>
+          +65 8949 5099
+        </a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          randallteowl@prufa.com.sg
+        </a>
+        <a class="item" href="https://wa.link/u9paq9" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+</script>
+
+</body>
+</html>

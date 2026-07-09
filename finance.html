@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance | Randall Teo</title>
+<meta name="description" content="Market insights, investment analysis and financial commentary from Randall Teo — Wealth Manager at Prudential Singapore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ── Hub hero ── */
+  .hub-hero{
+    background:var(--color-green-deep);
+    padding:60px 0 52px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hub-hero::before{
+    content:'';
+    position:absolute;
+    top:0;right:0;
+    width:380px;height:380px;
+    background:radial-gradient(circle at top right,rgba(164,113,72,0.18) 0%,transparent 68%);
+    pointer-events:none;
+  }
+  .hub-hero-inner{position:relative;z-index:1;}
+  .hub-hero .eyebrow{color:var(--color-copper);}
+  .hub-hero h1{font-size:42px;line-height:1.1;color:#fff;max-width:560px;margin-top:10px;}
+  .hub-hero p{font-size:17px;color:rgba(250,247,240,0.72);max-width:520px;margin-top:14px;line-height:1.65;}
+
+  /* ── Article grid ── */
+  .hub-body{padding:56px 0 80px;}
+
+  .article-featured{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1px solid var(--color-line);
+    border-radius:4px;
+    overflow:hidden;
+    margin-bottom:36px;
+    background:#fff;
+  }
+  .article-featured-img{
+    background:var(--color-green-deep);
+    min-height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .article-featured-img .chart-deco{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .article-featured-body{
+    padding:36px 36px 32px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .article-featured-body .article-date{
+    font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--color-copper-text);margin-bottom:12px;
+  }
+  .article-featured-body h2{font-size:26px;line-height:1.2;margin-bottom:12px;}
+  .article-featured-body p{font-size:15px;color:var(--color-ink-soft);line-height:1.65;margin:0 0 22px;}
+  .article-tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+  .article-tag{
+    font-size:12px;font-weight:500;
+    padding:5px 12px;border-radius:30px;
+    border:1px solid var(--color-line);
+    color:var(--color-ink-soft);
+  }
+
+  /* ── Grid of smaller cards ── */
+  .articles-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .article-card{
+    background:#fff;
+    border:1px solid var(--color-line);
+    border-radius:4px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:box-shadow 0.2s ease,transform 0.2s ease;
+  }
+  .article-card:hover{box-shadow:0 4px 20px rgba(31,61,43,0.1);transform:translateY(-2px);}
+  .article-card-img{
+    height:140px;
+    background:var(--color-sage);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .article-card-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;}
+  .article-card-date{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-copper-text);margin-bottom:8px;}
+  .article-card-title{font-family:var(--font-display);font-size:18px;color:var(--color-green-deep);font-weight:500;line-height:1.25;margin-bottom:8px;}
+  .article-card-excerpt{font-size:13.5px;color:var(--color-ink-soft);line-height:1.6;margin:0 0 18px;flex:1;}
+  .article-card-link{font-size:13.5px;font-weight:600;color:var(--color-copper-text);display:inline-flex;align-items:center;gap:6px;}
+  .article-card-link svg{transition:transform 0.2s ease;}
+  .article-card:hover .article-card-link svg{transform:translateX(3px);}
+
+  /* Placeholder card */
+  .article-card.placeholder{opacity:0.45;pointer-events:none;}
+  .article-card.placeholder .article-card-img{background:var(--color-cream-soft);}
+  .placeholder-label{font-size:12px;color:var(--color-ink-soft);font-style:italic;}
+
+  /* ── Section divider ── */
+  .hub-divider{border:none;border-top:1px solid var(--color-line);margin:48px 0 40px;}
+  .hub-section-title{font-family:var(--font-display);font-size:22px;color:var(--color-green-deep);font-weight:500;margin:0 0 24px;}
+
+  /* ── Decorative SVG for featured card ── */
+  .deco-chart{opacity:0.9;}
+
+  @media(max-width:880px){
+    .article-featured{grid-template-columns:1fr;}
+    .article-featured-img{min-height:180px;}
+    .articles-grid{grid-template-columns:1fr 1fr;}
+    .hub-hero h1{font-size:32px;}
+  }
+  @media(max-width:600px){
+    .articles-grid{grid-template-columns:1fr;}
+    .hub-body{padding:36px 0 56px;}
+    .article-featured-body{padding:24px 22px 22px;}
+    .article-featured-body h2{font-size:22px;}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">Randall Teo</span>
+        <span class="brand-sub">Estate &amp; Legacy Planning</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="finance.html" class="active">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="index.html#contact" class="btn btn-primary">Schedule a consultation</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HUB HERO -->
+<div class="hub-hero">
+  <div class="wrap hub-hero-inner">
+    <p class="eyebrow">Finance</p>
+    <h1>Market insights &amp; investment commentary.</h1>
+    <p>Perspectives on global markets, fund performance and investment themes — written for clients and families navigating financial decisions.</p>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div class="hub-body">
+  <div class="wrap">
+
+    <!-- Featured article -->
+    <div class="article-featured reveal">
+      <div class="article-featured-img">
+        <div class="chart-deco">
+          <svg width="260" height="200" viewBox="0 0 260 200" class="deco-chart" aria-hidden="true">
+            <!-- Decorative bar chart -->
+            <rect x="20" y="120" width="28" height="60" fill="rgba(164,113,72,0.5)" rx="2"/>
+            <rect x="58" y="90" width="28" height="90" fill="rgba(164,113,72,0.65)" rx="2"/>
+            <rect x="96" y="60" width="28" height="120" fill="rgba(164,113,72,0.8)" rx="2"/>
+            <rect x="134" y="40" width="28" height="140" fill="rgba(164,113,72,0.95)" rx="2"/>
+            <rect x="172" y="70" width="28" height="110" fill="rgba(164,113,72,0.7)" rx="2"/>
+            <rect x="210" y="100" width="28" height="80" fill="rgba(164,113,72,0.55)" rx="2"/>
+            <!-- trend line -->
+            <polyline points="34,115 72,85 110,55 148,35 186,65 224,95" fill="none" stroke="rgba(250,247,240,0.6)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <!-- baseline -->
+            <line x1="14" y1="182" x2="246" y2="182" stroke="rgba(250,247,240,0.2)" stroke-width="1"/>
+            <!-- label -->
+            <text x="130" y="20" text-anchor="middle" font-family="Fraunces, serif" font-size="11" fill="rgba(250,247,240,0.5)" font-style="italic">H1 2026</text>
+          </svg>
+        </div>
+      </div>
+      <div class="article-featured-body">
+        <div class="article-date">27 June 2026 · Market Commentary</div>
+        <h2>Financial Recap — H1 2026</h2>
+        <p>A review of major global market events and themes shaping the first half of 2026, together with a focused analysis of PRULink top and bottom fund performers.</p>
+        <div class="article-tag-row">
+          <span class="article-tag">Global Markets</span>
+          <span class="article-tag">PRULink Funds</span>
+          <span class="article-tag">ILP</span>
+          <span class="article-tag">H1 2026</span>
+        </div>
+        <a href="article-finance-h1-2026.html" class="btn btn-primary" style="align-self:flex-start;">Read article
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- More articles grid -->
+    <hr class="hub-divider">
+    <h3 class="hub-section-title">More articles</h3>
+
+    <div class="articles-grid" id="articlesGrid">
+
+      <!-- Placeholder 1 -->
+      <div class="article-card placeholder reveal">
+        <div class="article-card-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(31,61,43,0.2)" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">Coming soon</div>
+          <div class="article-card-title">Next article</div>
+          <p class="article-card-excerpt placeholder-label">More commentary will be published here.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 -->
+      <div class="article-card placeholder reveal">
+        <div class="article-card-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(31,61,43,0.2)" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">Coming soon</div>
+          <div class="article-card-title">Next article</div>
+          <p class="article-card-excerpt placeholder-label">More commentary will be published here.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder 3 -->
+      <div class="article-card placeholder reveal">
+        <div class="article-card-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(31,61,43,0.2)" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">Coming soon</div>
+          <div class="article-card-title">Next article</div>
+          <p class="article-card-excerpt placeholder-label">More commentary will be published here.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Load more button -->
+    <div id="loadMoreWrap" style="text-align:center;margin-top:36px;display:none;">
+      <button id="loadMoreBtn" class="btn btn-ghost">
+        Load more articles
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="https://maps.app.goo.gl/VTTpCj8CKtKTAmtx9" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          1 Pasir Panjang Rd, Labrador Tower
+        </a>
+        <a class="item" href="tel:+6589495099">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>
+          +65 8949 5099
+        </a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          randallteowl@prufa.com.sg
+        </a>
+        <a class="item" href="https://wa.link/u9paq9" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+
+  // Load more logic — shows 6 cards at a time, hides the rest
+  (function(){
+    var BATCH = 6;
+    var grid = document.getElementById('articlesGrid');
+    var btn = document.getElementById('loadMoreBtn');
+    var wrap = document.getElementById('loadMoreWrap');
+    if (!grid) return;
+
+    var cards = Array.prototype.slice.call(grid.children);
+
+    function applyVisibility() {
+      var hidden = [];
+      cards.forEach(function(card, i) {
+        if (i >= BATCH) {
+          card.style.display = 'none';
+          hidden.push(card);
+        }
+      });
+      // Only show the button if there are cards beyond the first batch
+      if (hidden.length > 0) {
+        wrap.style.display = 'block';
+      }
+    }
+
+    function loadMore() {
+      var hidden = cards.filter(function(c){ return c.style.display === 'none'; });
+      var toShow = hidden.slice(0, BATCH);
+      toShow.forEach(function(card){
+        card.style.display = '';
+        // trigger reveal animation
+        setTimeout(function(){ card.classList.add('in'); }, 50);
+      });
+      // Hide button if no more hidden cards
+      var stillHidden = cards.filter(function(c){ return c.style.display === 'none'; });
+      if (stillHidden.length === 0) {
+        wrap.style.display = 'none';
+      }
+    }
+
+    applyVisibility();
+    if (btn) btn.addEventListener('click', loadMore);
+  })();
+</script>
+
+</body>
+</html>
