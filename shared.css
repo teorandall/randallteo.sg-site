@@ -42,6 +42,8 @@ h1,h2,h3{font-family:var(--font-display);color:var(--color-green-deep);font-weig
 .btn-primary:hover{background:var(--color-copper-button-hover);}
 .btn-ghost{background:transparent;border-color:var(--color-green-deep);color:var(--color-green-deep);}
 .btn-ghost:hover{background:var(--color-green-deep);color:var(--color-cream);}
+.btn-on-dark{background:var(--color-copper-button);color:var(--color-cream);border-color:var(--color-copper-button);}
+.btn-on-dark:hover{background:var(--color-copper-button-hover);}
 
 /* ── Nav ── */
 header.site-nav{position:sticky;top:0;z-index:50;background:var(--color-cream);border-bottom:1px solid var(--color-line);}
