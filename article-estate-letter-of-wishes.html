@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CPF at 55 — What Actually Happens to Your Money? | Randall Teo</title>
-<meta name="description" content="A plain-language breakdown of what happens to your CPF at 55 — retirement sums, CPF LIFE plans, and what it means for your retirement.">
+<title>Writing a Letter of Wishes Alongside Your Will | Randall Teo</title>
+<meta name="description" content="A Will sets out who gets what. A letter of wishes fills in the gaps — the reasoning, the personal instructions, the things you actually want people to understand.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,14 +26,12 @@
   .article-body h2{font-size:22px;color:var(--color-green-deep);margin:40px 0 14px;font-weight:500;}
   .article-body strong{color:var(--color-ink);font-weight:600;}
   .article-body em{font-style:italic;color:var(--color-ink);}
-  .sum-table{background:#fff;border:1px solid var(--color-line);border-radius:4px;overflow:hidden;margin:24px 0;}
-  .sum-table-header{background:var(--color-green-deep);padding:12px 22px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;}
-  .sum-table-header span{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,247,240,0.65);}
-  .sum-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:14px 22px;border-bottom:1px solid var(--color-line);align-items:center;}
-  .sum-row:last-child{border-bottom:none;}
-  .sum-label{font-size:14.5px;font-weight:600;color:var(--color-green-deep);}
-  .sum-amount{font-size:14.5px;font-weight:600;color:var(--color-ink);}
-  .sum-payout{font-size:14px;color:var(--color-ink-soft);}
+  .uses-list{background:#fff;border:1px solid var(--color-line);border-radius:4px;padding:24px 28px;margin:24px 0;}
+  .uses-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--color-line);align-items:flex-start;}
+  .uses-item:last-child{border-bottom:none;padding-bottom:0;}
+  .uses-icon{width:32px;height:32px;background:var(--color-sage);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .uses-text{font-size:15.5px;color:var(--color-ink-soft);line-height:1.65;}
+  .uses-text strong{color:var(--color-green-deep);}
   .highlight-block{background:var(--color-sage);border-left:3px solid var(--color-copper);padding:18px 22px;border-radius:0 3px 3px 0;margin:28px 0;}
   .highlight-block p{margin:0;font-size:15.5px;color:var(--color-ink-soft);}
   .article-divider{border:none;border-top:1px solid var(--color-line);margin:36px 0;}
@@ -45,14 +43,7 @@
   .back-link svg{transition:transform 0.2s ease;}
   .back-link:hover svg{transform:translateX(-3px);}
   .byline{font-size:13px;color:var(--color-ink-soft);font-style:italic;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-line);}
-  @media(max-width:680px){
-    .article-hero{padding:36px 0 30px;}
-    .article-hero h1{font-size:27px;}
-    .article-body{padding:32px 18px 56px;}
-    .article-body p{font-size:15.5px;}
-    .cta-block{padding:24px 20px;}
-    .sum-table-header,.sum-row{grid-template-columns:1fr 1fr;}.sum-table-header span:last-child,.sum-row .sum-payout{display:none;}
-  }
+  @media(max-width:680px){.article-hero{padding:36px 0 30px;}.article-hero h1{font-size:27px;}.article-body{padding:32px 18px 56px;}.article-body p{font-size:15.5px;}.cta-block{padding:24px 20px;}.uses-list{padding:18px 18px;}}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
 </head>
@@ -66,8 +57,8 @@
     <nav class="nav-links" id="navLinks">
       <a href="index.html#about">About</a>
       <a href="index.html#services">Services</a>
-      <a href="finance.html" class="active">Finance</a>
-      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html" class="active">Estate &amp; Legacy</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="nav-cta">
@@ -80,15 +71,15 @@
 <div class="breadcrumb">
   <div class="wrap">
     <a href="index.html">Home</a><span>›</span>
-    <a href="finance.html">Finance</a><span>›</span>
-    CPF at 55
+    <a href="estate-legacy.html">Estate &amp; Legacy</a><span>›</span>
+    Writing a Letter of Wishes
   </div>
 </div>
 
 <div class="article-hero">
   <div class="wrap article-hero-inner">
-    <p class="eyebrow">Retirement Planning</p>
-    <h1>CPF at 55 — What Actually Happens to Your Money?</h1>
+    <p class="eyebrow">Legacy Planning</p>
+    <h1>Writing a Letter of Wishes Alongside Your Will</h1>
     <div class="article-meta">
       <div class="article-meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>July 2026</div>
       <div class="article-meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>5 min read</div>
@@ -97,76 +88,69 @@
 </div>
 
 <div class="article-body">
-  <a href="finance.html" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Finance</a>
+  <a href="estate-legacy.html" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Estate &amp; Legacy</a>
   <p class="byline">By the team at randallteo.sg</p>
 
-  <p>Turning 55 is one of the most significant financial milestones in Singapore and one of the most misunderstood. Most people know something happens to their CPF at 55, but very few can explain exactly what. Here is a plain-language breakdown.</p>
+  <p>A Will is a legal document. It says who gets what, who manages the estate, and who looks after your children if they are young. What it cannot do is capture the personal stuff — the reasoning, the emotion, the things you actually want people to understand.</p>
 
-  <h2>What happens at 55</h2>
+  <p>That is what a letter of wishes is for.</p>
 
-  <p>When you turn 55, CPF creates a new account for you called the Retirement Account (RA). Money is transferred into it automatically from your Special Account first, then your Ordinary Account, up to a threshold called the Full Retirement Sum (FRS).</p>
+  <h2>What is it?</h2>
 
-  <p>For Singaporeans turning 55 in 2026, the three retirement sum tiers are:</p>
+  <p>A letter of wishes is a personal document you write alongside your Will. It is not legally binding, but it speaks to your executor, your trustees and your family in your own voice — not in legal language. It fills in the gaps that a Will cannot.</p>
 
-  <div class="sum-table">
-    <div class="sum-table-header">
-      <span>Retirement Sum</span>
-      <span>Amount (2026)</span>
-      <span>Est. Monthly Payout*</span>
+  <h2>What can you put in it?</h2>
+
+  <div class="uses-list">
+    <div class="uses-item">
+      <div class="uses-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="uses-text"><strong>Explaining your decisions.</strong> If you have left different amounts to different children, or left someone out entirely, this is where you explain why — in your own words, with the nuance a legal document cannot provide.</div>
     </div>
-    <div class="sum-row">
-      <div class="sum-label">Basic (BRS)</div>
-      <div class="sum-amount">$110,200</div>
-      <div class="sum-payout">~$950/month</div>
+    <div class="uses-item">
+      <div class="uses-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      </div>
+      <div class="uses-text"><strong>Guidance for trustees.</strong> If you have set up a trust, your trustee has some discretion over how it is managed. A letter of wishes can guide how you would like that discretion used, without legally tying their hands in ways that might not make sense years down the line.</div>
     </div>
-    <div class="sum-row">
-      <div class="sum-label">Full (FRS)</div>
-      <div class="sum-amount">$220,400</div>
-      <div class="sum-payout">~$1,780/month</div>
+    <div class="uses-item">
+      <div class="uses-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="uses-text"><strong>Personal items and what they mean.</strong> Your Will can say who gets a particular item. Your letter of wishes can say why you chose that person, and what the item meant to you.</div>
     </div>
-    <div class="sum-row">
-      <div class="sum-label">Enhanced (ERS)</div>
-      <div class="sum-amount">$440,800</div>
-      <div class="sum-payout">~$3,440/month</div>
+    <div class="uses-item">
+      <div class="uses-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="uses-text"><strong>Funeral and end-of-life preferences.</strong> Burial or cremation. Religious or secular. A big gathering or something small and quiet. These belong in a letter of wishes, not a Will.</div>
+    </div>
+    <div class="uses-item">
+      <div class="uses-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="uses-text"><strong>Messages to the people you love.</strong> Some people use this as a chance to say things they never quite got around to saying in life — to their children, their spouse, their grandchildren.</div>
     </div>
   </div>
-  <p style="font-size:12px;color:var(--color-ink-soft);margin-top:-12px;font-style:italic;">*Based on CPF LIFE Standard Plan, payouts from age 65. Source: CPF Board 2026.</p>
 
-  <p>The BRS is available to those who own a property with sufficient remaining lease. <strong>Any CPF savings above your chosen retirement sum can be withdrawn in cash from age 55 onwards.</strong> For many people, this is the first time they have been able to access their CPF savings directly.</p>
+  <h2>Why not legally binding is actually a good thing</h2>
 
-  <h2>What is CPF LIFE?</h2>
+  <p>Because it is not a formal legal document, you can update a letter of wishes whenever you want. No witnesses, no formalities. It can reflect your current thinking and your current relationships in a way that a Will sometimes cannot keep up with.</p>
 
-  <p>From age 65, your Retirement Account savings are used to fund CPF LIFE, a lifelong monthly payout scheme. There are three plans to choose from:</p>
+  <h2>Start somewhere</h2>
 
-  <p><em>Standard Plan</em> gives you higher monthly payouts during your lifetime, with a smaller bequest left for your beneficiaries when you pass.</p>
-
-  <p><em>Basic Plan</em> gives you slightly lower monthly payouts but preserves more of your CPF balance for your beneficiaries. You receive less each month in exchange for leaving more behind.</p>
-
-  <p><em>Escalating Plan</em> starts with lower monthly payouts that increase by 2% each year. This is designed to help offset the effects of inflation over a long retirement.</p>
+  <p>It does not need to be long. A few paragraphs is enough to make a meaningful difference. <strong>The families who have one are always glad it exists. The ones who do not often wish they did.</strong></p>
 
   <div class="highlight-block">
-    <p>Once CPF LIFE payouts begin at 65, the interest on your remaining CPF balance no longer credits back into your personal account. Instead, it flows into a shared pool that funds the scheme collectively. Your individual balance will draw down over time as payouts are made.</p>
+    <p>If you have a Will but no letter of wishes alongside it, this is your nudge to start one. It does not need to be perfect — it just needs to exist.</p>
   </div>
-
-  <h2>Which plan suits you?</h2>
-
-  <p><strong>The right plan depends entirely on your personal goals, your other sources of retirement income, and what you want to leave behind.</strong> There is no universally correct answer. The Standard Plan maximises monthly income. The Basic Plan balances income with legacy. The Escalating Plan prioritises inflation protection over the long run. Each involves trade-offs worth thinking through carefully.</p>
-
-  <h2>A note on CPF as a legacy tool</h2>
-
-  <p>CPF LIFE is a well-designed scheme for retirement income and worth making full use of. That said, it is worth being honest about one limitation: <strong>CPF is fundamentally a drawdown mechanism.</strong> Once payouts begin, your balance depletes over time rather than growing. If building and transferring wealth to the next generation is important to you, CPF on its own is not the most efficient vehicle for that purpose. It works best as a foundation for retirement income, with other instruments sitting alongside it to serve your legacy goals.</p>
-
-  <p>Whether committing additional funds beyond your FRS into CPF makes sense depends on your full financial picture. <strong>Private annuities and other planning instruments may offer stronger capital preservation mechanisms</strong>, and it is worth comparing your options carefully before deciding.</p>
-
-  <h2>The bottom line</h2>
-
-  <p>CPF at 55 is not an ending. It is a pivot point. The decisions you make around your retirement sum and your payout plan can meaningfully shape the income you receive for the rest of your life.</p>
 
   <hr class="article-divider">
 
   <div class="cta-block">
-    <p class="eyebrow">Let's talk</p>
-    <p>If you would like to think through your CPF options in the context of your broader financial picture, we are happy to have that conversation.</p>
+    <p class="eyebrow">Not sure what to include?</p>
+    <p>We are happy to help you think through what your letter of wishes should cover. Sometimes a short conversation is all it takes to get started.</p>
     <a href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener" class="btn btn-on-dark">Message us on WhatsApp</a>
   </div>
 </div>
@@ -183,10 +167,8 @@
       </div>
       <div class="footer-links">
         <h4>Quick links</h4>
-        <a href="index.html#about">About</a>
-        <a href="index.html#services">Services</a>
-        <a href="finance.html">Finance</a>
-        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+        <a href="index.html#about">About</a><a href="index.html#services">Services</a>
+        <a href="finance.html">Finance</a><a href="estate-legacy.html">Estate &amp; Legacy</a>
         <a href="index.html#contact">Contact</a>
       </div>
       <div class="footer-contact">
