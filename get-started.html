@@ -517,7 +517,7 @@
 
     // WhatsApp backup
     var topicSentence = (need && need !== 'Others') ? ' I submitted an enquiry from your website regarding ' + need + ' from my email, ' + email + '.' : '';
-    var messageSentence = message ? ' ' + message : '';
+    var messageSentence = message ? ' I have some questions about ' + message + '.' : '';
     var text = 'Hi Randall, this is ' + name + '.' + topicSentence + messageSentence;
     window.open('https://wa.me/6589495099?text=' + encodeURIComponent(text), '_blank');
 
