@@ -516,12 +516,9 @@
     });
 
     // WhatsApp backup
-    var text = 'Hi Randall, I submitted an enquiry from your website.\n\n'
-      + 'Name: ' + name + '\n'
-      + 'Phone: ' + (phone || 'Not provided') + '\n'
-      + 'Email: ' + email + '\n'
-      + 'Looking into: ' + (need || 'Not specified') + '\n'
-      + (message ? 'Message: ' + message : '');
+    var text = 'Hi Randall, I submitted an enquiry from your website regarding "'
+      + (need || 'Not specified') + '" from my email, ' + email + '.'
+      + (message ? ' I have some questions about "' + message + '".' : '');
     window.open('https://wa.me/6589495099?text=' + encodeURIComponent(text), '_blank');
 
     // Show success
