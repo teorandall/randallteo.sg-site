@@ -400,10 +400,13 @@
             <label for="gs-need">What are you looking into?</label>
             <select id="gs-need">
               <option value="" disabled selected>Select an option</option>
-              <option value="will">Will Writing</option>
-              <option value="lpa">Lasting Power of Attorney (LPA)</option>
-              <option value="both">Will + LPA (both)</option>
-              <option value="unsure">Not sure yet</option>
+              <option value="Will Writing">Will Writing</option>
+              <option value="Lasting Power of Attorney">Lasting Power of Attorney</option>
+              <option value="Estate Equalisation &amp; Planning">Estate Equalisation &amp; Planning</option>
+              <option value="Legacy Planning">Legacy Planning</option>
+              <option value="General Wealth Planning">General Wealth Planning</option>
+              <option value="Coverage Optimisations">Coverage Optimisations</option>
+              <option value="Others">Others</option>
             </select>
           </div>
           <div class="form-field">
@@ -485,7 +488,9 @@
     }
   }
 
-  // Form submit — sends via WhatsApp
+  // Form submit — posts to Google Sheet and sends via WhatsApp as backup
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxNPhzXSUDL_2oW3j5eOs6EFeoBFXeyFph3ovzisTType9XG6QnynmYL9910UUyS64FkQ/exec';
+
   document.getElementById('gsForm').addEventListener('submit', function(e){
     e.preventDefault();
     var name = document.getElementById('gs-name').value;
@@ -493,19 +498,33 @@
     var email = document.getElementById('gs-email').value;
     var need = document.getElementById('gs-need').value;
     var message = document.getElementById('gs-message').value;
-    var needLabels = {
-      'will': 'Will Writing',
-      'lpa': 'Lasting Power of Attorney',
-      'both': 'Will + LPA',
-      'unsure': 'Not sure yet'
-    };
+
+    var payload = JSON.stringify({
+      name: name,
+      phone: phone || 'Not provided',
+      email: email,
+      need: need || 'Not specified',
+      message: message || ''
+    });
+
+    // Post to Google Sheet
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: payload
+    }).catch(function(err){
+      console.log('Sheet post error:', err);
+    });
+
+    // WhatsApp backup
     var text = 'Hi Randall, I submitted an enquiry from your website.\n\n'
       + 'Name: ' + name + '\n'
       + 'Phone: ' + (phone || 'Not provided') + '\n'
       + 'Email: ' + email + '\n'
-      + 'Looking into: ' + (needLabels[need] || 'Not specified') + '\n'
+      + 'Looking into: ' + (need || 'Not specified') + '\n'
       + (message ? 'Message: ' + message : '');
     window.open('https://wa.me/6589495099?text=' + encodeURIComponent(text), '_blank');
+
+    // Show success
     document.getElementById('gsForm').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   });
