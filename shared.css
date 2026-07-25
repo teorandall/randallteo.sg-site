@@ -39,6 +39,8 @@ h1,h2,h3{font-family:var(--font-display);color:var(--color-green-deep);font-weig
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:15px;padding:14px 26px;border-radius:3px;border:1.5px solid transparent;cursor:pointer;transition:background 0.2s ease,color 0.2s ease,border-color 0.2s ease,transform 0.15s ease;}
 .btn:active{transform:scale(0.98);}
 .btn-primary{background:var(--color-copper-button);color:var(--color-cream);}
+.btn-mobile{display:none;}
+.btn-desktop{display:inline;}
 .btn-primary:hover{background:var(--color-copper-button-hover);}
 .btn-ghost{background:transparent;border-color:var(--color-green-deep);color:var(--color-green-deep);}
 .btn-ghost:hover{background:var(--color-green-deep);color:var(--color-cream);}
@@ -65,7 +67,10 @@ nav.nav-links a:hover,nav.nav-links a.active{color:var(--color-copper-text);}
   nav.nav-links{position:absolute;top:100%;left:0;right:0;background:var(--color-cream);flex-direction:column;align-items:flex-start;gap:0;border-bottom:1px solid var(--color-line);max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
   nav.nav-links.open{max-height:400px;}
   nav.nav-links a{width:100%;padding:14px 28px;border-top:1px solid var(--color-line);}
-  .nav-cta .btn-primary{font-size:13px;padding:10px 14px;}
+  .nav-cta .btn-primary{font-size:11px;padding:8px 10px;white-space:nowrap;}
+  .btn-mobile{display:inline;}
+  .btn-desktop{display:none;}
+  .brand-sub{font-size:9px;letter-spacing:0.06em;max-width:110px;line-height:1.3;white-space:normal;}
   .nav-toggle{display:block;}
 }
 
