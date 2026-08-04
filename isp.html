@@ -6,7 +6,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
 <title>ISP Comparison Tool | Randall Teo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -122,12 +121,11 @@ body {
   font-size: 14px;
   line-height: 1.5;
   min-height: 100vh;
-  padding-top: 64px;
 }
 
 /* ── Top bar ──────────────────────────────────────────────────────────── */
 .topbar {
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: 70px; z-index: 190;
   background: #1F3D2B;
   border-bottom: 1px solid rgba(164,113,72,0.3);
   height: var(--nav-h);
@@ -151,6 +149,7 @@ body {
   border-bottom: 1px solid rgba(164,113,72,0.25);
   display: flex; gap: 0; padding: 0 16px; overflow-x: auto;
   scrollbar-width: none;
+  position: sticky; top: 126px; z-index: 189;
 }
 .tabnav::-webkit-scrollbar { display: none; }
 .tab-btn {
@@ -371,6 +370,76 @@ h3.section-head { font-size: 13px; font-weight: 700; color: var(--text-muted); t
 }
 body.locked { overflow: hidden; }
 
+
+/* ── Site nav (self-contained, no shared.css dependency) ────────────────────── */
+header.site-nav {
+  position: sticky; top: 0; z-index: 200;
+  background: #FAF7F0;
+  border-bottom: 1px solid rgba(31,61,43,0.12);
+  font-family: 'Inter', sans-serif;
+}
+header.site-nav .nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px; max-width: 1280px; margin: 0 auto;
+}
+header.site-nav .brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; line-height: 1.1; flex-shrink: 0;
+}
+header.site-nav .brand-text { display: flex; flex-direction: column; }
+header.site-nav .brand-name {
+  font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500;
+  color: #1F3D2B; line-height: 1.1;
+}
+header.site-nav .brand-sub {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #8C8A80; margin-top: 3px;
+}
+header.site-nav nav.nav-links {
+  display: flex; align-items: center; gap: 28px;
+}
+header.site-nav nav.nav-links a {
+  font-size: 15px; font-weight: 500; color: #2A2A26;
+  text-decoration: none;
+}
+header.site-nav nav.nav-links a:hover { color: #8B5A34; }
+header.site-nav nav.nav-links a.active { color: #8B5A34; }
+header.site-nav .nav-cta { display: flex; align-items: center; gap: 14px; }
+header.site-nav .btn-primary {
+  background: #8B5A34; color: #FAF7F0;
+  padding: 11px 20px; border-radius: 3px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+header.site-nav .btn-primary:hover { background: #7A4F2E; }
+header.site-nav .btn-mobile { display: none; }
+header.site-nav .btn-desktop { display: inline; }
+header.site-nav .nav-toggle {
+  display: none; background: none; border: none;
+  cursor: pointer; padding: 6px; flex-direction: column; gap: 5px;
+}
+header.site-nav .nav-toggle span {
+  display: block; width: 24px; height: 2px; background: #1F3D2B;
+}
+@media (max-width: 960px) {
+  header.site-nav nav.nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: #FAF7F0; flex-direction: column; align-items: flex-start;
+    gap: 0; border-bottom: 1px solid rgba(31,61,43,0.12);
+    z-index: 199;
+  }
+  header.site-nav nav.nav-links.open { display: flex; }
+  header.site-nav nav.nav-links a {
+    width: 100%; padding: 14px 28px;
+    border-top: 1px solid rgba(31,61,43,0.08);
+  }
+  header.site-nav .nav-toggle { display: flex; }
+  header.site-nav .btn-mobile { display: inline; }
+  header.site-nav .btn-desktop { display: none; }
+  header.site-nav .btn-primary { font-size: 11px; padding: 8px 10px; }
+}
+
 </style>
 </head>
 <body class="locked">
@@ -398,7 +467,7 @@ body.locked { overflow: hidden; }
 <header class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg class="site-nav-logo" viewBox="0 0 64 64" aria-hidden="true" width="42" height="42" style="flex-shrink:0;"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
       <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
     </a>
     <nav class="nav-links" id="navLinks">
