@@ -51,38 +51,7 @@
   padding-left: 28px;
 }
 
-/* ── Age filter bar ── */
-.filter-bar {
-  background: var(--color-sage);
-  border-bottom: 1px solid var(--color-line);
-  padding: 16px 0;
-  position: sticky; top: 64px; z-index: 40;
-}
-.filter-inner {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.filter-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--color-ink-soft);
-  margin-right: 4px;
-}
-.filter-btn {
-  padding: 7px 16px;
-  font-size: 13px; font-weight: 500;
-  border: 1px solid var(--color-line);
-  border-radius: 30px;
-  background: #fff;
-  color: var(--color-ink-soft);
-  cursor: pointer;
-  transition: all 0.18s ease;
-  font-family: var(--font-body);
-}
-.filter-btn:hover { border-color: var(--color-green-deep); color: var(--color-green-deep); }
-.filter-btn.active {
-  background: var(--color-green-deep);
-  border-color: var(--color-green-deep);
-  color: #fff;
-}
+
 
 /* ── Stories grid ── */
 .stories-body { padding: 56px 0 80px; }
@@ -249,7 +218,6 @@
   .disclaimer-note { border-left: none; padding-left: 0; border-top: 1px solid rgba(250,247,240,0.15); padding-top: 18px; }
   .stories-body { padding: 36px 0 56px; }
   .stories-grid { grid-template-columns: 1fr; }
-  .filter-bar { top: 58px; }
   .story-panel-body { padding: 24px 20px; }
   .story-panel-header { padding: 22px 20px; }
   .story-panel-name { font-size: 21px; }
@@ -292,17 +260,7 @@
   </div>
 </div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="wrap filter-inner">
-    <span class="filter-label">Filter by age</span>
-    <button class="filter-btn active" onclick="filterStories('all')">All</button>
-    <button class="filter-btn" onclick="filterStories('65plus')">65 and above</button>
-    <button class="filter-btn" onclick="filterStories('55to65')">55 to 65</button>
-    <button class="filter-btn" onclick="filterStories('45to55')">45 to 55</button>
-    <button class="filter-btn" onclick="filterStories('under45')">Under 45</button>
-  </div>
-</div>
+
 
 <!-- STORIES -->
 <div class="stories-body">
@@ -492,5 +450,395 @@
     </div>
   </div>
 </footer>
+
+<div class="story-overlay" id="overlay-margaret">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Estate &amp; Legacy</div>
+      <div class="story-panel-name">Margaret T, 67</div>
+      <div class="story-panel-role">Retired teacher — widowed, two adult children</div>
+      <button class="story-close" onclick="closeStory('margaret')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"My husband handled everything. The CPF, the insurance, the investments. I signed whatever he put in front of me. When he passed, I did not even know where to begin. I was not stupid. I just never needed to know."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Margaret's husband had nominated her correctly for his CPF, so that came through. But three insurance policies had lapsed because nobody knew they existed, and the premiums had been quietly failing for two years. A joint investment account had no survivorship instruction attached. Her own policies had not been reviewed in a decade and were no longer sized correctly for someone living alone.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We started with a full document inventory, going through every policy, every account, every nomination. We prioritised what needed immediate attention and worked through the rest over a few sessions. We made sure her own LPA was in place, and helped her understand exactly what she had, what it did, and what she could safely rely on.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>Margaret now has a clear picture of her finances for the first time. She attends every review herself. She recently told us she wishes she had done this twenty years ago, not because anything would have been different, but because she would have worried less.</p>
+      <p class="story-closing">Understanding what you have is not a financial skill. It is a peace of mind that everyone deserves.</p>
+      <p class="story-cta-line">If any of this sounds familiar, a conversation about getting your documents in order is a gentle place to start. <a href="get-started.html#contact">We are happy to help.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-robert">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Retirement Planning</div>
+      <div class="story-panel-name">Robert C, 63</div>
+      <div class="story-panel-role">Former engineer — married, two grown children, retired eight months ago</div>
+      <button class="story-close" onclick="closeStory('robert')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I have enough. I know I have enough. But I keep running the numbers at two in the morning wondering what if I am wrong. What if I live to ninety-five and run out at eighty-eight? What if my wife gets sick first? I spent my whole career planning. Why does retirement feel like the one thing I cannot plan for?"</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Robert had done a lot of things right. His CPF LIFE was set up, his mortgage was cleared, and he had savings. But everything was sitting in the same place drawing the same return, with no structure for how or when to draw it down. There was no income ladder: just a pile of assets and no plan for sequencing. His wife had no independent income source if he passed first.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We mapped out a drawdown structure across three time horizons: what they would live on now, what would grow in the background, and what would be left behind. We made sure his wife had her own income flow and her own documents in order. Then we stress-tested it against a longer retirement than either of them expected.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Robert stopped doing the two-in-the-morning calculations about six months after our first meeting. The money did not change. The structure did. He recently took his wife to Japan, a trip they had been postponing for three years.</p>
+      <p class="story-closing">Having enough is only half the equation. Knowing how to use it is the other half.</p>
+      <p class="story-cta-line">The <a href="article-finance-income-ladder.html">retirement income ladder article</a> walks through how this kind of structure works, if you are curious about the approach.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-susan">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">LPA Planning</div>
+      <div class="story-panel-name">Susan L, 57</div>
+      <div class="story-panel-role">HR manager — married, one adult child, caring for elderly mother</div>
+      <button class="story-close" onclick="closeStory('susan')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"Mum started forgetting things about two years ago. Small things at first, her keys, her appointments. Then bigger things. One day she did not recognise the flat she had lived in for thirty years. By the time we realised how serious it was, we also realised we had no documents. No LPA. Nothing."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Susan's mother had a Will, but it was written in 1998 and named an executor who had since passed away. There was no LPA, which meant nobody had legal authority to manage her finances or make care decisions on her behalf. The family had been making decisions informally, but the moment they needed to access her bank accounts to pay for care, everything stopped.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We helped Susan understand the deputyship process and what it would involve for her family. We worked with her to get her own LPA and Will done while she still had clarity and time. We also helped her think through the donee conversation with her own husband and child so history would not repeat itself.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>The deputyship process for her mother was long and expensive. Susan does not say this bitterly. She says it quietly, as a fact. Her own documents are now in order. Her daughter knows where everything is.</p>
+      <p class="story-closing">The families who go through this always say the same thing afterwards: do not wait.</p>
+      <p class="story-cta-line">The <a href="article-estate-lpa-no-lpa.html">article on what happens when no LPA is in place</a> explains the deputyship process in plain terms, if you would like to read more.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-david">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Blended Family</div>
+      <div class="story-panel-name">David K, 54</div>
+      <div class="story-panel-role">Sales director — remarried, three children across two families</div>
+      <button class="story-close" onclick="closeStory('david')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I love my wife. I love all three of my children equally. But I know that if I die tomorrow, there is going to be a problem. My older two are adults. My youngest is six. My ex-wife and my current wife have never been in the same room. I have not written it down anywhere because I do not know how to write it in a way that is fair to everyone."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>David's existing Will, written during his first marriage, left everything to his former wife. It had never been updated. His insurance nominations still listed her as beneficiary. His CPF nomination was blank. His current wife had no legal standing to any of his assets except the jointly owned matrimonial home, which was held under joint tenancy and would pass to her automatically regardless of the Will, which itself would shortchange everyone else.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We worked through each asset separately: who it should go to, how, and when. We used a combination of updated nominations, a properly structured Will and a testamentary trust to make sure his youngest was provided for long term, his older children received what he intended, and his wife was not left in a precarious position. We also helped him write a letter of wishes explaining his thinking to all parties.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>David describes the process as the most uncomfortable two hours he has had in recent memory and the most relieved he has felt since. Everything is now written down. He knows that if something happens, his wishes will hold.</p>
+      <p class="story-closing">A blended family does not make estate planning harder. It just makes it more important to do properly.</p>
+      <p class="story-cta-line">The <a href="article-estate-blended-families.html">article on blended families and estate planning</a> goes deeper into how these situations are structured, if it is relevant to you.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-tan">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Retirement Planning</div>
+      <div class="story-panel-name">Mdm Tan BH, 61</div>
+      <div class="story-panel-role">Homemaker — married 35 years, HDB flat fully paid</div>
+      <button class="story-close" onclick="closeStory('tan')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"The flat is worth more than a million dollars now. My children keep saying we are rich. But I cannot spend the flat. Every month we are careful about groceries. My husband's CPF LIFE helps but it is not enough for two people to live comfortably. I feel embarrassed to say we are struggling when everyone thinks we are wealthy."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>The flat represented over 90% of the couple's net worth. Their CPF LIFE payouts covered the basics but left little for anything else. They had no investment portfolio and no other income source. Their children were working but not in a position to supplement regularly. Several options existed that the couple had heard of but never properly explored, including the Lease Buyback Scheme, right-sizing to a smaller flat, and structured products that could generate income without requiring them to sell.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We walked through each option without pressure, explaining the trade-offs honestly. We helped them understand what the numbers would actually look like under each scenario and what questions to ask HDB directly. We also made sure their Wills and nominations were current so that whichever path they chose, the flat would pass cleanly.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>Mdm Tan and her husband made their own decision in their own time. What changed was that they finally felt informed enough to make it. The embarrassment faded when she realised the situation was more common than she had thought.</p>
+      <p class="story-closing">Wealth locked in property is still wealth. It just needs the right key.</p>
+      <p class="story-cta-line">If your situation feels similar, we are happy to talk through the options with no particular agenda. <a href="get-started.html#contact">Reach out whenever you are ready.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-raymond">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">LPA Planning</div>
+      <div class="story-panel-name">Raymond J, 62</div>
+      <div class="story-panel-role">Architect — single, no children, semi-retired</div>
+      <button class="story-close" onclick="closeStory('raymond')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I have thought about this more than most people probably have. I have no spouse, no children. My parents are gone. I have a brother I am close to and a few friends I trust. But if I have a stroke tomorrow, who actually has the authority to do anything? Who speaks for me at the hospital? Who pays my bills while I am in the ICU? Nobody, legally."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Raymond had no LPA and no Will. His CPF had no nomination, which meant it would go through the Public Trustee's Office. His flat, owned in his sole name, would be distributed under the Intestate Succession Act, which has a fixed formula that may or may not have matched his intentions. He had thought about this intellectually but never formalised any of it.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We helped Raymond appoint his brother as donee under both personal welfare and property and financial affairs powers, with a trusted friend as a joint donee for additional oversight. We drafted a Will that reflected his actual wishes rather than the legal default. We also helped him write a letter of wishes addressing the more personal aspects: what he wanted for his care, and what mattered to him.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Raymond describes it as finally closing a tab that had been open in his head for ten years. He said the process took less time than he expected and cost less than he had assumed.</p>
+      <p class="story-closing">Being single does not mean there is nobody who can speak for you. It means you have to be deliberate about who that person is.</p>
+      <p class="story-cta-line">The <a href="article-estate-lpa-how-it-works.html">article on what an LPA actually covers</a> is a useful place to start if you have been putting this off.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-patricia">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Coverage Review</div>
+      <div class="story-panel-name">Patricia M, 53</div>
+      <div class="story-panel-role">Business owner — married, three children, F&amp;B industry</div>
+      <button class="story-close" onclick="closeStory('patricia')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"I have been sold a policy every few years by a different person. Some of those people have left the industry. I genuinely do not know what I am covered for. I know I pay a lot of premiums every month. I just cannot tell you what for."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Patricia had eight policies across five insurers. Two were whole life plans bought in her twenties. One was an investment-linked policy from the early 2000s that had been significantly underperforming. Two were term plans she had forgotten she owned. One was a critical illness plan with a definition so narrow it would rarely trigger. Two were shield plans, one of which was redundant because it duplicated her husband's rider coverage.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We did a full policy audit, summarising every plan in plain language: what it covered, what it paid, what it cost, and whether it still made sense. We identified significant gaps in her critical illness coverage at her age and significant overlap in her hospital coverage. We did not recommend replacing everything. We recommended stopping two premiums immediately and restructuring one.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>Patricia reduced her total monthly premiums while increasing her effective coverage. More importantly, she can now explain what she owns to her husband, which she says she should have been able to do years ago.</p>
+      <p class="story-closing">Having many policies is not the same as being well covered. Sometimes it is the opposite.</p>
+      <p class="story-cta-line">If you have not looked at your coverage properly in a few years, it might be worth a fresh set of eyes. <a href="get-started.html#contact">We are happy to take a look.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-jason">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Shield Plan Review</div>
+      <div class="story-panel-name">Jason Lim, 48</div>
+      <div class="story-panel-role">Project manager — married, two teenage children</div>
+      <button class="story-close" onclick="closeStory('jason')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I had a health scare last year. Nothing fatal, thank God, but it put me in hospital for four days and I needed a specialist I had been seeing for years. He is not on any panel. When the bill came, I realised my rider did not cover what I thought it covered. I paid more out of pocket than I had in my emergency fund."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Jason's rider was a well-known plan but an older generation one. It covered panel doctors well but had almost no protection for non-panel specialists. His stop-loss was low, his co-insurance was uncapped off panel, and he had not updated his plan since his company stopped subsidising it five years ago. His critical illness plan, bought when he was 32, was sized for a younger man with a smaller mortgage. His family's combined critical illness exposure had grown significantly since then.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We walked through his hospital bill line by line so he understood exactly what happened and why. We then looked at the current rider landscape and identified what a current generation plan would have paid for the same admission. We restructured his shield coverage and reviewed his critical illness plan in the context of his actual financial obligations today.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Jason now understands his coverage properly, possibly for the first time. He said the health scare was frightening enough. The bill should not have been the second fright.</p>
+      <p class="story-closing">A plan that looked right ten years ago may not look right today. Life changes faster than most policies get reviewed.</p>
+      <p class="story-cta-line">The <a href="isp.html">ISP comparison tool</a> lets you see how current riders compare, if you are curious about where your plan sits.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-grace">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Will Writing</div>
+      <div class="story-panel-name">Grace Ng, 49</div>
+      <div class="story-panel-role">Accountant — eldest daughter, two siblings, father passed away eighteen months ago</div>
+      <button class="story-close" onclick="closeStory('grace')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"Dad was a good man. He worked hard his whole life. He just never got around to writing a Will. He kept saying he would do it next year. There were four years of next years. When he passed, we thought it would be straightforward because we are a close family. It was not."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Grace's father had passed without a Will. Under the Intestate Succession Act, his estate was split between his wife and his three children in fixed proportions. The matrimonial flat, held under tenancy in common, could not simply transfer to the mother. Probate was required. One sibling lived overseas and could not easily sign documents. A small business account was frozen. The process took fourteen months.</p>
+      <div class="story-section-label">What we did</div>
+      <p>By the time Grace came to us, the estate was mostly settled. She came not for her father's estate but for her own. She did not want her children to go through what she had just been through. We helped her put a Will, LPA and updated CPF nomination in place in a single session.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>Grace's documents are done. She told us that sitting in our office felt like the first useful thing she had done since her father passed. She has since brought her two siblings in to do theirs.</p>
+      <p class="story-closing">The families who go through estate administration without a Will never forget it. And they almost always become the ones who make sure their own children never have to.</p>
+      <p class="story-cta-line">The <a href="article-estate-letter-of-administration.html">article on Letters of Administration</a> explains what the process actually involves, if you would like to understand it better.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-alan">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Financial Planning</div>
+      <div class="story-panel-name">Alan Chen, 47</div>
+      <div class="story-panel-role">Civil servant — married, two children in university, parents aged 74 and 76</div>
+      <button class="story-close" onclick="closeStory('alan')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"My parents need more help than they used to. My son's university fees just started. My daughter's start next year. My wife and I are both working but nothing is going into savings right now. It is all going out. If anything happens to either of us, I do not know which direction to fall."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Alan and his wife had adequate term coverage bought when they were younger but it was sized for a smaller household. Their critical illness plans were minimal. Neither had an LPA. His parents had no documents in place either. More pressingly, the family had no emergency buffer. Every dollar of income was committed.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We did not try to solve everything at once. We identified the single highest risk and addressed that first: the coverage gap that would most damage the family if it turned into a reality. We then helped Alan have a practical conversation with his parents about their own documents, and gave him a framework for doing that without it feeling like a confrontation.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Alan said the most useful thing we did was help him see the situation clearly instead of as one large undifferentiated anxiety. Once it was broken into parts, he could prioritise. He still has things to work through but he no longer feels like he is one bad month away from everything unravelling.</p>
+      <p class="story-closing">The sandwich generation does not need to solve everything at once. It needs to know which thing to solve first.</p>
+      <p class="story-cta-line">If you are in a similar position, a conversation to map out the priorities costs nothing. <a href="get-started.html#contact">We are here when you are ready.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-vincent">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Retirement Planning</div>
+      <div class="story-panel-name">Vincent H, 44</div>
+      <div class="story-panel-role">Management consultant — self-employed nine years, married, one child</div>
+      <button class="story-close" onclick="closeStory('vincent')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I know I should be more disciplined about CPF. I know I should have a retirement plan. But every year I tell myself I will sort it out when things slow down, and things never slow down. I am earning well but I genuinely have no idea if I am building anything or just spending everything I make."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Vincent had been self-employed long enough that his CPF balances were significantly below where they would have been had he remained employed. He had no MediSave discipline and topped it up reactively when he remembered. He had no structured savings. His income protection insurance had lapsed two years ago without him noticing. He had a Will from 2015 that did not reflect his current assets or wishes.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We built a simple cash flow picture to show him what was actually happening to his money each month. We identified what voluntary CPF contributions would realistically do for him at his age. We reinstated his income protection coverage. We updated his Will. We gave him a monthly structure he could automate rather than one that required ongoing willpower.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Vincent has not solved the discipline problem entirely. He is honest about that. But he now has systems that work without him having to actively remember. His CPF has not been below the minimum threshold in fourteen months.</p>
+      <p class="story-closing">Self-employment rewards initiative. Retirement planning requires structure. The two are not mutually exclusive.</p>
+      <p class="story-cta-line">If you are self-employed and have been putting this off, the first step is simply understanding where you stand. <a href="get-started.html#contact">That conversation is free.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-priya">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Will &amp; Nominations</div>
+      <div class="story-panel-name">Priya S, 42</div>
+      <div class="story-panel-role">Marketing manager — divorced two years ago, one child aged nine</div>
+      <button class="story-close" onclick="closeStory('priya')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping her up at night</div>
+      <div class="story-quote">"I found out three months after the divorce that my ex-husband was still the beneficiary on two of my insurance policies. My CPF nomination still had his name. My Will, which I had written during the marriage, left almost everything to him. I felt sick. If something had happened to me in those months, everything would have gone to the wrong person."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>The policies had not been updated. The CPF nomination was unchanged. The Will, written in 2018, reflected a life that no longer existed: the wrong beneficiaries, the wrong executor, and no guardianship provision for her daughter now that the family structure had changed. Under Singapore law, divorce does not automatically revoke a Will or change insurance nominations.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We moved quickly because Priya wanted this resolved. We updated her CPF nomination, reviewed each insurance policy, drafted a new Will with updated beneficiaries and a guardianship clause for her daughter, and set up an LPA naming her sister as donee.</p>
+      <div class="story-section-label">Where she is now</div>
+      <p>Priya said the session felt less like a planning exercise and more like finally being able to breathe. Everything now reflects her life as it actually is.</p>
+      <p class="story-closing">A major life change does not just change your circumstances. It changes who should benefit from everything you have built.</p>
+      <p class="story-cta-line">The <a href="article-estate-will-misconceptions.html">article on why your Will might not mean what you think</a> covers some of the legal points that are relevant here.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-wongs">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Legacy Planning</div>
+      <div class="story-panel-name">Mdm Wong YL &amp; Mr Wong, 45 &amp; 47</div>
+      <div class="story-panel-role">Two children: one teenager, one son aged 12 with autism spectrum disorder</div>
+      <button class="story-close" onclick="closeStory('wongs')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping them up at night</div>
+      <div class="story-quote">"Our son needs us. Right now he is fine because we are here. But what happens when we are not? Who looks after him? How does the money get to him without being taken advantage of? He cannot manage it himself. We cannot leave it to his brother to handle forever. That is not fair to either of them."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>The Wongs had good instincts but no structure. Their existing Wills split the estate equally between both children, which made legal sense but practical nonsense. Their son with ASD could not manage a lump sum and their other son had not agreed to be a permanent caregiver or financial manager. There was no trust, no letter of wishes, no framework for ongoing care decisions.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We helped them think through the planning in stages. Immediate care: who does what now and if one parent passes. Longer term care: funding mechanisms that do not leave their son exposed. We discussed testamentary trusts and other structures that could ring-fence funds for their son's benefit while giving their other child clarity on what was expected of him and what was not. We connected them with specialists for the legal trust documentation.</p>
+      <div class="story-section-label">Where they are now</div>
+      <p>The Wongs describe the process as hard but necessary. They have a framework now. Their older son was part of one conversation, which they said changed the dynamic in the family. He had been quietly worrying about his future obligations without ever saying so.</p>
+      <p class="story-closing">Planning for a child with additional needs is not about expecting the worst. It is about making sure love outlasts the people who feel it.</p>
+      <p class="story-cta-line">This kind of planning involves several moving parts. A conversation is the right place to begin. <a href="get-started.html#contact">We are here.</a></p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-michael">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">CPF &amp; Estate Planning</div>
+      <div class="story-panel-name">Michael R, 38</div>
+      <div class="story-panel-role">Finance professional — British national, Singapore PR for four years, married with one young child</div>
+      <button class="story-close" onclick="closeStory('michael')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"I understand financial planning. I have done it in the UK and in Hong Kong. But Singapore works differently and I kept putting this off because every time I tried to read about CPF I felt like I was reading a foreign language. I knew I was behind. I just did not know how far behind."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Michael had been contributing to CPF as an employee but had never looked at the structure of his accounts. His Ordinary Account had been accumulating but he did not know it could be used for housing or investment, or what the retirement implications were. His MediSave was below the Basic Healthcare Sum. He had no CPF nomination, which meant if he passed, his CPF balance would not go to his wife directly. His estate planning was entirely absent because he had assumed Singapore rules would be similar to the UK. They are not.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We started from the beginning without making him feel like he should have known this already. We walked through each CPF account: what it was for, what he could and could not do with it, and what the retirement picture looked like at his current trajectory. We set up his nomination, drafted a Will under Singapore law and made sure his wife understood the documents too.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Michael says the most useful thing was having someone explain CPF without assuming prior knowledge. He has since referred two colleagues who are also PRs and had the same experience of having let things drift.</p>
+      <p class="story-closing">Singapore's system rewards those who understand it. Understanding it just takes one honest conversation.</p>
+      <p class="story-cta-line">The <a href="article-finance-cpf-at-55.html">CPF at 55 article</a> is a useful reference once the basics are in place, if you would like to read ahead.</p>
+
+    </div>
+  </div>
+</div>
+<div class="story-overlay" id="overlay-benjamin">
+  <div class="story-panel">
+    <div class="story-panel-header">
+      <div class="story-panel-tag">Estate Planning</div>
+      <div class="story-panel-name">Benjamin Teo, 36</div>
+      <div class="story-panel-role">Tech lead — single, renting, no dependants, high income</div>
+      <button class="story-close" onclick="closeStory('benjamin')" aria-label="Close">&#215;</button>
+    </div>
+    <div class="story-panel-body">
+      <div class="story-section-label">What was keeping him up at night</div>
+      <div class="story-quote">"Honestly? Nothing. That is sort of the point. I am thirty-six. I am healthy. I have no wife, no kids, no mortgage. I came in because my colleague told me I should and I spent the first twenty minutes explaining why I probably did not need to be here."</div>
+      <div class="story-section-label">What we found when we looked properly</div>
+      <p>Benjamin was in genuinely good shape on savings and investment. But he had no Will, which meant his assets would be distributed under the Intestate Succession Act, to parents and siblings in proportions he had never considered. He had no LPA, which meant if he was incapacitated in an accident, nobody had authority to manage his affairs. His shield plan had not been reviewed since his employer set it up. And his parents, whom he was close to, had no documents of their own.</p>
+      <div class="story-section-label">What we did</div>
+      <p>We did not oversell the urgency. We simply showed him what the default outcomes looked like versus what his actual preferences were, and let him decide. We drafted a Will that reflected his intentions. We set up an LPA. We identified one coverage gap worth addressing. We also gave him a framework for having the conversation with his parents about their own planning.</p>
+      <div class="story-section-label">Where he is now</div>
+      <p>Benjamin was in and out in two sessions. He told us afterwards that he had expected a sales pitch and got a planning conversation instead. He has since brought his parents in.</p>
+      <p class="story-closing">Estate planning is not about having a lot to protect. It is about having intentions worth recording.</p>
+      <p class="story-cta-line">If you are younger and wondering whether any of this applies to you, one conversation is usually enough to find out. <a href="get-started.html#contact">First meeting is always free.</a></p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // Nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Story overlay open/close
+  function openStory(id) {
+    document.getElementById('overlay-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeStory(id) {
+    document.getElementById('overlay-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close on backdrop click
+  document.querySelectorAll('.story-overlay').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      if (e.target === el) {
+        el.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.story-overlay.open').forEach(function(el) {
+        el.classList.remove('open');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+</script>
 
 </html>
