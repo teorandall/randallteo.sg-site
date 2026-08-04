@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <title>ISP Comparison Tool | Randall Teo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -121,6 +122,7 @@ body {
   font-size: 14px;
   line-height: 1.5;
   min-height: 100vh;
+  padding-top: 64px;
 }
 
 /* ── Top bar ──────────────────────────────────────────────────────────── */
@@ -300,9 +302,119 @@ body {
 .caveats { padding: 16px; background: var(--surface-2); border-radius: 6px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
 .caveats li { margin: 4px 0 4px 18px; }
 h3.section-head { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 24px 0 12px; }
+
+/* ── Password gate ─────────────────────────────────────────────────────────── */
+#pw-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #1F3D2B;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.pw-box {
+  background: #FAF7F0;
+  border-radius: 4px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.pw-logo {
+  margin-bottom: 20px;
+}
+.pw-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #1F3D2B;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pw-sub {
+  font-size: 14px;
+  color: #8C8A80;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pw-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #2A2A26;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pw-input:focus { outline: none; border-color: #1F3D2B; }
+.pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #8B5A34;
+  color: #FAF7F0;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover { background: #7A4F2E; }
+.pw-error {
+  font-size: 13px;
+  color: #9B3A2A;
+  margin-top: 10px;
+  min-height: 18px;
+}
+body.locked { overflow: hidden; }
+
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- ── Password Gate ─────────────────────────────────────────────────────────── -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-logo">
+      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true">
+        <rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/>
+        <rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/>
+        <text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text>
+        <path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="pw-title">ISP Comparison Tool</div>
+    <div class="pw-sub">This tool is for client use only.<br>Please enter your access password to continue.</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Access Tool</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<!-- ── Site Nav ──────────────────────────────────────────────────────────────── -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      <a href="isp.html" class="active">ISP</a>
+      <a href="get-started.html">Get Started</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
 
 <!-- ── Top bar ─────────────────────────────────────────────────────────────── -->
 <header class="topbar">
@@ -3191,6 +3303,42 @@ document.addEventListener('DOMContentLoaded', () => {
   syncRangeSelects();
   refreshAll();
 });
+</script>
+
+
+<script>
+  // Password gate
+  function checkPw() {
+    var val = document.getElementById('pwInput').value;
+    if (val === 'Randallteowl') {
+      document.getElementById('pw-gate').style.display = 'none';
+      document.body.classList.remove('locked');
+    } else {
+      document.getElementById('pwError').textContent = 'Incorrect password. Please try again.';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  // Focus input on load
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pwInput').focus();
+  });
+
+  // Site nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle && links) {
+    toggle.addEventListener('click', function() {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 </script>
 
 </body>
