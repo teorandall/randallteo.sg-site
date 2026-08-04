@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Stories | Randall Teo</title>
+<meta name="description" content="Real situations, real families, real planning conversations. Someone here is probably in your situation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ── Page hero ── */
+.stories-hero {
+  background: var(--color-green-deep);
+  padding: 64px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.stories-hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle at top right, rgba(164,113,72,0.16) 0%, transparent 65%);
+  pointer-events: none;
+}
+.stories-hero-inner { position: relative; z-index: 1; max-width: 680px; }
+.stories-hero .eyebrow { color: var(--color-copper); }
+.stories-hero h1 {
+  font-size: 46px; line-height: 1.08;
+  color: #fff; margin-top: 12px;
+}
+.stories-hero h1 em { font-style: italic; color: rgba(250,247,240,0.75); }
+.stories-hero p {
+  font-size: 17px; color: rgba(250,247,240,0.72);
+  margin-top: 18px; line-height: 1.7; max-width: 520px;
+}
+.disclaimer-note {
+  margin-top: 28px;
+  font-size: 12.5px;
+  color: rgba(250,247,240,0.45);
+  line-height: 1.6;
+  max-width: 480px;
+  border-top: 1px solid rgba(250,247,240,0.12);
+  padding-top: 18px;
+}
+
+/* ── Age filter bar ── */
+.filter-bar {
+  background: var(--color-sage);
+  border-bottom: 1px solid var(--color-line);
+  padding: 16px 0;
+  position: sticky; top: 64px; z-index: 40;
+}
+.filter-inner {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.filter-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--color-ink-soft);
+  margin-right: 4px;
+}
+.filter-btn {
+  padding: 7px 16px;
+  font-size: 13px; font-weight: 500;
+  border: 1px solid var(--color-line);
+  border-radius: 30px;
+  background: #fff;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-body);
+}
+.filter-btn:hover { border-color: var(--color-green-deep); color: var(--color-green-deep); }
+.filter-btn.active {
+  background: var(--color-green-deep);
+  border-color: var(--color-green-deep);
+  color: #fff;
+}
+
+/* ── Stories grid ── */
+.stories-body { padding: 56px 0 80px; }
+.stories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* ── Story card ── */
+.story-card {
+  border-bottom: 1px solid var(--color-line);
+  padding: 52px 0;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.story-card:first-child { border-top: 1px solid var(--color-line); }
+
+.story-sidebar {}
+.story-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-green-deep);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.story-role {
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.story-age-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-sage);
+  color: var(--color-copper-text);
+  border: 1px solid rgba(164,113,72,0.25);
+}
+.story-icon {
+  width: 48px; height: 48px;
+  background: var(--color-green-deep);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+
+.story-body {}
+.story-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-copper-text);
+  margin-bottom: 10px;
+  margin-top: 28px;
+}
+.story-section-label:first-child { margin-top: 0; }
+.story-quote {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-green-deep);
+  font-style: italic;
+  font-weight: 400;
+  padding-left: 20px;
+  border-left: 2px solid var(--color-copper);
+  margin-bottom: 4px;
+}
+.story-body p {
+  font-size: 15.5px;
+  color: var(--color-ink-soft);
+  line-height: 1.8;
+  margin: 0 0 14px;
+}
+.story-body p:last-child { margin-bottom: 0; }
+.story-body strong { color: var(--color-ink); font-weight: 600; }
+.story-closing {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--color-green-deep);
+  margin-top: 24px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.story-cta-line {
+  font-size: 14px;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+.story-cta-line a {
+  color: var(--color-copper-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.story-cta-line a:hover { text-decoration: underline; }
+
+/* ── Bottom CTA ── */
+.stories-bottom-cta {
+  background: var(--color-green-deep);
+  padding: 56px 0;
+  text-align: center;
+}
+.stories-bottom-cta .eyebrow { color: var(--color-copper); text-align: center; }
+.stories-bottom-cta h2 {
+  font-size: 32px; color: #fff;
+  margin-top: 10px; max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.2;
+}
+.stories-bottom-cta p {
+  font-size: 16px; color: rgba(250,247,240,0.7);
+  margin-top: 14px; max-width: 440px;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.7;
+}
+.stories-bottom-cta .btn-on-dark {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 28px;
+  background: var(--color-copper-button);
+  color: var(--color-cream);
+  padding: 14px 28px;
+  border-radius: 3px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.stories-bottom-cta .btn-on-dark:hover { background: var(--color-copper-button-hover); }
+
+/* ── Hidden stories (filter) ── */
+.story-card.hidden { display: none; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .story-card {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 40px 0;
+  }
+  .story-icon { width: 40px; height: 40px; }
+  .story-name { font-size: 20px; }
+  .story-quote { font-size: 16.5px; }
+}
+@media (max-width: 680px) {
+  .stories-hero { padding: 44px 0 40px; }
+  .stories-hero h1 { font-size: 32px; }
+  .stories-hero p { font-size: 15.5px; }
+  .stories-body { padding: 36px 0 56px; }
+  .story-card { padding: 32px 0; gap: 20px; }
+  .filter-bar { top: 58px; }
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      <a href="client-stories.html" class="active">Client Stories</a>
+      <a href="isp.html">ISP</a>
+      <a href="get-started.html">Get Started</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="stories-hero">
+  <div class="wrap stories-hero-inner">
+    <p class="eyebrow">Client Stories</p>
+    <h1>Someone here is probably<br><em>in your situation.</em></h1>
+    <p>These are real planning conversations, drawn from real families. The names and details have been changed. The situations have not.</p>
+    <p class="disclaimer-note">All stories on this page are anonymised composites drawn from real client situations. Names, ages and identifying details have been changed to protect privacy. No specific financial outcomes or returns are stated or implied.</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="wrap filter-inner">
+    <span class="filter-label">Filter by age</span>
+    <button class="filter-btn active" onclick="filterStories('all')">All</button>
+    <button class="filter-btn" onclick="filterStories('65plus')">65 and above</button>
+    <button class="filter-btn" onclick="filterStories('55to65')">55 to 65</button>
+    <button class="filter-btn" onclick="filterStories('45to55')">45 to 55</button>
+    <button class="filter-btn" onclick="filterStories('under45')">Under 45</button>
+  </div>
+</div>
+
+<!-- STORIES -->
+<div class="stories-body">
+  <div class="wrap">
+    <div class="stories-grid" id="storiesGrid">
+
+
+      <!-- 1. Margaret T -->
+      <article class="story-card" data-age="65plus">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="story-name">Margaret T</div>
+          <div class="story-role">67, retired teacher<br>Widowed, two adult children</div>
+          <span class="story-age-badge">65 and above</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"My husband handled everything. The CPF, the insurance, the investments. I signed whatever he put in front of me. When he passed, I did not even know where to begin. I was not stupid. I just never needed to know."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Margaret's husband had nominated her correctly for his CPF, so that came through. But three insurance policies had lapsed because nobody knew they existed, and the premiums had been quietly failing for two years. A joint investment account had no survivorship instruction attached. Her own policies had not been reviewed in a decade and were no longer sized correctly for someone living alone.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We started with a full document inventory, going through every policy, every account, every nomination. We prioritised what needed immediate attention and worked through the rest over a few sessions. We made sure her own LPA was in place, and helped her understand exactly what she had, what it did, and what she could safely rely on.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>Margaret now has a clear picture of her finances for the first time. She attends every review herself. She recently told us she wishes she had done this twenty years ago, not because anything would have been different, but because she would have worried less.</p>
+
+          <p class="story-closing">Understanding what you have is not a financial skill. It is a peace of mind that everyone deserves.</p>
+          <p class="story-cta-line">If any of this sounds familiar, a conversation about getting your documents in order is a gentle place to start. <a href="get-started.html#contact">We are happy to help.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 2. Robert C -->
+      <article class="story-card" data-age="55to65">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="story-name">Robert C</div>
+          <div class="story-role">63, former engineer<br>Married, two grown children</div>
+          <span class="story-age-badge">55 to 65</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I have enough. I know I have enough. But I keep running the numbers at two in the morning wondering what if I am wrong. What if I live to ninety-five and run out at eighty-eight? What if my wife gets sick first? I spent my whole career planning. Why does retirement feel like the one thing I cannot plan for?"</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Robert had done a lot of things right. His CPF LIFE was set up, his mortgage was cleared, and he had savings. But everything was sitting in the same place drawing the same return, with no structure for how or when to draw it down. There was no income ladder — just a pile of assets and no plan for sequencing. His wife had no independent income source if he passed first.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We mapped out a drawdown structure across three time horizons: what they would live on now, what would grow in the background, and what would be left behind. We made sure his wife had her own income flow and her own documents in order. Then we stress-tested it against a longer retirement than either of them expected.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Robert stopped doing the two-in-the-morning calculations about six months after our first meeting. The money did not change. The structure did. He recently took his wife to Japan, a trip they had been postponing for three years.</p>
+
+          <p class="story-closing">Having enough is only half the equation. Knowing how to use it is the other half.</p>
+          <p class="story-cta-line">The <a href="article-finance-income-ladder.html">retirement income ladder article</a> walks through how this kind of structure works, if you are curious about the approach.</p>
+        </div>
+      </article>
+
+
+      <!-- 3. Susan L -->
+      <article class="story-card" data-age="55to65">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="story-name">Susan L</div>
+          <div class="story-role">57, HR manager<br>Married, one adult child, caring for elderly mother</div>
+          <span class="story-age-badge">55 to 65</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"Mum started forgetting things about two years ago. Small things at first, her keys, her appointments. Then bigger things. One day she did not recognise the flat she had lived in for thirty years. By the time we realised how serious it was, we also realised we had no documents. No LPA. Nothing."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Susan's mother had a Will, but it was written in 1998 and named an executor who had since passed away. There was no LPA, which meant nobody had legal authority to manage her finances or make care decisions on her behalf. The family had been making decisions informally, but the moment they needed to access her bank accounts to pay for care, everything stopped.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We helped Susan understand the deputyship process and what it would involve for her family. We worked with her to get her own LPA and Will done while she still had clarity and time. We also helped her think through the donee conversation with her own husband and child so history would not repeat itself.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>The deputyship process for her mother was long and expensive. Susan does not say this bitterly. She says it quietly, as a fact. Her own documents are now in order. Her daughter knows where everything is.</p>
+
+          <p class="story-closing">The families who go through this always say the same thing afterwards: do not wait.</p>
+          <p class="story-cta-line">The <a href="article-estate-lpa-no-lpa.html">article on what happens when no LPA is in place</a> explains the deputyship process in plain terms, if you would like to read more.</p>
+        </div>
+      </article>
+
+
+      <!-- 4. David K -->
+      <article class="story-card" data-age="45to55">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="story-name">David K</div>
+          <div class="story-role">54, sales director<br>Remarried, three children across two families</div>
+          <span class="story-age-badge">45 to 55</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I love my wife. I love all three of my children equally. But I know that if I die tomorrow, there is going to be a problem. My older two are adults. My youngest is six. My ex-wife and my current wife have never been in the same room. I have not written it down anywhere because I do not know how to write it in a way that is fair to everyone."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>David's existing Will, written during his first marriage, left everything to his former wife. It had never been updated. His insurance nominations still listed her as beneficiary. His CPF nomination was blank. His current wife had no legal standing to any of his assets except the jointly owned matrimonial home, which was held under joint tenancy and would pass to her automatically regardless of the Will, which itself would shortchange everyone else.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We worked through each asset separately: who it should go to, how, and when. We used a combination of updated nominations, a properly structured Will and a testamentary trust to make sure his youngest was provided for long term, his older children received what he intended, and his wife was not left in a precarious position. We also helped him write a letter of wishes explaining his thinking to all parties.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>David describes the process as the most uncomfortable two hours he has had in recent memory and the most relieved he has felt since. Everything is now written down. He knows that if something happens, his wishes will hold.</p>
+
+          <p class="story-closing">A blended family does not make estate planning harder. It just makes it more important to do properly.</p>
+          <p class="story-cta-line">The <a href="article-estate-blended-families.html">article on blended families and estate planning</a> goes deeper into how these situations are structured, if it is relevant to you.</p>
+        </div>
+      </article>
+
+
+      <!-- 5. Mdm Tan BH -->
+      <article class="story-card" data-age="55to65">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="story-name">Mdm Tan BH</div>
+          <div class="story-role">61, homemaker<br>Married 35 years, HDB flat fully paid</div>
+          <span class="story-age-badge">55 to 65</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"The flat is worth more than a million dollars now. My children keep saying we are rich. But I cannot spend the flat. Every month we are careful about groceries. My husband's CPF LIFE helps but it is not enough for two people to live comfortably. I feel embarrassed to say we are struggling when everyone thinks we are wealthy."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>The flat represented over 90% of the couple's net worth. Their CPF LIFE payouts covered the basics but left little for anything else. They had no investment portfolio and no other income source. Their children were working but not in a position to supplement regularly. Several options existed that the couple had heard of but never properly explored, including the Lease Buyback Scheme, right-sizing to a smaller flat, and structured products that could generate income without requiring them to sell.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We walked through each option without pressure, explaining the trade-offs honestly. We helped them understand what the numbers would actually look like under each scenario and what questions to ask HDB directly. We also made sure their Wills and nominations were current so that whichever path they chose, the flat would pass cleanly.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>Mdm Tan and her husband made their own decision in their own time. What changed was that they finally felt informed enough to make it. The embarrassment faded when she realised the situation was more common than she had thought.</p>
+
+          <p class="story-closing">Wealth locked in property is still wealth. It just needs the right key.</p>
+          <p class="story-cta-line">If your situation feels similar, we are happy to talk through the options with no particular agenda. <a href="get-started.html#contact">Reach out whenever you are ready.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 6. Raymond J -->
+      <article class="story-card" data-age="55to65">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="story-name">Raymond J</div>
+          <div class="story-role">62, architect<br>Single, no children, semi-retired</div>
+          <span class="story-age-badge">55 to 65</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I have thought about this more than most people probably have. I have no spouse, no children. My parents are gone. I have a brother I am close to and a few friends I trust. But if I have a stroke tomorrow, who actually has the authority to do anything? Who speaks for me at the hospital? Who pays my bills while I am in the ICU? Nobody, legally."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Raymond had no LPA and no Will. His CPF had no nomination, which meant it would go through the Public Trustee's Office. His flat, owned in his sole name, would be distributed under the Intestate Succession Act, which has a fixed formula that may or may not have matched his intentions. He had thought about this intellectually but never formalised any of it.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We helped Raymond appoint his brother as donee under both personal welfare and property and financial affairs powers, with a trusted friend as a joint donee for additional oversight. We drafted a Will that reflected his actual wishes rather than the legal default. We also helped him write a letter of wishes addressing the more personal aspects: what he wanted for his care, and what mattered to him.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Raymond describes it as finally closing a tab that had been open in his head for ten years. He said the process took less time than he expected and cost less than he had assumed.</p>
+
+          <p class="story-closing">Being single does not mean there is nobody who can speak for you. It means you have to be deliberate about who that person is.</p>
+          <p class="story-cta-line">The <a href="article-estate-lpa-how-it-works.html">article on what an LPA actually covers</a> is a useful place to start if you have been putting this off.</p>
+        </div>
+      </article>
+
+
+      <!-- 7. Patricia M -->
+      <article class="story-card" data-age="45to55">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+          <div class="story-name">Patricia M</div>
+          <div class="story-role">53, business owner<br>Married, three children, F&amp;B industry</div>
+          <span class="story-age-badge">45 to 55</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"I have been sold a policy every few years by a different person. Some of those people have left the industry. I genuinely do not know what I am covered for. I know I pay a lot of premiums every month. I just cannot tell you what for."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Patricia had eight policies across five insurers. Two were whole life plans bought in her twenties. One was an investment-linked policy from the early 2000s that had been significantly underperforming. Two were term plans she had forgotten she owned. One was a critical illness plan with a definition so narrow it would rarely trigger. Two were shield plans, one of which was redundant because it duplicated her husband's rider coverage.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We did a full policy audit, summarising every plan in plain language: what it covered, what it paid, what it cost, and whether it still made sense. We identified significant gaps in her critical illness coverage at her age and significant overlap in her hospital coverage. We did not recommend replacing everything. We recommended stopping two premiums immediately and restructuring one.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>Patricia reduced her total monthly premiums while increasing her effective coverage. More importantly, she can now explain what she owns to her husband, which she says she should have been able to do years ago.</p>
+
+          <p class="story-closing">Having many policies is not the same as being well covered. Sometimes it is the opposite.</p>
+          <p class="story-cta-line">If you have not looked at your coverage properly in a few years, it might be worth a fresh set of eyes. <a href="get-started.html#contact">We are happy to take a look.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 8. Jason Lim -->
+      <article class="story-card" data-age="45to55">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="story-name">Jason Lim</div>
+          <div class="story-role">48, project manager<br>Married, two teenage children</div>
+          <span class="story-age-badge">45 to 55</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I had a health scare last year. Nothing fatal, thank God, but it put me in hospital for four days and I needed a specialist I had been seeing for years. He is not on any panel. When the bill came, I realised my rider did not cover what I thought it covered. I paid more out of pocket than I had in my emergency fund."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Jason's rider was a well-known plan but an older generation one. It covered panel doctors well but had almost no protection for non-panel specialists. His stop-loss was low, his co-insurance was uncapped off panel, and he had not updated his plan since his company stopped subsidising it five years ago. His critical illness plan, bought when he was 32, was sized for a younger man with a smaller mortgage. His family's combined critical illness exposure had grown significantly since then.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We walked through his hospital bill line by line so he understood exactly what happened and why. We then looked at the current rider landscape and identified what a current generation plan would have paid for the same admission. We restructured his shield coverage and reviewed his critical illness plan in the context of his actual financial obligations today.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Jason now understands his coverage properly, possibly for the first time. He said the health scare was frightening enough. The bill should not have been the second fright.</p>
+
+          <p class="story-closing">A plan that looked right ten years ago may not look right today. Life changes faster than most policies get reviewed.</p>
+          <p class="story-cta-line">The <a href="isp.html">ISP comparison tool</a> lets you see how current riders compare, if you are curious about where your plan sits.</p>
+        </div>
+      </article>
+
+
+      <!-- 9. Grace Ng -->
+      <article class="story-card" data-age="45to55">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="story-name">Grace Ng</div>
+          <div class="story-role">49, accountant<br>Eldest daughter, two siblings</div>
+          <span class="story-age-badge">45 to 55</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"Dad was a good man. He worked hard his whole life. He just never got around to writing a Will. He kept saying he would do it next year. There were four years of next years. When he passed, we thought it would be straightforward because we are a close family. It was not."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Grace's father had passed without a Will. Under the Intestate Succession Act, his estate was split between his wife and his three children in fixed proportions. The matrimonial flat, held under tenancy in common, could not simply transfer to the mother. Probate was required. One sibling lived overseas and could not easily sign documents. A small business account was frozen. The process took fourteen months.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>By the time Grace came to us, the estate was mostly settled. She came not for her father's estate but for her own. She did not want her children to go through what she had just been through. We helped her put a Will, LPA and updated CPF nomination in place in a single session.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>Grace's documents are done. She told us that sitting in our office felt like the first useful thing she had done since her father passed. She has since brought her two siblings in to do theirs.</p>
+
+          <p class="story-closing">The families who go through estate administration without a Will never forget it. And they almost always become the ones who make sure their own children never have to.</p>
+          <p class="story-cta-line">The <a href="article-estate-letter-of-administration.html">article on Letters of Administration</a> explains what the process actually involves, if you would like to understand it better.</p>
+        </div>
+      </article>
+
+
+      <!-- 10. Alan Chen -->
+      <article class="story-card" data-age="45to55">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="story-name">Alan Chen</div>
+          <div class="story-role">47, civil servant<br>Married, two children in university, parents aged 74 and 76</div>
+          <span class="story-age-badge">45 to 55</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"My parents need more help than they used to. My son's university fees just started. My daughter's start next year. My wife and I are both working but nothing is going into savings right now. It is all going out. If anything happens to either of us, I do not know which direction to fall."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Alan and his wife had adequate term coverage bought when they were younger but it was sized for a smaller household. Their critical illness plans were minimal. Neither had an LPA. His parents had no documents in place either. More pressingly, the family had no emergency buffer. Every dollar of income was committed.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We did not try to solve everything at once. We identified the single highest risk and addressed that first: the coverage gap that would most damage the family if it turned into a reality. We then helped Alan have a practical conversation with his parents about their own documents, and gave him a framework for doing that without it feeling like a confrontation.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Alan said the most useful thing we did was help him see the situation clearly instead of as one large undifferentiated anxiety. Once it was broken into parts, he could prioritise. He still has things to work through but he no longer feels like he is one bad month away from everything unravelling.</p>
+
+          <p class="story-closing">The sandwich generation does not need to solve everything at once. It needs to know which thing to solve first.</p>
+          <p class="story-cta-line">If you are in a similar position, a conversation to map out the priorities costs nothing. <a href="get-started.html#contact">We are here when you are ready.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 11. Vincent H -->
+      <article class="story-card" data-age="under45">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="story-name">Vincent H</div>
+          <div class="story-role">44, management consultant<br>Self-employed nine years, married, one child</div>
+          <span class="story-age-badge">Under 45</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I know I should be more disciplined about CPF. I know I should have a retirement plan. But every year I tell myself I will sort it out when things slow down, and things never slow down. I am earning well but I genuinely have no idea if I am building anything or just spending everything I make."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Vincent had been self-employed long enough that his CPF balances were significantly below where they would have been had he remained employed. He had no MediSave discipline and topped it up reactively when he remembered. He had no structured savings. His income protection insurance had lapsed two years ago without him noticing. He had a Will from 2015 that did not reflect his current assets or wishes.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We built a simple cash flow picture to show him what was actually happening to his money each month. We identified what voluntary CPF contributions would realistically do for him at his age. We reinstated his income protection coverage. We updated his Will. We gave him a monthly structure he could automate rather than one that required ongoing willpower.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Vincent has not solved the discipline problem entirely. He is honest about that. But he now has systems that work without him having to actively remember. His CPF has not been below the minimum threshold in fourteen months.</p>
+
+          <p class="story-closing">Self-employment rewards initiative. Retirement planning requires structure. The two are not mutually exclusive.</p>
+          <p class="story-cta-line">If you are self-employed and have been putting this off, the first step is simply understanding where you stand. <a href="get-started.html#contact">That conversation is free.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 12. Priya S -->
+      <article class="story-card" data-age="under45">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="story-name">Priya S</div>
+          <div class="story-role">42, marketing manager<br>Divorced, one child aged nine</div>
+          <span class="story-age-badge">Under 45</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping her up at night</div>
+          <div class="story-quote">"I found out three months after the divorce that my ex-husband was still the beneficiary on two of my insurance policies. My CPF nomination still had his name. My Will, which I had written during the marriage, left almost everything to him. I felt sick. If something had happened to me in those months, everything would have gone to the wrong person."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>The policies had not been updated. The CPF nomination was unchanged. The Will, written in 2018, reflected a life that no longer existed: the wrong beneficiaries, the wrong executor, and no guardianship provision for her daughter now that the family structure had changed. Under Singapore law, divorce does not automatically revoke a Will or change insurance nominations.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We moved quickly because Priya wanted this resolved. We updated her CPF nomination, reviewed each insurance policy, drafted a new Will with updated beneficiaries and a guardianship clause for her daughter, and set up an LPA naming her sister as donee.</p>
+
+          <div class="story-section-label">Where she is now</div>
+          <p>Priya said the session felt less like a planning exercise and more like finally being able to breathe. Everything now reflects her life as it actually is.</p>
+
+          <p class="story-closing">A major life change does not just change your circumstances. It changes who should benefit from everything you have built.</p>
+          <p class="story-cta-line">The <a href="article-estate-will-misconceptions.html">article on why your Will might not mean what you think</a> covers some of the legal points that are relevant here.</p>
+        </div>
+      </article>
+
+
+      <!-- 13. Mdm Wong YL and Mr Wong -->
+      <article class="story-card" data-age="under45">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="story-name">Mdm Wong YL &amp; Mr Wong</div>
+          <div class="story-role">45 and 47, one teenager, one son with autism spectrum disorder</div>
+          <span class="story-age-badge">Under 45</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping them up at night</div>
+          <div class="story-quote">"Our son needs us. Right now he is fine because we are here. But what happens when we are not? Who looks after him? How does the money get to him without being taken advantage of? He cannot manage it himself. We cannot leave it to his brother to handle forever. That is not fair to either of them."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>The Wongs had good instincts but no structure. Their existing Wills split the estate equally between both children, which made legal sense but practical nonsense. Their son with ASD could not manage a lump sum and their other son had not agreed to be a permanent caregiver or financial manager. There was no trust, no letter of wishes, no framework for ongoing care decisions.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We helped them think through the planning in stages. Immediate care: who does what now and if one parent passes. Longer term care: funding mechanisms that do not leave their son exposed. We discussed testamentary trusts and other structures that could ring-fence funds for their son's benefit while giving their other child clarity on what was expected of him and what was not. We connected them with specialists for the legal trust documentation.</p>
+
+          <div class="story-section-label">Where they are now</div>
+          <p>The Wongs describe the process as hard but necessary. They have a framework now. Their older son was part of one conversation, which they said changed the dynamic in the family. He had been quietly worrying about his future obligations without ever saying so.</p>
+
+          <p class="story-closing">Planning for a child with additional needs is not about expecting the worst. It is about making sure love outlasts the people who feel it.</p>
+          <p class="story-cta-line">This kind of planning involves several moving parts. A conversation is the right place to begin. <a href="get-started.html#contact">We are here.</a></p>
+        </div>
+      </article>
+
+
+      <!-- 14. Michael R -->
+      <article class="story-card" data-age="under45">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="story-name">Michael R</div>
+          <div class="story-role">38, finance professional<br>British national, Singapore PR, married with one child</div>
+          <span class="story-age-badge">Under 45</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"I understand financial planning. I have done it in the UK and in Hong Kong. But Singapore works differently and I kept putting this off because every time I tried to read about CPF I felt like I was reading a foreign language. I knew I was behind. I just did not know how far behind."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Michael had been contributing to CPF as an employee but had never looked at the structure of his accounts. His Ordinary Account had been accumulating but he did not know it could be used for housing or investment, or what the retirement implications were. His MediSave was below the Basic Healthcare Sum. He had no CPF nomination, which meant if he passed, his CPF balance would not go to his wife directly. His estate planning was entirely absent because he had assumed Singapore rules would be similar to the UK. They are not.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We started from the beginning without making him feel like he should have known this already. We walked through each CPF account: what it was for, what he could and could not do with it, and what the retirement picture looked like at his current trajectory. We set up his nomination, drafted a Will under Singapore law and made sure his wife understood the documents too.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Michael says the most useful thing was having someone explain CPF without assuming prior knowledge. He has since referred two colleagues who are also PRs and had the same experience of having let things drift.</p>
+
+          <p class="story-closing">Singapore's system rewards those who understand it. Understanding it just takes one honest conversation.</p>
+          <p class="story-cta-line">The <a href="article-finance-cpf-at-55.html">CPF at 55 article</a> is a useful reference once the basics are in place, if you would like to read ahead.</p>
+        </div>
+      </article>
+
+
+      <!-- 15. Benjamin Teo -->
+      <article class="story-card" data-age="under45">
+        <div class="story-sidebar">
+          <div class="story-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,161,90,0.9)" stroke-width="1.6"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="story-name">Benjamin Teo</div>
+          <div class="story-role">36, tech lead<br>Single, renting, high income, no dependants</div>
+          <span class="story-age-badge">Under 45</span>
+        </div>
+        <div class="story-body">
+          <div class="story-section-label">What was keeping him up at night</div>
+          <div class="story-quote">"Honestly? Nothing. That is sort of the point. I am thirty-six. I am healthy. I have no wife, no kids, no mortgage. I came in because my colleague told me I should and I spent the first twenty minutes explaining why I probably did not need to be here."</div>
+
+          <div class="story-section-label">What we found when we looked properly</div>
+          <p>Benjamin was in genuinely good shape on savings and investment. But he had no Will, which meant his assets would be distributed under the Intestate Succession Act, to parents and siblings in proportions he had never considered. He had no LPA, which meant if he was incapacitated in an accident, nobody had authority to manage his affairs. His shield plan had not been reviewed since his employer set it up. And his parents, whom he was close to, had no documents of their own.</p>
+
+          <div class="story-section-label">What we did</div>
+          <p>We did not oversell the urgency. We simply showed him what the default outcomes looked like versus what his actual preferences were, and let him decide. We drafted a Will that reflected his intentions. We set up an LPA. We identified one coverage gap worth addressing. We also gave him a framework for having the conversation with his parents about their own planning.</p>
+
+          <div class="story-section-label">Where he is now</div>
+          <p>Benjamin was in and out in two sessions. He told us afterwards that he had expected a sales pitch and got a planning conversation instead. He has since brought his parents in.</p>
+
+          <p class="story-closing">Estate planning is not about having a lot to protect. It is about having intentions worth recording.</p>
+          <p class="story-cta-line">If you are younger and wondering whether any of this applies to you, one conversation is usually enough to find out. <a href="get-started.html#contact">First meeting is always free.</a></p>
+        </div>
+      </article>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="stories-bottom-cta">
+  <div class="wrap">
+    <p class="eyebrow">Your situation</p>
+    <h2>If one of these felt close, that is probably the conversation to have.</h2>
+    <p>First meeting is always free, always in person, and carries no obligation to proceed.</p>
+    <a href="get-started.html#contact" class="btn-on-dark">
+      Get in touch
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning · AEPP Certified</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+        <a href="client-stories.html">Client Stories</a>
+        <a href="isp.html">ISP</a>
+        <a href="get-started.html">Get Started</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="tel:+6589495099"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>+65 8949 5099</a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>randallteowl@prufa.com.sg</a>
+        <a class="item" href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Age filter
+  function filterStories(group) {
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    document.querySelectorAll('.story-card').forEach(function(card) {
+      if (group === 'all' || card.dataset.age === group) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
