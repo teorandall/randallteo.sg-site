@@ -404,6 +404,16 @@ header.site-nav nav.nav-links a {
 }
 header.site-nav nav.nav-links a:hover { color: #8B5A34; }
 header.site-nav nav.nav-links a.active { color: #8B5A34; }
+header.site-nav .nav-dropdown { position: relative; display: flex; align-items: center; }
+header.site-nav .nav-dropdown-toggle { font-size: 14px; font-weight: 500; color: #2A2A26; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; padding: 0; white-space: nowrap; }
+header.site-nav .nav-dropdown-toggle:hover, header.site-nav .nav-dropdown-toggle.active { color: #8B5A34; }
+header.site-nav .nav-dropdown-toggle svg { transition: transform 0.2s ease; }
+header.site-nav .nav-dropdown.open .nav-dropdown-toggle svg { transform: rotate(180deg); }
+header.site-nav .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid rgba(31,61,43,0.12); border-radius: 4px; box-shadow: 0 8px 24px rgba(31,61,43,0.12); min-width: 180px; padding: 6px 0; z-index: 200; }
+header.site-nav .nav-dropdown.open .nav-dropdown-menu { display: block; }
+header.site-nav .nav-dropdown-menu a { display: flex; align-items: center; gap: 10px; width: 100%; padding: 11px 18px; font-size: 14px; font-weight: 500; color: #2A2A26; text-decoration: none; background: none; transition: background 0.15s; white-space: nowrap; box-sizing: border-box; }
+header.site-nav .nav-dropdown-menu a:hover { background: #F1ECE0; color: #1F3D2B; }
+.tool-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A47148; background: #F1ECE0; border: 1px solid rgba(164,113,72,0.25); padding: 2px 7px; border-radius: 30px; margin-left: auto; }
 header.site-nav .nav-cta { display: flex; align-items: center; gap: 14px; }
 header.site-nav .btn-primary {
   background: #8B5A34; color: #FAF7F0;
@@ -474,7 +484,18 @@ header.site-nav .nav-toggle span {
       <a href="index.html#about">About</a>
       <a href="finance.html">Finance</a>
       <a href="estate-legacy.html">Estate &amp; Legacy</a>
-      <a href="isp.html" class="active">ISP</a>
+      <a href="client-stories.html">Client Stories</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle active" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool <span class="tool-badge">Soon</span></a>
+          <a href="tax-tool.html">Tax Tool <span class="tool-badge">Soon</span></a>
+        </div>
+      </div>
       <a href="get-started.html">Get Started</a>
     </nav>
     <div class="nav-cta">
@@ -3392,6 +3413,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('pwInput').focus();
   });
+
+  // Tools dropdown
+  function toggleDropdown() { document.getElementById('toolsDropdown').classList.toggle('open'); }
+  document.addEventListener('click', function(e) { var d = document.getElementById('toolsDropdown'); if (d && !d.contains(e.target)) d.classList.remove('open'); });
 
   // Site nav toggle
   var toggle = document.getElementById('navToggle');
