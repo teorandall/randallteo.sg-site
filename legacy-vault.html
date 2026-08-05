@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Vault | Randall Teo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+#pw-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1F3D2B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pw-box {
+  background: #FAF7F0;
+  border-radius: 4px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.pw-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #1F3D2B;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pw-sub {
+  font-size: 14px;
+  color: #8C8A80;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pw-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #2A2A26;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pw-input:focus {
+  outline: none;
+  border-color: #1F3D2B;
+}
+.pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #8B5A34;
+  color: #FAF7F0;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover {
+  background: #7A4F2E;
+}
+.pw-error {
+  font-size: 13px;
+  color: #9B3A2A;
+  margin-top: 10px;
+  min-height: 18px;
+}
+body.locked {
+  overflow: hidden;
+}
+.coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:48px 28px;}
+.coming-soon h1{font-family:'Fraunces',serif;font-size:36px;color:#1F3D2B;font-weight:500;margin-bottom:16px;}
+.coming-soon p{font-size:16px;color:#5C5A52;line-height:1.7;max-width:440px;}
+.coming-soon .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#A47148;margin-bottom:12px;}
+.coming-soon .badge{display:inline-flex;align-items:center;gap:8px;background:#FAF7F0;border:1px solid rgba(31,61,43,0.15);border-radius:30px;padding:8px 20px;font-size:13px;color:#5C5A52;margin-top:24px;}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
+</head>
+<body class="locked">
+
+<div id="pw-gate">
+  <div class="pw-box">
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <div class="pw-title">Legacy Vault</div>
+    <div class="pw-sub">A structured planning resource for estate and legacy decisions.<br>Please enter your access password to continue.</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Access Tool</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      <a href="client-stories.html">Client Stories</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle active" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Active</span></a>
+        </div>
+      </div>
+      <a href="get-started.html">Get Started</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="coming-soon">
+  <p class="eyebrow">Legacy Vault</p>
+  <h1>Coming Soon</h1>
+  <p>This tool is currently being built. It will be available to clients shortly.</p>
+  <div class="badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    In development
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning · AEPP Certified</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+        <a href="client-stories.html">Client Stories</a>
+        <a href="get-started.html">Get Started</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="tel:+6589495099"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>+65 8949 5099</a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>randallteowl@prufa.com.sg</a>
+        <a class="item" href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function checkPw() {
+    var val = document.getElementById('pwInput').value;
+    if (val === 'RandallteowlTax') {
+      document.getElementById('pw-gate').style.display = 'none';
+      document.body.classList.remove('locked');
+    } else {
+      document.getElementById('pwError').textContent = 'Incorrect password. Please try again.';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pwInput').focus();
+  });
+
+  // Nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Tools dropdown toggle for mobile
+  function toggleDropdown() {
+    document.getElementById('toolsDropdown').classList.toggle('open');
+  }
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    var d = document.getElementById('toolsDropdown');
+    if (!d.contains(e.target)) d.classList.remove('open');
+  });
+</script>
+</body>
+</html>
