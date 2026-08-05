@@ -379,6 +379,7 @@
     applyVisibility();
     if (btn) btn.addEventListener('click', loadMore);
   })();
+function toggleDropdown(){document.getElementById('toolsDropdown').classList.toggle('open');}document.addEventListener('click',function(e){var d=document.getElementById('toolsDropdown');if(d&&!d.contains(e.target))d.classList.remove('open');});
 </script>
 
 </body>

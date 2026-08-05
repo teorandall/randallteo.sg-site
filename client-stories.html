@@ -425,6 +425,7 @@
       toggle.setAttribute('aria-expanded','false');
     });
   });
+function toggleDropdown(){document.getElementById('toolsDropdown').classList.toggle('open');}document.addEventListener('click',function(e){var d=document.getElementById('toolsDropdown');if(d&&!d.contains(e.target))d.classList.remove('open');});
 </script>
 </body>
 </html>
