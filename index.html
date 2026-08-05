@@ -129,10 +129,12 @@
   .brand-sub{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-ink-soft);margin-top:3px;}
   .footer-brand{display:flex;align-items:center;gap:12px;}
   .footer-brand .brand-mark{width:46px;height:46px;}
-  nav.nav-links{display:flex;align-items:center;gap:24px;flex-wrap:nowrap;}
+  nav.nav-links{display:flex;align-items:center;gap:24px;flex-wrap:nowrap;position:relative;}
   nav.nav-links a{font-size:14px;font-weight:500;color:var(--color-ink);white-space:nowrap;}
   nav.nav-links a:hover{color:var(--color-copper-text);}
+  .nav-dropdown{position:relative;display:flex;align-items:center;}
   .nav-dropdown-toggle{font-size:14px;font-weight:500;white-space:nowrap;}
+  .nav-dropdown-menu{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);}
   .nav-cta{display:flex;align-items:center;gap:18px;}
   .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
   .nav-toggle span{display:block;width:24px;height:2px;background:var(--color-green-deep);margin:5px 0;}
