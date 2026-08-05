@@ -132,6 +132,7 @@
   nav.nav-links{display:flex;align-items:center;gap:24px;flex-wrap:nowrap;}
   nav.nav-links a{font-size:14px;font-weight:500;color:var(--color-ink);white-space:nowrap;}
   nav.nav-links a:hover{color:var(--color-copper-text);}
+  .nav-dropdown-toggle{font-size:14px;font-weight:500;white-space:nowrap;}
   .nav-cta{display:flex;align-items:center;gap:18px;}
   .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
   .nav-toggle span{display:block;width:24px;height:2px;background:var(--color-green-deep);margin:5px 0;}
@@ -153,6 +154,7 @@
     }
     nav.nav-links.open{max-height:360px;}
     nav.nav-links a{width:100%;padding:14px 28px;border-top:1px solid var(--color-line);}
+    .nav-dropdown-toggle{padding:14px 28px;border-top:1px solid var(--color-line);font-size:16px;}
     .nav-cta .btn-primary{font-size:13px;padding:10px 14px;}
     .nav-toggle{display:block;}
   }
@@ -467,7 +469,16 @@
       <a href="finance.html">Finance</a>
       <a href="estate-legacy.html">Estate &amp; Legacy</a>
       <a href="client-stories.html">Client Stories</a>
-      <a href="isp.html">ISP</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool <span class="tool-badge">Soon</span></a>
+        </div>
+      </div>
       <a href="get-started.html">Get Started</a>
     </nav>
     <div class="nav-cta">
