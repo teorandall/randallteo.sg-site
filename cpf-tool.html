@@ -9,16 +9,80 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-#pw-gate{position:fixed;inset:0;z-index:9999;background:#1F3D2B;display:flex;align-items:center;justify-content:center;padding:24px;}
-.pw-box{background:#FAF7F0;border-radius:4px;padding:40px 36px;max-width:400px;width:100%;text-align:center;}
-.pw-title{font-family:'Fraunces',serif;font-size:22px;color:#1F3D2B;margin-bottom:8px;font-weight:500;}
-.pw-sub{font-size:14px;color:#8C8A80;margin-bottom:24px;line-height:1.5;}
-.pw-input{width:100%;padding:12px 14px;border:1px solid rgba(31,61,43,0.2);border-radius:3px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A26;background:#fff;box-sizing:border-box;margin-bottom:12px;text-align:center;letter-spacing:0.05em;}
-.pw-input:focus{outline:none;border-color:#1F3D2B;}
-.pw-btn{width:100%;padding:13px;background:#8B5A34;color:#FAF7F0;border:none;border-radius:3px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;}
-.pw-btn:hover{background:#7A4F2E;}
-.pw-error{font-size:13px;color:#9B3A2A;margin-top:10px;min-height:18px;}
-body.locked{overflow:hidden;}
+#pw-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1F3D2B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pw-box {
+  background: #FAF7F0;
+  border-radius: 4px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.pw-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #1F3D2B;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pw-sub {
+  font-size: 14px;
+  color: #8C8A80;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pw-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #2A2A26;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pw-input:focus {
+  outline: none;
+  border-color: #1F3D2B;
+}
+.pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #8B5A34;
+  color: #FAF7F0;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover {
+  background: #7A4F2E;
+}
+.pw-error {
+  font-size: 13px;
+  color: #9B3A2A;
+  margin-top: 10px;
+  min-height: 18px;
+}
+body.locked {
+  overflow: hidden;
+}
 .coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:48px 28px;}
 .coming-soon h1{font-family:'Fraunces',serif;font-size:36px;color:#1F3D2B;font-weight:500;margin-bottom:16px;}
 .coming-soon p{font-size:16px;color:#5C5A52;line-height:1.7;max-width:440px;}
@@ -35,7 +99,7 @@ body.locked{overflow:hidden;}
       <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
     </div>
     <div class="pw-title">CPF Planning Tool</div>
-    <div class="pw-sub">This tool is for client use only.<br>Please enter your access password to continue.</div>
+    <div class="pw-sub">Guide on CPF numbers, accounts and structures.<br>Please enter your access password to continue.</div>
     <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
     <button class="pw-btn" onclick="checkPw()">Access Tool</button>
     <div class="pw-error" id="pwError"></div>
