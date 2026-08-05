@@ -71,7 +71,6 @@ nav.nav-links a:hover,nav.nav-links a.active{color:var(--color-copper-text);}
 }
 .nav-dropdown-toggle:hover,.nav-dropdown-toggle.active{color:var(--color-copper-text);}
 .nav-dropdown-toggle svg{transition:transform 0.2s ease;}
-.nav-dropdown:hover .nav-dropdown-toggle svg,
 .nav-dropdown.open .nav-dropdown-toggle svg{transform:rotate(180deg);}
 .nav-dropdown-menu{
   display:none;
@@ -80,7 +79,6 @@ nav.nav-links a:hover,nav.nav-links a.active{color:var(--color-copper-text);}
   box-shadow:0 8px 24px rgba(31,61,43,0.12);
   min-width:180px;padding:6px 0;z-index:200;
 }
-.nav-dropdown:hover .nav-dropdown-menu,
 .nav-dropdown.open .nav-dropdown-menu{display:block;}
 .nav-dropdown-menu a,.nav-dropdown-menu button{
   display:flex;align-items:center;gap:10px;
