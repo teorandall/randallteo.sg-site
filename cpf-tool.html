@@ -152,7 +152,9 @@ body.locked {
 .def-ers{border-top-color:#6B3FA0;}
 
 .keynote{background:#fff;border:1px solid var(--color-line-copper);padding:20px 24px;border-radius:3px;font-size:15px;line-height:1.68;color:var(--color-ink);margin-bottom:52px;}
-.keynote strong{display:block;color:var(--color-green-deep);margin-bottom:6px;font-weight:600;}
+.keynote strong{color:var(--color-green-deep);font-weight:600;}
+.keynote > strong:first-child{display:block;margin-bottom:6px;}
+.keynote em{font-style:normal;font-weight:600;color:var(--color-copper-text);}
 
 /* tables */
 .table-scroll{overflow-x:auto;margin-bottom:44px;-webkit-overflow-scrolling:touch;}
@@ -223,19 +225,19 @@ table.proj tbody td{color:var(--color-ink-soft);font-style:italic;}
 .cpfchart .grid{stroke:var(--color-line);stroke-width:1;}
 .cpfchart .axl{font-family:var(--font-body);font-size:11px;fill:var(--color-ink-soft);}
 .cpfchart .axv{font-family:var(--font-body);font-size:11px;fill:var(--color-green-deep);font-weight:600;}
-.cpfchart .ln{fill:none !important;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;}
+.cpfchart .ln{fill:none !important;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;}
 .cpfchart .br{rx:2;}
 .cpfchart .ln.sw-std{stroke:#1F3D2B;fill:none !important;}
-.cpfchart .ln.sw-bas{stroke:#2C6E63;fill:none !important;}
+.cpfchart .ln.sw-bas{stroke:#6B3FA0;fill:none !important;}
 .cpfchart .ln.sw-esc{stroke:#A8763E;fill:none !important;}
 .cpfchart rect.br.sw-std{fill:#1F3D2B;stroke:none;}
-.cpfchart rect.br.sw-bas{fill:#2C6E63;stroke:none;}
+.cpfchart rect.br.sw-bas{fill:#6B3FA0;stroke:none;}
 .cpfchart rect.br.sw-esc{fill:#A8763E;stroke:none;}
 
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:30px;font-size:13.5px;color:var(--color-ink-soft);}
 .lg{display:flex;align-items:center;gap:8px;}
-.sw{width:16px;height:3px;border-radius:2px;display:inline-block;flex:0 0 16px;}
-i.sw-std{background:#1F3D2B;} i.sw-bas{background:#2C6E63;} i.sw-esc{background:#A8763E;}
+.sw{width:20px;height:4px;border-radius:2px;display:inline-block;flex:0 0 16px;}
+i.sw-std{background:#1F3D2B;} i.sw-bas{background:#6B3FA0;} i.sw-esc{background:#A8763E;}
 
 /* stat cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:8px;}
@@ -254,7 +256,7 @@ i.sw-std{background:#1F3D2B;} i.sw-bas{background:#2C6E63;} i.sw-esc{background:
   border-radius:3px;overflow:hidden;position:relative;}
 .barfill{display:block;height:100%;transition:width .3s ease;}
 .barfill.sw-brs{background:#2C6E63;} .barfill.sw-frs{background:#7A4F2C;} .barfill.sw-ers{background:#6B3FA0;}
-.barfill.sw-std{background:#1F3D2B;} .barfill.sw-bas{background:#2C6E63;} .barfill.sw-esc{background:#A8763E;}
+.barfill.sw-std{background:#1F3D2B;} .barfill.sw-bas{background:#6B3FA0;} .barfill.sw-esc{background:#A8763E;}
 .barval{flex:0 0 132px;font-size:13px;color:var(--color-ink-soft);text-align:right;font-variant-numeric:tabular-nums;}
 
 td.up{color:#2C6E63;font-weight:600;}
@@ -1089,10 +1091,11 @@ td.up{color:#2C6E63;font-weight:600;}
     var zero=null;
     for (var a=66;a<=105;a++){ if (bequest(g,s,'Standard',65,a,state.premPct)<=0){ zero=a; break; } }
     $('note7').innerHTML = '<strong>CPF LIFE is longevity insurance, not a legacy vehicle.</strong> '+
-      'Under Standard the premium is fully repaid to you in payouts by about age <strong>'+(zero||'—')+
-      '</strong>, after which nothing is left to pass on. Basic keeps a bequest far longer because '+
-      Math.round(100-state.premPct)+'% of your Retirement Account stays yours and is drawn down slowly. '+
-      'If leaving money behind matters, that is what insurance outside CPF is for.';
+      'Under the Standard Plan your payouts have returned the whole premium to you by around age '+
+      (zero||'—')+', and from that point there is nothing left to pass on. Basic holds a bequest much '+
+      'longer, because '+Math.round(100-state.premPct)+'% of your Retirement Account stays yours and is '+
+      'drawn down slowly rather than converted upfront. If leaving money behind matters to your client, '+
+      'that is a job for cover held outside CPF.';
   }
 
   /* ---------- wiring ---------- */
