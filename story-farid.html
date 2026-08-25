@@ -54,7 +54,17 @@
       <a href="finance.html">Finance</a>
       <a href="estate-legacy.html">Estate &amp; Legacy</a>
       <a href="client-stories.html" class="active">Client Stories</a>
-      <a href="isp.html">ISP</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool</a>
+          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
+        </div>
+      </div>
       <a href="get-started.html">Get Started</a>
     </nav>
     <div class="nav-cta">
@@ -112,7 +122,7 @@
   <div class="cta-block">
     <p class="eyebrow">Planning for your children</p>
     <p>If you have existing plans for your children and are not sure whether the structure still makes sense, it is worth a look. We are happy to go through it with you.</p>
-    <a href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener" class="btn btn-on-dark">Message us on WhatsApp</a>
+    <a href="get-started.html#contact" class="btn btn-on-dark">Worth a conversation</a>
   </div>
 </div>
 
@@ -149,7 +159,7 @@
   </div>
 </footer>
 <script>
-  var toggle=document.getElementById('navToggle');var links=document.getElementById('navLinks');
+  function toggleDropdown(){document.getElementById('toolsDropdown').classList.toggle('open');}document.addEventListener('click',function(e){var d=document.getElementById('toolsDropdown');if(d&&!d.contains(e.target))d.classList.remove('open');});var toggle=document.getElementById('navToggle');var links=document.getElementById('navLinks');
   toggle.addEventListener('click',function(){var open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',open?'true':'false');});
   links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');toggle.setAttribute('aria-expanded','false');});});
 </script>
