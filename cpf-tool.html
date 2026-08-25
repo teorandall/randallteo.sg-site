@@ -223,11 +223,14 @@ table.proj tbody td{color:var(--color-ink-soft);font-style:italic;}
 .cpfchart .grid{stroke:var(--color-line);stroke-width:1;}
 .cpfchart .axl{font-family:var(--font-body);font-size:11px;fill:var(--color-ink-soft);}
 .cpfchart .axv{font-family:var(--font-body);font-size:11px;fill:var(--color-green-deep);font-weight:600;}
-.cpfchart .ln{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.cpfchart .ln{fill:none !important;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;}
 .cpfchart .br{rx:2;}
-.ln.sw-std,.br.sw-std{stroke:#1F3D2B;fill:#1F3D2B;}
-.ln.sw-bas,.br.sw-bas{stroke:#2C6E63;fill:#2C6E63;}
-.ln.sw-esc,.br.sw-esc{stroke:#A8763E;fill:#A8763E;}
+.cpfchart .ln.sw-std{stroke:#1F3D2B;fill:none !important;}
+.cpfchart .ln.sw-bas{stroke:#2C6E63;fill:none !important;}
+.cpfchart .ln.sw-esc{stroke:#A8763E;fill:none !important;}
+.cpfchart rect.br.sw-std{fill:#1F3D2B;stroke:none;}
+.cpfchart rect.br.sw-bas{fill:#2C6E63;stroke:none;}
+.cpfchart rect.br.sw-esc{fill:#A8763E;stroke:none;}
 
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:30px;font-size:13.5px;color:var(--color-ink-soft);}
 .lg{display:flex;align-items:center;gap:8px;}
@@ -264,6 +267,15 @@ td.up{color:#2C6E63;font-weight:600;}
   .barlab{flex:1 1 100%;} .barval{flex:0 0 auto;text-align:left;}
   .chartbox{padding:12px 8px;}
 }
+
+/* account-flow steps (tab 5) */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:30px;}
+.stepbox{background:#fff;border:1px solid var(--color-line);border-top:3px solid var(--color-green-mid);
+  padding:16px 18px;border-radius:0 0 3px 3px;}
+.step-t{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--color-copper-text);margin:0 0 7px;line-height:1.35;}
+.step-v{font-family:var(--font-display);font-size:22px;color:var(--color-green-deep);margin:0 0 5px;line-height:1.1;}
+.step-s{font-size:12.5px;color:var(--color-ink-soft);margin:0;line-height:1.5;}
 </style>
 </head>
 <body class="locked">
@@ -344,6 +356,10 @@ td.up{color:#2C6E63;font-weight:600;}
       <div class="field hidden" id="oaField">
         <label for="oaBal">Ordinary Account balance</label>
         <div class="money"><span>S$</span><input id="oaBal" type="text" inputmode="numeric" placeholder="0"></div>
+      </div>
+      <div class="field">
+        <label for="target">Target monthly income</label>
+        <div class="money"><span>S$</span><input id="target" type="text" inputmode="numeric" placeholder="3,000"></div>
       </div>
       <div class="field readout">
         <span class="readout-label">Age this year</span>
@@ -448,7 +464,7 @@ td.up{color:#2C6E63;font-weight:600;}
       <h2 class="sec-h">Starting at 65 versus later</h2>
       <p class="sec-sub">Every year you defer raises the payout for life. Nothing is lost by waiting
         except the payouts you skip.</p>
-      <div class="segwrap" id="segSum3"></div>
+      <div class="segwrap nosl" id="segSum3"></div>
       <div class="chartbox"><div id="chart3"></div></div>
       <div class="table-scroll"><table class="sums" id="tbl3"><thead><tr>
         <th class="c-year">Start age</th><th>Standard</th><th>vs 65</th>
@@ -464,12 +480,12 @@ td.up{color:#2C6E63;font-weight:600;}
       <h2 class="sec-h">Where the lines cross</h2>
       <p class="sec-sub">Two crossover points decide most of this: when deferring catches up, and when
         Escalating overtakes Standard.</p>
-      <div class="segwrap" id="segSum4"></div>
+      <div class="segwrap nosl" id="segSum4"></div>
       <div class="cards" id="cards4"></div>
       <h3 class="sub-h">Deferring to each age — cumulative total received</h3>
       <div class="table-scroll"><table class="sums" id="tbl4"><thead><tr>
         <th class="c-year">Start age</th><th>Monthly</th><th>Break-even age</th>
-        <th>Total by 85</th><th>Total by 90</th><th>Total by 95</th>
+        <th>Premium back by</th><th>Total by 85</th><th>Total by 90</th><th>Total by 95</th>
       </tr></thead><tbody></tbody></table></div>
       <div class="keynote" id="note4"></div>
     </div>
@@ -482,6 +498,7 @@ td.up{color:#2C6E63;font-weight:600;}
       <p class="sec-sub">Measured against your own cohort's sums.</p>
       <div class="verdict"><p class="verdict-eyebrow">Your position</p>
         <div class="verdict-body" id="gapBody">Enter your balances above.</div></div>
+      <div class="split" id="split5"></div>
       <div class="bars" id="bars5"></div>
       <h3 class="sub-h">Routes to close a shortfall</h3>
       <div class="defs">
@@ -505,12 +522,7 @@ td.up{color:#2C6E63;font-weight:600;}
     <div class="wrap">
       <h2 class="sec-h">Your income gap</h2>
       <p class="sec-sub">What CPF LIFE covers, and what is left to plan for.</p>
-      <div class="proj-control">
-        <label for="target">Target monthly income in retirement</label>
-        <div class="money" style="max-width:170px;"><span>S$</span>
-          <input id="target" type="text" inputmode="numeric" placeholder="3,000"></div>
-      </div>
-      <div class="segwrap" id="segSum6"></div>
+      <div class="segwrap nosl" id="segSum6"></div>
       <div class="gapviz" id="gap6"></div>
       <div class="keynote" id="note6"></div>
     </div>
@@ -770,13 +782,18 @@ td.up{color:#2C6E63;font-weight:600;}
   }
 
   /* ---------- segmented controls ---------- */
-  function seg(id, onPick){
+  function seg(id){
     var el = $(id); if (!el) return;
-    el.innerHTML = ['BRS','FRS','ERS'].map(function(s){
-      return '<button class="segb'+(s===state.sum?' on':'')+'" data-s="'+s+'">'+s+
-             ' <span>'+fmt(SUM_AMT[s])+'</span></button>';
-    }).join('') +
-    '<span class="segnote">Basic premium <input type="range" id="'+id+'_p" min="10" max="20" step="1" value="'+state.premPct+'"> <output>'+state.premPct+'%</output></span>';
+    var withSlider = !el.classList.contains('nosl');
+    var html = ['BRS','FRS','ERS'].map(function(sm){
+      return '<button class="segb'+(sm===state.sum?' on':'')+'" data-s="'+sm+'">'+sm+
+             ' <span>'+fmt(SUM_AMT[sm])+'</span></button>';
+    }).join('');
+    if (withSlider){
+      html += '<span class="segnote">Basic premium <input type="range" id="'+id+
+        '_p" min="10" max="20" step="1" value="'+state.premPct+'"> <output>'+state.premPct+'%</output></span>';
+    }
+    el.innerHTML = html;
     el.querySelectorAll('.segb').forEach(function(b){
       b.addEventListener('click', function(){ state.sum = b.dataset.s; renderAll(); });
     });
@@ -803,11 +820,18 @@ td.up{color:#2C6E63;font-weight:600;}
     return { by:by, age:age, cohort:isNaN(by)?null:by+55, under55: age!==null && age<55,
              gender: $('gender').value };
   }
-  function projectedRA(c){
+  function projectedRA(c, rate){
     if (c.age === null) return null;
-    if (!c.under55) return num($('raBal'));
-    var sa = num($('saBal')), oa = num($('oaBal')), yrs = 55-c.age;
-    return sa*Math.pow(1.04,yrs) + oa*Math.pow(1.025,yrs);
+    if (!c.under55) return { ra:num($('raBal')), oaLeft:0, saLeft:0, topup:0, capped:false };
+    var yrs = 55 - c.age;
+    var sa55 = num($('saBal')) * Math.pow(1.04, yrs);
+    var oa55 = num($('oaBal')) * Math.pow(1.025, yrs);
+    var cap  = sumsFor(c.cohort, rate).frs;        // RA is filled up to the Full Retirement Sum
+    var fromSA = Math.min(sa55, cap);
+    var need   = Math.max(0, cap - fromSA);
+    var topup  = Math.min(oa55, need);
+    return { ra: fromSA + topup, oaLeft: oa55 - topup, saLeft: sa55 - fromSA,
+             topup: topup, cap: cap, sa55: sa55, oa55: oa55, capped: fromSA >= cap };
   }
 
   /* ---------- render ---------- */
@@ -820,10 +844,11 @@ td.up{color:#2C6E63;font-weight:600;}
     $('ageOut').textContent = c.age===null?'—':c.age;
     $('cohortOut').textContent = c.cohort===null?'':(c.under55?'turns 55 in ':'turned 55 in ')+c.cohort;
 
-    var pra = projectedRA(c);
+    var pra = projectedRA(c, rate);
     $('raProjLabel').textContent = c.under55 ? 'Projected RA at 55' : 'Retirement Account';
-    $('raProjOut').textContent = (pra===null||!pra)?'—':fmt(pra);
-    $('raProjSub').textContent = c.under55 && pra ? 'SA at 4%, OA at 2.5%, no further contributions' : '';
+    $('raProjOut').textContent = (!pra || !pra.ra) ? '—' : fmt(pra.ra);
+    $('raProjSub').textContent = (c.under55 && pra && pra.ra)
+      ? 'SA first, then OA to reach the FRS' : '';
 
     tab1(c, rate);
     ['segSum2','segSum3','segSum4','segSum6','segSum7'].forEach(function(id){ seg(id); });
@@ -940,8 +965,10 @@ td.up{color:#2C6E63;font-weight:600;}
     [65,66,67,68,69,70].forEach(function(a){
       var be=null;
       if (a>65){ for (var x=a; x<=105; x++){ if (cumAt('Standard',a,x) >= cumAt('Standard',65,x)){ be=x; break; } } }
+      var back=null;
+      for (var y=a; y<=110; y++){ if (cumAt('Standard',a,y) >= SUM_AMT[s]){ back=y; break; } }
       rows += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td><td>'+
-        fmt(payout(g,s,'Standard',a))+'</td><td>'+(be?be:'—')+'</td><td>'+
+        fmt(payout(g,s,'Standard',a))+'</td><td>'+(be?be:'—')+'</td><td>'+(back?back:'—')+'</td><td>'+
         fmt(cumAt('Standard',a,85))+'</td><td>'+fmt(cumAt('Standard',a,90))+'</td><td>'+
         fmt(cumAt('Standard',a,95))+'</td></tr>';
     });
@@ -960,7 +987,11 @@ td.up{color:#2C6E63;font-weight:600;}
       card('Deferring 65 → 70', be70?('age '+be70):'—', 'When the higher payout has repaid the five years you skipped') +
       card('Escalating overtakes Standard', cross?('age '+cross):'—', 'Monthly payout crosses over') +
       card('Escalating repays in total', crossCum?('age '+crossCum):'beyond 105', 'Cumulative received catches up');
-    $('note4').innerHTML = '<strong>How to use this.</strong> Deferral pays off only if you live past '+
+    $('note4').innerHTML = '<strong>Two different questions.</strong> <em>Break-even age</em> compares '+
+      'starting later against starting at 65 — it is where the bigger payout has repaid the years you '+
+      'skipped. <em>Premium back by</em> is when your payouts have simply returned your own '+state.sum+
+      ' capital, regardless of when you started. They are not the same number. '+
+      'Deferral pays off only if you live past '+
       (be70?be70:'the break-even age')+'. Escalating crosses Standard monthly at '+(cross?cross:'—')+
       ', but does not repay in cumulative terms until '+(crossCum?crossCum:'beyond 105')+
       '. Both are longevity bets: right if you live long, wrong if you do not.';
@@ -972,27 +1003,52 @@ td.up{color:#2C6E63;font-weight:600;}
   /* ---- tab 5 ---- */
   function tab5(c, rate, pra){
     var el=$('gapBody');
-    if (c.age===null || !pra){ el.textContent='Enter your balances above.'; $('bars5').innerHTML=''; return; }
+    if (c.age===null || !pra || !pra.ra){
+      el.textContent='Enter your balances above.'; $('bars5').innerHTML=''; $('split5').innerHTML=''; return;
+    }
     var mine=sumsFor(c.cohort,rate), now=sumsFor(NOW,rate);
+
+    if (c.under55){
+      $('split5').innerHTML =
+        '<h3 class="sub-h">How your accounts move at 55</h3>' +
+        '<div class="steps">' +
+        step('Special Account at 55', fmt(pra.sa55), 'Grown at 4% from today') +
+        step('Into the Retirement Account', fmt(Math.min(pra.sa55, pra.cap)), 'SA is used first') +
+        (pra.topup>0
+          ? step('Topped up from Ordinary Account', fmt(pra.topup), 'Only the shortfall to the FRS is taken')
+          : step('Topped up from Ordinary Account', 'none', 'Your SA alone reaches the FRS')) +
+        step('Ordinary Account left liquid', fmt(pra.oaLeft), 'Stays in your OA, not swept into the RA') +
+        (pra.saLeft>0 ? step('SA above the FRS', fmt(pra.saLeft), 'Withdrawable from 55') : '') +
+        '</div>';
+    } else { $('split5').innerHTML=''; }
+
     var targets=[{k:'BRS',v:mine.brs,c:'sw-brs'},{k:'FRS',v:mine.frs,c:'sw-frs'},{k:'ERS',v:now.ers,c:'sw-ers'}];
-    var max=now.ers;
     $('bars5').innerHTML = targets.map(function(t){
-      var pct=Math.min(100,pra/t.v*100), gap=t.v-pra;
+      var pct=Math.min(100,pra.ra/t.v*100), gap=t.v-pra.ra;
       return '<div class="barrow"><span class="barlab">'+t.k+' '+fmt(t.v)+'</span>'+
         '<span class="bartrack"><i class="barfill '+t.c+'" style="width:'+pct.toFixed(1)+'%"></i></span>'+
         '<span class="barval">'+(gap>0?'short '+fmt(gap):'met')+'</span></div>';
     }).join('');
-    var reached = pra>=now.ers?'ERS':(pra>=mine.frs?'FRS':(pra>=mine.brs?'BRS':'below BRS'));
-    var gapFRS = mine.frs - pra;
+
+    var reached = pra.ra>=now.ers?'the ERS':(pra.ra>=mine.frs?'the FRS':(pra.ra>=mine.brs?'the BRS':'below the BRS'));
+    var gapFRS = mine.frs - pra.ra;
     el.innerHTML = (c.under55
-      ? 'On current balances, your Retirement Account at 55 is projected at <strong>'+fmt(pra)+'</strong>. '
-      : 'Your Retirement Account holds <strong>'+fmt(pra)+'</strong>. ')
-      + 'That places you at <strong>'+reached+'</strong>.'
-      + (gapFRS>0 ? ' You are '+fmt(gapFRS)+' short of the Full Retirement Sum.' :
-                    ' You have met the Full Retirement Sum.');
+      ? 'On current balances your Retirement Account at 55 is projected at <strong>'+fmt(pra.ra)+'</strong>, '+
+        'with <strong>'+fmt(pra.oaLeft)+'</strong> remaining liquid in your Ordinary Account. '
+      : 'Your Retirement Account holds <strong>'+fmt(pra.ra)+'</strong>. ')
+      + 'That puts you at <strong>'+reached+'</strong>.'
+      + (gapFRS>0 ? ' You are '+fmt(gapFRS)+' short of the Full Retirement Sum.'
+                  : ' The Full Retirement Sum is met.')
+      + (c.under55 && !pra.capped && pra.topup>0
+          ? ' Note that only the shortfall was drawn from your OA — the balance stays available to you.'
+          : '');
+
     $('note5').innerHTML = '<strong>Timing matters more than people expect.</strong> CPF computes interest '+
       'on the lowest balance in each month and credits it yearly, so a top-up made in January earns a '+
       'full year of interest while the same top-up in December earns almost none.';
+  }
+  function step(t,v,s){
+    return '<div class="stepbox"><p class="step-t">'+t+'</p><p class="step-v">'+v+'</p><p class="step-s">'+s+'</p></div>';
   }
 
   /* ---- tab 6 ---- */
