@@ -278,6 +278,9 @@ td.up{color:#2C6E63;font-weight:600;}
   color:var(--color-copper-text);margin:0 0 7px;line-height:1.35;}
 .step-v{font-family:var(--font-display);font-size:22px;color:var(--color-green-deep);margin:0 0 5px;line-height:1.1;}
 .step-s{font-size:12.5px;color:var(--color-ink-soft);margin:0;line-height:1.5;}
+
+.cpfchart .axb{font-size:12.5px;fill:var(--color-ink);font-weight:600;}
+.cpfchart .axsub{font-size:10.5px;fill:var(--color-ink-soft);}
 </style>
 </head>
 <body class="locked">
@@ -770,15 +773,16 @@ td.up{color:#2C6E63;font-weight:600;}
 
   function barChart(el, items, opts){
     opts = opts||{};
-    var W=760, H=280, L=68, R=18, T=14, B=40;
+    var W=760, H=296, L=68, R=18, T=14, B=56;
     var max = Math.max.apply(null, items.map(function(i){ return i.v; }))*1.15;
     var bw = (W-L-R)/items.length;
     var g='';
     items.forEach(function(it,i){
-      var h = (it.v/max)*(H-T-B), x = L+i*bw+bw*0.18, w = bw*0.64;
+      var h = (it.v/max)*(H-T-B), x = L+i*bw+bw*0.18, w = bw*0.64, cx = x+w/2;
       g += '<rect x="'+x+'" y="'+(H-B-h)+'" width="'+w+'" height="'+h+'" class="br '+(it.cls||'')+'"/>'
-         + '<text x="'+(x+w/2)+'" y="'+(H-B-h-7)+'" class="axv" text-anchor="middle">'+fmt0(it.v)+'</text>'
-         + '<text x="'+(x+w/2)+'" y="'+(H-B+20)+'" class="axl" text-anchor="middle">'+it.label+'</text>';
+         + '<text x="'+cx+'" y="'+(H-B-h-8)+'" class="axv" text-anchor="middle">'+fmt(it.v)+'</text>'
+         + '<text x="'+cx+'" y="'+(H-B+20)+'" class="axl axb" text-anchor="middle">'+it.label+'</text>'
+         + '<text x="'+cx+'" y="'+(H-B+35)+'" class="axl axsub" text-anchor="middle">(age)</text>';
     });
     el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" class="cpfchart">'+g+'</svg>';
   }
