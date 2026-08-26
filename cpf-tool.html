@@ -281,6 +281,11 @@ td.up{color:#2C6E63;font-weight:600;}
 
 .cpfchart .axb{font-size:12.5px;fill:var(--color-ink);font-weight:600;}
 .cpfchart .axsub{font-size:10.5px;fill:var(--color-ink-soft);}
+
+.cpfchart{shape-rendering:geometricPrecision;}
+.segb.mine{border-color:var(--color-copper);}
+.segb.mine.on{background:var(--color-copper);border-color:var(--color-copper);}
+.legend{margin-bottom:14px;}
 </style>
 </head>
 <body class="locked">
@@ -316,7 +321,7 @@ td.up{color:#2C6E63;font-weight:600;}
         </button>
         <div class="nav-dropdown-menu">
           <a href="isp.html">ISP Comparison</a>
-          <a href="cpf-tool.html">CPF Tool</a>
+          <a href="cpf-tool.html">CPF Tool <span class="tool-badge">Soon</span></a>
           <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
         </div>
       </div>
@@ -449,12 +454,12 @@ td.up{color:#2C6E63;font-weight:600;}
       <h2 class="sec-h">The three CPF LIFE plans</h2>
       <p class="sec-sub">Monthly payout from age 65 through 95. Pick a retirement sum to compare.</p>
       <div class="segwrap" id="segSum2"></div>
-      <div class="chartbox"><div id="chart2"></div></div>
       <div class="legend">
         <span class="lg"><i class="sw sw-std"></i>Standard — level for life</span>
-        <span class="lg"><i class="sw sw-bas"></i>Basic — lower, steps down, largest bequest</span>
+        <span class="lg"><i class="sw sw-bas"></i>Basic — steps down, largest bequest</span>
         <span class="lg"><i class="sw sw-esc"></i>Escalating — starts lowest, rises 2% a year</span>
       </div>
+      <div class="chartbox"><div id="chart2"></div></div>
       <div class="table-scroll"><table class="sums" id="tbl2"><thead><tr>
         <th class="c-year">Age</th><th>Standard</th><th>Basic</th><th>Escalating</th>
       </tr></thead><tbody></tbody></table></div>
@@ -540,6 +545,11 @@ td.up{color:#2C6E63;font-weight:600;}
       <p class="sec-sub">The bequest is any unused premium plus whatever remains in your Retirement
         Account. Payouts assumed to start at 65.</p>
       <div class="segwrap" id="segSum7"></div>
+      <div class="legend">
+        <span class="lg"><i class="sw sw-std"></i>Standard — level for life</span>
+        <span class="lg"><i class="sw sw-bas"></i>Basic — steps down, largest bequest</span>
+        <span class="lg"><i class="sw sw-esc"></i>Escalating — starts lowest, rises 2% a year</span>
+      </div>
       <div class="chartbox"><div id="chart7"></div></div>
       <div class="table-scroll"><table class="sums" id="tbl7"><thead><tr>
         <th class="c-year">Age at death</th><th>Standard</th><th>Basic</th><th>Escalating</th>
@@ -662,23 +672,56 @@ td.up{color:#2C6E63;font-weight:600;}
     try { return PAYOUTS[gender][sum][plan][startAge]; } catch(e){ return null; }
   }
 
+  /* Payouts are near-linear in the Retirement Account balance (within 0.4% across the
+     three captured anchors), so any balance is interpolated between them. */
+  function payoutAt(gender, plan, startAge, amount){
+    var keys=['BRS','FRS','ERS'], pts=[];
+    for (var i=0;i<3;i++){
+      var v=payout(gender,keys[i],plan,startAge);
+      if (v==null) return null;
+      pts.push([SUM_AMT[keys[i]], v]);
+    }
+    if (amount <= pts[0][0]) return lin(pts[0],pts[1],amount);
+    if (amount >= pts[2][0]) return lin(pts[1],pts[2],amount);
+    return amount <= pts[1][0] ? lin(pts[0],pts[1],amount) : lin(pts[1],pts[2],amount);
+  }
+  function lin(a,b,x){ return a[1] + (x-a[0])*(b[1]-a[1])/(b[0]-a[0]); }
+
+  /* Retirement Account compounded from 55 (or from today, if already past 55) to 65. */
+  function raInterest(bal){
+    return bal*0.04 + Math.min(bal,30000)*0.02 + Math.max(0, Math.min(bal-30000,30000))*0.01;
+  }
+  function growTo65(bal, fromAge){
+    var b = bal;
+    for (var a = Math.max(fromAge,55); a < 65; a++) b += raInterest(b);
+    return b;
+  }
+  var CLIENT = { ra55:null, ra65:null };
+  function activeAmount(){
+    return (state.sum === 'MINE' && CLIENT.ra65) ? CLIENT.ra65 : SUM_AMT[state.sum];
+  }
+  /* The annuity premium is the balance at 65. The client's own figure is already
+     grown to 65; the BRS/FRS/ERS anchors are amounts set aside at 55, so they compound. */
+  function premiumAt65(){
+    return state.sum === 'MINE' ? activeAmount() : growTo65(activeAmount(), 55);
+  }
+  function activeLabel(){
+    return state.sum === 'MINE' ? 'your projected balance' : 'the ' + state.sum;
+  }
+
   /* ---------- Basic Plan model ----------
      Captured starting payout is the total the client receives.
      Premium slider sizes the annuity pool; the retained RA is set to drain at 90.
      Payouts step down as the RA falls through the $60k and $30k extra-interest tiers. */
-  function raInterest(bal){
-    // 4% base, plus 2% extra on the first $30k and 1% on the next $30k
-    return bal*0.04 + Math.min(bal,30000)*0.02 + Math.max(0, Math.min(bal-30000,30000))*0.01;
-  }
   function drainAt(retained, monthly, years){
     var bal = retained;
     for (var i=0;i<years;i++){ bal = bal + raInterest(bal) - monthly*12; if (bal<0) return bal; }
     return bal;
   }
-  function basicProfile(gender, sum, startAge, premPct){
-    var total0 = payout(gender, sum, 'Basic', startAge);
+  function basicProfile(gender, amount, startAge, premPct){
+    var total0 = payoutAt(gender, 'Basic', startAge, amount);
     if (total0 == null) return null;
-    var ra0 = SUM_AMT[sum];
+    var ra0 = amount;
     var premium = ra0 * premPct/100;
     var retained = ra0 - premium;
     var yrs = 90 - startAge;
@@ -715,31 +758,35 @@ td.up{color:#2C6E63;font-weight:600;}
              raMonthly:raMonthly, poolMonthly:poolMonthly };
   }
 
-  function series(gender, sum, plan, startAge, premPct){
+  function series(gender, amount, plan, startAge, premPct){
     var out = [];
     if (plan === 'Basic'){
-      var b = basicProfile(gender, sum, startAge, premPct);
+      var b = basicProfile(gender, amount, startAge, premPct);
       if (!b) return out;
-      return b.rows.map(function(r){ return {age:r.age, v:r.total}; });
+      for (var i=0;i<b.rows.length;i++){
+        for (var m=0;m<12;m++) out.push({ age: b.rows[i].age + m/12, v: b.rows[i].total });
+      }
+      return out;
     }
-    var p = payout(gender, sum, plan, startAge);
+    var p = payoutAt(gender, plan, startAge, amount);
     if (p == null) return out;
-    for (var a = startAge; a <= 100; a++){
-      out.push({ age:a, v: plan==='Escalating' ? p*Math.pow(1.02, a-startAge) : p });
+    for (var m = 0; m <= (100-startAge)*12; m++){
+      var a = startAge + m/12;
+      out.push({ age:a, v: plan==='Escalating' ? p*Math.pow(1.02, m/12) : p });
     }
     return out;
   }
 
-  function bequest(gender, sum, plan, startAge, deathAge, premPct){
-    var ra0 = SUM_AMT[sum];
+  function bequest(gender, amount, plan, startAge, deathAge, premPct){
+    var ra0 = amount;
     if (plan === 'Basic'){
-      var b = basicProfile(gender, sum, startAge, premPct);
+      var b = basicProfile(gender, amount, startAge, premPct);
       if (!b) return 0;
       var row = b.rows.filter(function(r){ return r.age === deathAge; })[0];
       return row ? row.ra + row.prem : 0;
     }
-    var s = series(gender, sum, plan, startAge, premPct), cum = 0;
-    for (var i=0;i<s.length;i++){ if (s[i].age >= deathAge) break; cum += s[i].v*12; }
+    var s = series(gender, amount, plan, startAge, premPct), cum = 0;
+    for (var i=0;i<s.length;i++){ if (s[i].age >= deathAge) break; cum += s[i].v; }
     return Math.max(0, ra0 - cum);
   }
 
@@ -791,17 +838,22 @@ td.up{color:#2C6E63;font-weight:600;}
   function seg(id){
     var el = $(id); if (!el) return;
     var withSlider = !el.classList.contains('nosl');
-    var html = ['BRS','FRS','ERS'].map(function(sm){
+    var opts = ['BRS','FRS','ERS'].map(function(sm){
       return '<button class="segb'+(sm===state.sum?' on':'')+'" data-s="'+sm+'">'+sm+
              ' <span>'+fmt(SUM_AMT[sm])+'</span></button>';
-    }).join('');
+    });
+    if (CLIENT.ra65){
+      opts.unshift('<button class="segb mine'+(state.sum==='MINE'?' on':'')+'" data-s="MINE">Yours'+
+        ' <span>'+fmt(CLIENT.ra65)+' at 65</span></button>');
+    }
+    var html = opts.join('');
     if (withSlider){
       html += '<span class="segnote">Basic premium <input type="range" id="'+id+
         '_p" min="10" max="20" step="1" value="'+state.premPct+'"> <output>'+state.premPct+'%</output></span>';
     }
     el.innerHTML = html;
     el.querySelectorAll('.segb').forEach(function(b){
-      b.addEventListener('click', function(){ state.sum = b.dataset.s; renderAll(); });
+      b.addEventListener('click', function(){ state.sum = b.dataset.s; state.touched = true; renderAll(); });
     });
     var rp = $(id+'_p');
     if (rp) rp.addEventListener('input', function(){ state.premPct = +rp.value; renderAll(); });
@@ -856,6 +908,11 @@ td.up{color:#2C6E63;font-weight:600;}
     $('raProjSub').textContent = (c.under55 && pra && pra.ra)
       ? 'SA first, then OA to reach the FRS' : '';
 
+    CLIENT.ra55 = (pra && pra.ra) ? pra.ra : null;
+    CLIENT.ra65 = CLIENT.ra55 ? growTo65(CLIENT.ra55, c.age) : null;
+    if (!CLIENT.ra65 && state.sum === 'MINE') state.sum = 'FRS';
+    if (CLIENT.ra65 && !state.touched) state.sum = 'MINE';
+
     tab1(c, rate);
     ['segSum2','segSum3','segSum4','segSum6','segSum7'].forEach(function(id){ seg(id); });
     tab2(c); tab3(c); tab4(c); tab5(c, rate, pra); tab6(c); tab7(c);
@@ -906,102 +963,104 @@ td.up{color:#2C6E63;font-weight:600;}
   /* ---- tab 2 ---- */
   function tab2(c){
     if (c.age===null) return;
-    var g=c.gender, s=state.sum;
+    var g=c.gender, amt=activeAmount();
     var sets = PLANS.map(function(p,i){
       return { cls:['sw-std','sw-bas','sw-esc'][i],
-               pts: series(g,s,p,65,state.premPct).filter(function(r){return r.age<=95;})
+               pts: series(g,amt,p,65,state.premPct).filter(function(r){return r.age<=95;})
                       .map(function(r){ return {x:r.age,y:r.v}; }) };
     });
-    lineChart($('chart2'), sets, {money:true, label:'CPF LIFE monthly payout by plan'});
+    lineChart($('chart2'), sets, {label:'CPF LIFE monthly payout by plan'});
     var tb = $('tbl2').querySelector('tbody'), h='';
     [65,70,75,80,85,90,95].forEach(function(a){
       h += '<tr><td class="c-year">'+a+'</td>' + PLANS.map(function(p){
-        var r = series(g,s,p,65,state.premPct).filter(function(x){return x.age===a;})[0];
+        var r = series(g,amt,p,65,state.premPct).filter(function(x){return Math.abs(x.age-a)<0.01;})[0];
         return '<td>'+(r?fmt(r.v):'—')+'</td>';
       }).join('') + '</tr>';
     });
     tb.innerHTML=h;
-    var st=payout(g,s,'Standard',65), es=payout(g,s,'Escalating',65);
-    var cross=null, sr=series(g,s,'Escalating',65,state.premPct);
-    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=sr[i].age; break; } }
-    $('note2').innerHTML = '<strong>Reading this chart.</strong> Escalating starts '+
-      fmt(st-es)+' a month below Standard'+(cross?' and overtakes it at age <strong>'+cross+'</strong>':'')+
-      '. Basic pays least throughout and steps down as your Retirement Account drains through the '+
-      '$60,000 and $30,000 extra-interest thresholds — but it is the only plan that leaves a meaningful '+
-      'bequest past your late seventies.';
-    $('src2').textContent = 'Starting payouts from the CPF LIFE Estimator. Escalating derived at 2% a year. '+
-      'The Basic curve is modelled by this tool.';
+    var st=payoutAt(g,'Standard',65,amt), es=payoutAt(g,'Escalating',65,amt);
+    var cross=null, sr=series(g,amt,'Escalating',65,state.premPct);
+    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=Math.round(sr[i].age); break; } }
+    $('note2').innerHTML = '<strong>Reading this chart.</strong> Based on '+activeLabel()+' of '+
+      fmt(amt)+' at 65. Escalating starts '+fmt(st-es)+' a month below Standard'+
+      (cross?' and overtakes it at age '+cross:'')+
+      '. Basic pays least throughout and steps down as the Retirement Account drains through the '+
+      '$60,000 and $30,000 extra-interest thresholds, but it is the only plan leaving a meaningful '+
+      'bequest past the late seventies.';
+    $('src2').textContent = 'Starting payouts interpolated from CPF LIFE Estimator figures captured at '+
+      'the BRS, FRS and ERS. Escalating derived at 2% a year. The Basic curve is modelled by this tool.';
   }
 
   /* ---- tab 3 ---- */
   function tab3(c){
     if (c.age===null) return;
-    var g=c.gender, s=state.sum;
+    var g=c.gender, amt=activeAmount();
     barChart($('chart3'), [65,66,67,68,69,70].map(function(a){
-      return { label:a, v: payout(g,s,'Standard',a)||0, cls:'sw-std' };
+      return { label:a, v: payoutAt(g,'Standard',a,amt)||0, cls:'sw-std' };
     }));
     var tb=$('tbl3').querySelector('tbody'), h='';
     [65,66,67,68,69,70].forEach(function(a){
       h += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td>';
       PLANS.forEach(function(p){
-        var v=payout(g,s,p,a), b=payout(g,s,p,65);
+        var v=payoutAt(g,p,a,amt), b=payoutAt(g,p,65,amt);
         h += '<td>'+(v?fmt(v):'—')+'</td><td class="'+(a>65?'up':'')+'">'+
              (v&&b&&a>65?'+'+Math.round((v/b-1)*100)+'%':'—')+'</td>';
       });
       h += '</tr>';
     });
     tb.innerHTML=h;
-    var s65=payout(g,s,'Standard',65), s70=payout(g,s,'Standard',70);
-    $('note3').innerHTML = '<strong>What deferral buys.</strong> Waiting from 65 to 70 lifts the Standard '+
-      'payout from '+fmt(s65)+' to '+fmt(s70)+' a month, a rise of <strong>'+
-      Math.round((s70/s65-1)*100)+'%</strong> for life. The trade is five years of payouts you never '+
-      'receive — worth '+fmt(s65*12*5)+' in total. The Break-even tab shows when you get it back.';
+    var s65=payoutAt(g,'Standard',65,amt), s70=payoutAt(g,'Standard',70,amt);
+    $('note3').innerHTML = '<strong>What deferral buys.</strong> Based on '+activeLabel()+' of '+fmt(amt)+
+      '. Waiting from 65 to 70 lifts the Standard payout from '+fmt(s65)+' to '+fmt(s70)+
+      ' a month, a rise of '+Math.round((s70/s65-1)*100)+'% for life. The trade is five years of payouts '+
+      'never received, worth '+fmt(s65*12*5)+' in total. The Break-even tab shows when that is recovered.';
   }
 
   /* ---- tab 4 ---- */
   function tab4(c){
     if (c.age===null) return;
-    var g=c.gender, s=state.sum, base=payout(g,s,'Standard',65);
+    var g=c.gender, amt=activeAmount();
     function cumAt(plan,start,age){
-      var sr=series(g,s,plan,start,state.premPct), t=0;
-      for(var i=0;i<sr.length;i++){ if(sr[i].age>=age) break; t+=sr[i].v*12; }
-      return t;
+      var sr=series(g,amt,plan,start,state.premPct), t=0;
+      for(var i=0;i<sr.length;i++){ if(sr[i].age>=age) break; t+=sr[i].v; }
+      return t;   // monthly points, so this is already a monthly sum
     }
     var rows='';
     [65,66,67,68,69,70].forEach(function(a){
       var be=null;
       if (a>65){ for (var x=a; x<=105; x++){ if (cumAt('Standard',a,x) >= cumAt('Standard',65,x)){ be=x; break; } } }
+      // premium is the balance at the age payouts actually start, not the sum set aside at 55
+      var prem = premiumAt65();
       var back=null;
-      for (var y=a; y<=110; y++){ if (cumAt('Standard',a,y) >= SUM_AMT[s]){ back=y; break; } }
+      for (var y=a; y<=115; y++){ if (cumAt('Standard',a,y) >= prem){ back=y; break; } }
       rows += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td><td>'+
-        fmt(payout(g,s,'Standard',a))+'</td><td>'+(be?be:'—')+'</td><td>'+(back?back:'—')+'</td><td>'+
+        fmt(payoutAt(g,'Standard',a,amt))+'</td><td>'+(be?be:'—')+'</td><td>'+(back?back:'beyond 105')+'</td><td>'+
         fmt(cumAt('Standard',a,85))+'</td><td>'+fmt(cumAt('Standard',a,90))+'</td><td>'+
         fmt(cumAt('Standard',a,95))+'</td></tr>';
     });
     $('tbl4').querySelector('tbody').innerHTML = rows;
 
     var be70=null; for (var x=70;x<=105;x++){ if (cumAt('Standard',70,x)>=cumAt('Standard',65,x)){ be70=x; break; } }
-    var st=payout(g,s,'Standard',65), sr=series(g,s,'Escalating',65,state.premPct), cross=null;
-    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=sr[i].age; break; } }
-    var crossCum=null, ce=0, cs=0;
-    for (var a=65;a<=105;a++){
-      ce += (series(g,s,'Escalating',65,state.premPct).filter(function(r){return r.age===a;})[0]||{v:0}).v*12;
-      cs += st*12;
-      if (ce>=cs){ crossCum=a; break; }
+    var st=payoutAt(g,'Standard',65,amt), sr=series(g,amt,'Escalating',65,state.premPct), cross=null;
+    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=Math.round(sr[i].age); break; } }
+    var crossCum=null, ce=0, cs=0, es=series(g,amt,'Escalating',65,state.premPct);
+    for (var j=0;j<es.length;j++){
+      ce += es[j].v; cs += st;
+      if (ce>=cs && es[j].age>65){ crossCum=Math.round(es[j].age); break; }
     }
     $('cards4').innerHTML =
-      card('Deferring 65 → 70', be70?('age '+be70):'—', 'When the higher payout has repaid the five years you skipped') +
+      card('Deferring 65 → 70', be70?('age '+be70):'—', 'When the higher payout has repaid the five years skipped') +
       card('Escalating overtakes Standard', cross?('age '+cross):'—', 'Monthly payout crosses over') +
       card('Escalating repays in total', crossCum?('age '+crossCum):'beyond 105', 'Cumulative received catches up');
+
     $('note4').innerHTML = '<strong>Two different questions.</strong> <em>Break-even age</em> compares '+
-      'starting later against starting at 65 — it is where the bigger payout has repaid the years you '+
-      'skipped. <em>Premium back by</em> is when your payouts have simply returned your own '+state.sum+
-      ' capital, regardless of when you started. They are not the same number. '+
-      'Deferral pays off only if you live past '+
-      (be70?be70:'the break-even age')+'. Escalating crosses Standard monthly at '+(cross?cross:'—')+
-      ', but does not repay in cumulative terms until '+(crossCum?crossCum:'beyond 105')+
-      '. Both are longevity bets: right if you live long, wrong if you do not.';
+      'starting later against starting at 65 — where the bigger payout has repaid the years skipped. '+
+      '<em>Premium back by</em> is when payouts have returned your own capital. Note that capital is not '+
+      'the sum set aside at 55: '+fmt(amt)+' left untouched grows to about '+fmt(premiumAt65())+
+      ' by 65, and that larger figure is what has to be repaid. Both are longevity bets — right if you '+
+      'live long, wrong if you do not.';
   }
+
   function card(t,v,s){
     return '<div class="card"><p class="card-t">'+t+'</p><p class="card-v">'+v+'</p><p class="card-s">'+s+'</p></div>';
   }
@@ -1060,17 +1119,17 @@ td.up{color:#2C6E63;font-weight:600;}
   /* ---- tab 6 ---- */
   function tab6(c){
     if (c.age===null) return;
-    var t=state.target||0, g=c.gender, s=state.sum;
+    var t=state.target||0, g=c.gender, amt=activeAmount();
     var rows = PLANS.map(function(p){
-      var v=payout(g,s,p,65)||0, pct=t?Math.min(100,v/t*100):0;
+      var v=payoutAt(g,p,65,amt)||0, pct=t?Math.min(100,v/t*100):0;
       return '<div class="barrow"><span class="barlab">'+p+' '+fmt(v)+'</span>'+
         '<span class="bartrack"><i class="barfill '+({'Standard':'sw-std','Basic':'sw-bas','Escalating':'sw-esc'}[p])+
         '" style="width:'+pct.toFixed(1)+'%"></i></span>'+
         '<span class="barval">'+(t? (v>=t?'covered':'gap '+fmt(t-v)) :'—')+'</span></div>';
     }).join('');
     $('gap6').innerHTML = rows;
-    var st=payout(g,s,'Standard',65)||0;
-    $('note6').innerHTML = t ? '<strong>The gap is the planning question.</strong> At the '+state.sum+
+    var st=payoutAt(g,'Standard',65,amt)||0;
+    $('note6').innerHTML = t ? '<strong>The gap is the planning question.</strong> On '+activeLabel()+
       ', the Standard Plan covers '+Math.round(st/t*100)+'% of a '+fmt(t)+' target, leaving '+
       fmt(Math.max(0,t-st))+' a month to come from elsewhere — other savings, investments, rental, or '+
       'continued work.' : 'Enter a target monthly income above.';
@@ -1079,27 +1138,31 @@ td.up{color:#2C6E63;font-weight:600;}
   /* ---- tab 7 ---- */
   function tab7(c){
     if (c.age===null) return;
-    var g=c.gender, s=state.sum;
+    var g=c.gender, amt=activeAmount(), prem=premiumAt65();
     var sets = PLANS.map(function(p,i){
       var pts=[];
-      for (var a=66;a<=95;a++) pts.push({x:a,y:bequest(g,s,p,65,a,state.premPct)});
+      for (var m=0;m<=30*12;m++){
+        var a=65+m/12;
+        pts.push({x:a, y:bequest(g,prem,p,65,a,state.premPct)});
+      }
       return { cls:['sw-std','sw-bas','sw-esc'][i], pts:pts };
     });
-    lineChart($('chart7'), sets, {money:true, label:'Bequest by age at death'});
+    lineChart($('chart7'), sets, {label:'Bequest by age at death'});
     var tb=$('tbl7').querySelector('tbody'), h='';
     [70,75,80,85,90,95].forEach(function(a){
       h+='<tr><td class="c-year">'+a+'</td>'+PLANS.map(function(p){
-        return '<td>'+fmt(bequest(g,s,p,65,a,state.premPct))+'</td>'; }).join('')+'</tr>';
+        return '<td>'+fmt(bequest(g,prem,p,65,a,state.premPct))+'</td>'; }).join('')+'</tr>';
     });
     tb.innerHTML=h;
     var zero=null;
-    for (var a=66;a<=105;a++){ if (bequest(g,s,'Standard',65,a,state.premPct)<=0){ zero=a; break; } }
+    for (var a=66;a<=105;a+=0.5){ if (bequest(g,prem,'Standard',65,a,state.premPct)<=0){ zero=Math.round(a); break; } }
     $('note7').innerHTML = '<strong>CPF LIFE is longevity insurance, not a legacy vehicle.</strong> '+
-      'Under the Standard Plan your payouts have returned the whole premium to you by around age '+
-      (zero||'—')+', and from that point there is nothing left to pass on. Basic holds a bequest much '+
-      'longer, because '+Math.round(100-state.premPct)+'% of your Retirement Account stays yours and is '+
-      'drawn down slowly rather than converted upfront. If leaving money behind matters to your client, '+
-      'that is a job for cover held outside CPF.';
+      'Based on '+activeLabel()+', which grows to about '+fmt(prem)+' by 65 — that larger balance is the '+
+      'annuity premium. Under the Standard Plan your payouts have returned the whole premium by around '+
+      'age '+(zero||'—')+', and from that point there is nothing left to pass on. Basic holds a bequest '+
+      'much longer, because '+Math.round(100-state.premPct)+'% of the Retirement Account stays yours and '+
+      'is drawn down slowly rather than converted upfront. If leaving money behind matters to your '+
+      'client, that is a job for cover held outside CPF.';
   }
 
   /* ---------- wiring ---------- */
