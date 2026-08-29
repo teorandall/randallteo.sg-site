@@ -291,6 +291,10 @@ td.up{color:#2C6E63;font-weight:600;}
 
 .segb .sub55{display:block;font-size:10.5px;opacity:.6;}
 .segb.on .sub55{color:#C8A15A;opacity:.9;}
+
+.buildstamp{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:10px;
+  background:var(--color-sage);color:var(--color-green-deep);font-size:11px;font-weight:600;
+  letter-spacing:.04em;}
 </style>
 </head>
 <body class="locked">
@@ -339,7 +343,7 @@ td.up{color:#2C6E63;font-weight:600;}
   </div>
 </header>
 
-<!-- build: bequest-interp-v2 -->
+<!-- build: 2026-08-27-a  bequest interpolation by row index -->
 <main class="cpf-main">
 
   <div class="wrap">
@@ -660,6 +664,7 @@ td.up{color:#2C6E63;font-weight:600;}
   var fmt = function(n){ return 'S$' + Math.round(n).toLocaleString('en-SG'); };
   var fmt0 = function(n){ return Math.round(n).toLocaleString('en-SG'); };
 
+  var BUILD = '2026-08-27-a';
   var state = { sum:'FRS', premPct:15, target:3000 };
 
   function ersMultiple(y){ return y >= 2025 ? 4 : 3; }
@@ -959,7 +964,8 @@ td.up{color:#2C6E63;font-weight:600;}
     $('globalDisc').innerHTML = 'Payout figures are from the CPF LIFE Estimator, captured at each ' +
       'client\u2019s current age, and are illustrations rather than a projection of your own payouts. ' +
       'The Basic Plan year-by-year curve is modelled by this tool from CPF\u2019s published mechanics, ' +
-      'not supplied by CPF. For figures specific to you, use the CPF LIFE Estimator on cpf.gov.sg.';
+      'not supplied by CPF. For figures specific to you, use the CPF LIFE Estimator on cpf.gov.sg.' +
+      ' <span class="buildstamp">build ' + BUILD + '</span>';
   }
 
   /* ---- tab 1 ---- */
