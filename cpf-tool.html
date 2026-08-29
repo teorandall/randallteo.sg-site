@@ -339,6 +339,7 @@ td.up{color:#2C6E63;font-weight:600;}
   </div>
 </header>
 
+<!-- build: bequest-interp-v2 -->
 <main class="cpf-main">
 
   <div class="wrap">
@@ -807,17 +808,17 @@ td.up{color:#2C6E63;font-weight:600;}
     if (plan === 'Basic'){
       var b = basicProfile(gender, amount, startAge, premPct);
       if (!b) return 0;
-      // rows are annual; deathAge may fall between them, so interpolate
-      var lo = Math.floor(deathAge), frac = deathAge - lo;
-      var rLo=null, rHi=null;
-      for (var i=0;i<b.rows.length;i++){
-        if (b.rows[i].age === lo) rLo = b.rows[i];
-        if (b.rows[i].age === lo+1) rHi = b.rows[i];
+      // rows are annual and start at startAge, so index directly rather than
+      // matching on a float age, then interpolate across the year
+      var pos  = deathAge - startAge;
+      var i0   = Math.floor(pos), frac = pos - i0;
+      if (i0 < 0) return Math.max(0, b.rows[0].ra + b.rows[0].prem);
+      if (i0 >= b.rows.length - 1){
+        var last = b.rows[b.rows.length-1];
+        return Math.max(0, last.ra + last.prem);
       }
-      if (!rLo) return 0;
-      var vLo = rLo.ra + rLo.prem;
-      if (!rHi || frac === 0) return Math.max(0, vLo);
-      var vHi = rHi.ra + rHi.prem;
+      var vLo = b.rows[i0].ra   + b.rows[i0].prem;
+      var vHi = b.rows[i0+1].ra + b.rows[i0+1].prem;
       return Math.max(0, vLo + (vHi - vLo) * frac);
     }
     var s = series(gender, amount, plan, startAge, premPct), cum = 0;
