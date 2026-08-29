@@ -807,8 +807,18 @@ td.up{color:#2C6E63;font-weight:600;}
     if (plan === 'Basic'){
       var b = basicProfile(gender, amount, startAge, premPct);
       if (!b) return 0;
-      var row = b.rows.filter(function(r){ return r.age === deathAge; })[0];
-      return row ? row.ra + row.prem : 0;
+      // rows are annual; deathAge may fall between them, so interpolate
+      var lo = Math.floor(deathAge), frac = deathAge - lo;
+      var rLo=null, rHi=null;
+      for (var i=0;i<b.rows.length;i++){
+        if (b.rows[i].age === lo) rLo = b.rows[i];
+        if (b.rows[i].age === lo+1) rHi = b.rows[i];
+      }
+      if (!rLo) return 0;
+      var vLo = rLo.ra + rLo.prem;
+      if (!rHi || frac === 0) return Math.max(0, vLo);
+      var vHi = rHi.ra + rHi.prem;
+      return Math.max(0, vLo + (vHi - vLo) * frac);
     }
     var s = series(gender, amount, plan, startAge, premPct), cum = 0;
     for (var i=0;i<s.length;i++){ if (s[i].age >= deathAge) break; cum += s[i].v; }
