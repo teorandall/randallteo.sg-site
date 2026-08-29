@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPF Tool | Randall Teo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+#pw-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1F3D2B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pw-box {
+  background: #FAF7F0;
+  border-radius: 4px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.pw-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #1F3D2B;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pw-sub {
+  font-size: 14px;
+  color: #8C8A80;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pw-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #2A2A26;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pw-input:focus {
+  outline: none;
+  border-color: #1F3D2B;
+}
+.pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #8B5A34;
+  color: #FAF7F0;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover {
+  background: #7A4F2E;
+}
+.pw-error {
+  font-size: 13px;
+  color: #9B3A2A;
+  margin-top: 10px;
+  min-height: 18px;
+}
+body.locked {
+  overflow: hidden;
+}
+.coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:48px 28px;}
+.coming-soon h1{font-family:'Fraunces',serif;font-size:36px;color:#1F3D2B;font-weight:500;margin-bottom:16px;}
+.coming-soon p{font-size:16px;color:#5C5A52;line-height:1.7;max-width:440px;}
+.coming-soon .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#A47148;margin-bottom:12px;}
+.coming-soon .badge{display:inline-flex;align-items:center;gap:8px;background:#FAF7F0;border:1px solid rgba(31,61,43,0.15);border-radius:30px;padding:8px 20px;font-size:13px;color:#5C5A52;margin-top:24px;}
+
+/* ===== CPF tool page ===== */
+.cpf-main{padding:120px 0 90px;background:var(--color-cream);}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;}
+.cpf-h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08;margin:0 0 12px;}
+.cpf-lede{font-size:17px;color:var(--color-ink-soft);margin:0 0 34px;max-width:52ch;}
+
+/* inputs */
+.cpf-inputs{background:var(--color-green-deep);padding:22px 0;margin-bottom:34px;}
+.inputs-grid{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-end;}
+.field{display:flex;flex-direction:column;gap:7px;min-width:158px;flex:1 1 158px;}
+.field.hidden{display:none;}
+.field label{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,247,240,0.7);}
+.field select,.field input{
+  font-family:var(--font-body);font-size:15px;color:var(--color-ink);
+  background:var(--color-cream);border:1.5px solid transparent;border-radius:3px;
+  padding:11px 12px;width:100%;
+}
+.field select:focus,.field input:focus{outline:none;border-color:#C8A15A;}
+.money{display:flex;align-items:center;background:var(--color-cream);border-radius:3px;border:1.5px solid transparent;}
+.money:focus-within{border-color:#C8A15A;}
+.money span{padding:0 2px 0 12px;font-size:15px;color:var(--color-ink-soft);}
+.money input{border:none;background:transparent;padding-left:4px;}
+.money input:focus{border-color:transparent;}
+.readout{flex:0 0 auto;min-width:132px;padding-left:22px;border-left:1px solid rgba(250,247,240,0.22);}
+.readout-label{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,247,240,0.7);}
+.readout-value{font-family:var(--font-display);font-size:30px;color:var(--color-cream);line-height:1.1;}
+.readout-sub{font-size:12.5px;color:#C8A15A;}
+
+/* tabs */
+.tabstrip{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--color-line);margin-bottom:36px;}
+.tab{
+  font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--color-ink-soft);
+  background:none;border:none;border-bottom:2.5px solid transparent;
+  padding:12px 16px;cursor:pointer;transition:color .18s ease,border-color .18s ease;
+}
+.tab:hover{color:var(--color-green-deep);}
+.tab.active{color:var(--color-green-deep);border-bottom-color:var(--color-copper);font-weight:600;}
+.tab:focus-visible{outline:2px solid var(--color-copper);outline-offset:2px;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* verdict */
+.verdict{background:var(--color-sage);border-left:3px solid var(--color-green-deep);padding:22px 26px;margin-bottom:44px;border-radius:0 3px 3px 0;}
+.verdict-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--color-copper-text);margin:0 0 8px;}
+.verdict-body{font-size:16px;line-height:1.6;color:var(--color-ink);}
+.verdict-body strong{color:var(--color-green-deep);}
+.v-brs{color:#2C6E63;font-weight:600;}
+.v-frs{color:#7A4F2C;font-weight:600;}
+.v-ers{color:#6B3FA0;font-weight:600;}
+
+.sec-h{font-size:23px;margin:0 0 8px;}
+.sec-sub{font-size:14.5px;color:var(--color-ink-soft);margin:0 0 20px;}
+
+/* definitions */
+.defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-bottom:26px;}
+.def{background:#fff;border:1px solid var(--color-line);border-top:3px solid;padding:20px 22px;border-radius:0 0 3px 3px;}
+.def h3{font-size:17px;margin:0 0 9px;}
+.def p{font-size:14.5px;line-height:1.62;color:var(--color-ink-soft);margin:0;}
+.def-brs{border-top-color:#2C6E63;}
+.def-frs{border-top-color:#7A4F2C;}
+.def-ers{border-top-color:#6B3FA0;}
+
+.keynote{background:#fff;border:1px solid var(--color-line-copper);padding:20px 24px;border-radius:3px;font-size:15px;line-height:1.68;color:var(--color-ink);margin-bottom:52px;}
+.keynote strong{color:var(--color-green-deep);font-weight:600;}
+.keynote > strong:first-child{display:block;margin-bottom:6px;}
+.keynote em{font-style:normal;font-weight:600;color:var(--color-copper-text);}
+
+/* tables */
+.table-scroll{overflow-x:auto;margin-bottom:44px;-webkit-overflow-scrolling:touch;}
+table.sums{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;background:#fff;}
+table.sums th{
+  text-align:right;font-weight:600;font-size:12px;letter-spacing:0.09em;text-transform:uppercase;
+  color:var(--color-cream);background:var(--color-green-mid);padding:12px 16px;white-space:nowrap;
+}
+table.sums th.c-year,table.sums th.c-born{text-align:left;}
+.th-note{display:block;font-size:10.5px;letter-spacing:0.04em;text-transform:none;font-weight:400;color:rgba(250,247,240,0.72);}
+table.sums td{padding:11px 16px;text-align:right;border-bottom:1px solid var(--color-line);font-variant-numeric:tabular-nums;}
+table.sums td.c-year,table.sums td.c-born{text-align:left;color:var(--color-ink-soft);}
+table.sums tbody tr:last-child td{border-bottom:none;}
+table.sums tbody tr.cohort{background:var(--color-sage);}
+table.sums tbody tr.cohort td{font-weight:600;color:var(--color-green-deep);}
+table.sums tbody tr.cohort td.c-year::before{content:"▸ ";color:var(--color-copper);}
+td.hit-brs{color:#2C6E63 !important;}
+td.hit-frs{color:#7A4F2C !important;}
+td.hit-ers{color:#6B3FA0 !important;}
+tr.ersyear td.c-ers{color:#6B3FA0;font-weight:600;box-shadow:inset 3px 0 0 #6B3FA0;}
+table.proj tbody td{color:var(--color-ink-soft);font-style:italic;}
+
+/* projection control */
+.proj-control{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px;}
+.proj-control label{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-copper-text);}
+.proj-control input[type=range]{flex:0 1 210px;accent-color:var(--color-copper);}
+.proj-control output{font-family:var(--font-display);font-size:20px;color:var(--color-green-deep);min-width:56px;}
+.proj-hint{flex:1 1 100%;font-size:13px;color:var(--color-ink-soft);}
+
+.source{font-size:12.5px;color:var(--color-ink-soft);border-top:1px solid var(--color-line);padding-top:14px;}
+
+/* stubs */
+.stub{background:#fff;border:1px dashed var(--color-line-copper);padding:34px 32px;border-radius:3px;}
+.stub h2{font-size:21px;margin:0 0 10px;}
+.stub p{font-size:15px;line-height:1.65;color:var(--color-ink-soft);margin:0 0 12px;}
+.stub-need{font-size:13.5px !important;color:var(--color-copper-text) !important;border-left:2px solid var(--color-line-copper);padding-left:14px;margin:0 !important;}
+
+@media (max-width:760px){
+  .cpf-main{padding:96px 0 70px;}
+  .readout{border-left:none;padding-left:0;}
+  .tab{padding:11px 12px;font-size:13.5px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+
+/* ===== panels 2-7 ===== */
+.sub-h{font-size:18px;margin:34px 0 14px;}
+
+/* segmented sum picker */
+.segwrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:24px;}
+.segb{font-family:var(--font-body);font-size:13.5px;color:var(--color-ink-soft);background:#fff;
+  border:1px solid var(--color-line);border-radius:3px;padding:9px 14px;cursor:pointer;
+  transition:all .16s ease;line-height:1.3;}
+.segb span{display:block;font-size:11.5px;color:var(--color-ink-soft);opacity:.75;}
+.segb:hover{border-color:var(--color-line-copper);}
+.segb.on{background:var(--color-green-deep);color:var(--color-cream);border-color:var(--color-green-deep);font-weight:600;}
+.segb.on span{color:#C8A15A;opacity:1;}
+.segb:focus-visible{outline:2px solid var(--color-copper);outline-offset:2px;}
+.segnote{display:flex;align-items:center;gap:9px;margin-left:auto;font-size:12px;
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-copper-text);}
+.segnote input[type=range]{width:120px;accent-color:var(--color-copper);}
+.segnote output{font-family:var(--font-display);font-size:17px;color:var(--color-green-deep);
+  letter-spacing:0;text-transform:none;}
+
+/* charts */
+.chartbox{background:#fff;border:1px solid var(--color-line);border-radius:3px;
+  padding:18px 14px;margin-bottom:16px;overflow-x:auto;}
+.cpfchart{width:100%;height:auto;display:block;min-width:520px;}
+.cpfchart .grid{stroke:var(--color-line);stroke-width:1;}
+.cpfchart .axl{font-family:var(--font-body);font-size:11px;fill:var(--color-ink-soft);}
+.cpfchart .axv{font-family:var(--font-body);font-size:11px;fill:var(--color-green-deep);font-weight:600;}
+.cpfchart .ln{fill:none !important;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;}
+.cpfchart .br{rx:2;}
+.cpfchart .ln.sw-std{stroke:#1F3D2B;fill:none !important;}
+.cpfchart .ln.sw-bas{stroke:#6B3FA0;fill:none !important;}
+.cpfchart .ln.sw-esc{stroke:#A8763E;fill:none !important;}
+.cpfchart rect.br.sw-std{fill:#1F3D2B;stroke:none;}
+.cpfchart rect.br.sw-bas{fill:#6B3FA0;stroke:none;}
+.cpfchart rect.br.sw-esc{fill:#A8763E;stroke:none;}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:30px;font-size:13.5px;color:var(--color-ink-soft);}
+.lg{display:flex;align-items:center;gap:8px;}
+.sw{width:20px;height:4px;border-radius:2px;display:inline-block;flex:0 0 16px;}
+i.sw-std{background:#1F3D2B;} i.sw-bas{background:#6B3FA0;} i.sw-esc{background:#A8763E;}
+
+/* stat cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:8px;}
+.card{background:#fff;border:1px solid var(--color-line);border-left:3px solid var(--color-copper);
+  padding:18px 20px;border-radius:0 3px 3px 0;}
+.card-t{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-copper-text);margin:0 0 8px;}
+.card-v{font-family:var(--font-display);font-size:29px;color:var(--color-green-deep);margin:0 0 6px;line-height:1;}
+.card-s{font-size:13px;color:var(--color-ink-soft);margin:0;line-height:1.5;}
+
+/* progress bars */
+.bars,.gapviz{display:flex;flex-direction:column;gap:12px;margin-bottom:30px;}
+.barrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.barlab{flex:0 0 210px;font-size:13.5px;color:var(--color-ink);font-variant-numeric:tabular-nums;}
+.bartrack{flex:1 1 200px;height:22px;background:#fff;border:1px solid var(--color-line);
+  border-radius:3px;overflow:hidden;position:relative;}
+.barfill{display:block;height:100%;transition:width .3s ease;}
+.barfill.sw-brs{background:#2C6E63;} .barfill.sw-frs{background:#7A4F2C;} .barfill.sw-ers{background:#6B3FA0;}
+.barfill.sw-std{background:#1F3D2B;} .barfill.sw-bas{background:#6B3FA0;} .barfill.sw-esc{background:#A8763E;}
+.barval{flex:0 0 132px;font-size:13px;color:var(--color-ink-soft);text-align:right;font-variant-numeric:tabular-nums;}
+
+td.up{color:#2C6E63;font-weight:600;}
+
+.disclaimer{font-size:12.5px;line-height:1.65;color:var(--color-ink-soft);
+  border-top:1px solid var(--color-line);padding-top:16px;margin-top:44px;}
+
+@media (max-width:760px){
+  .segnote{margin-left:0;width:100%;}
+  .barlab{flex:1 1 100%;} .barval{flex:0 0 auto;text-align:left;}
+  .chartbox{padding:12px 8px;}
+}
+
+/* account-flow steps (tab 5) */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:30px;}
+.stepbox{background:#fff;border:1px solid var(--color-line);border-top:3px solid var(--color-green-mid);
+  padding:16px 18px;border-radius:0 0 3px 3px;}
+.step-t{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--color-copper-text);margin:0 0 7px;line-height:1.35;}
+.step-v{font-family:var(--font-display);font-size:22px;color:var(--color-green-deep);margin:0 0 5px;line-height:1.1;}
+.step-s{font-size:12.5px;color:var(--color-ink-soft);margin:0;line-height:1.5;}
+
+.cpfchart .axb{font-size:12.5px;fill:var(--color-ink);font-weight:600;}
+.cpfchart .axsub{font-size:10.5px;fill:var(--color-ink-soft);}
+
+.cpfchart{shape-rendering:geometricPrecision;}
+.segb.mine{border-color:var(--color-copper);}
+.segb.mine.on{background:var(--color-copper);border-color:var(--color-copper);}
+.legend{margin-bottom:14px;}
+
+.segcap{flex:1 1 100%;font-size:12.5px;color:var(--color-ink-soft);margin:4px 0 0;}
+
+.segb .sub55{display:block;font-size:10.5px;opacity:.6;}
+.segb.on .sub55{color:#C8A15A;opacity:.9;}
+
+.buildstamp{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:10px;
+  background:var(--color-sage);color:var(--color-green-deep);font-size:11px;font-weight:600;
+  letter-spacing:.04em;}
+</style>
+</head>
+<body class="locked">
+
+<div id="pw-gate">
+  <div class="pw-box">
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <div class="pw-title">CPF Planning Tool</div>
+    <div class="pw-sub">Guide on CPF numbers, accounts and structures.<br>Please enter your access password to continue.</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Access Tool</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html">Estate &amp; Legacy</a>
+      <a href="client-stories.html">Client Stories</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle active" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool</a>
+          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
+        </div>
+      </div>
+      <a href="get-started.html">Get Started</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- build: 2026-08-27-a  bequest interpolation by row index -->
+<main class="cpf-main">
+
+  <div class="wrap">
+    <p class="eyebrow">CPF Planning Tool</p>
+    <h1 class="cpf-h1">Your CPF retirement picture</h1>
+    <p class="cpf-lede">Enter your details once. Every tab below adjusts to them.</p>
+  </div>
+
+  <div class="cpf-inputs" id="cpfInputs">
+    <div class="wrap inputs-grid">
+      <div class="field">
+        <label for="birthYear">Year of birth</label>
+        <select id="birthYear"></select>
+      </div>
+      <div class="field">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="field" id="raField">
+        <label for="raBal">Retirement Account balance</label>
+        <div class="money"><span>S$</span><input id="raBal" type="text" inputmode="numeric" placeholder="0"></div>
+      </div>
+      <div class="field hidden" id="saField">
+        <label for="saBal">Special Account balance</label>
+        <div class="money"><span>S$</span><input id="saBal" type="text" inputmode="numeric" placeholder="0"></div>
+      </div>
+      <div class="field hidden" id="oaField">
+        <label for="oaBal">Ordinary Account balance</label>
+        <div class="money"><span>S$</span><input id="oaBal" type="text" inputmode="numeric" placeholder="0"></div>
+      </div>
+      <div class="field">
+        <label for="target">Target monthly income</label>
+        <div class="money"><span>S$</span><input id="target" type="text" inputmode="numeric" placeholder="3,000"></div>
+      </div>
+      <div class="field readout">
+        <span class="readout-label">Age this year</span>
+        <span class="readout-value" id="ageOut">—</span>
+        <span class="readout-sub" id="cohortOut"></span>
+      </div>
+      <div class="field readout" id="raProjWrap">
+        <span class="readout-label" id="raProjLabel">Projected RA at 55</span>
+        <span class="readout-value" id="raProjOut">—</span>
+        <span class="readout-sub" id="raProjSub"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="tabstrip" role="tablist">
+      <button class="tab active" role="tab" data-panel="p1">Retirement sums</button>
+      <button class="tab" role="tab" data-panel="p2">CPF LIFE plans</button>
+      <button class="tab" role="tab" data-panel="p3">Starting at 65–70</button>
+      <button class="tab" role="tab" data-panel="p4">Break-even</button>
+      <button class="tab" role="tab" data-panel="p5">Shortfall &amp; top-up</button>
+      <button class="tab" role="tab" data-panel="p6">Income gap</button>
+      <button class="tab" role="tab" data-panel="p7">Bequest</button>
+    </div>
+  </div>
+
+  <!-- ============ 1 ============ -->
+  <section class="panel active" id="p1">
+    <div class="wrap">
+      <div class="verdict"><p class="verdict-eyebrow">Your position</p>
+        <div class="verdict-body" id="verdictBody">Choose your year of birth to begin.</div></div>
+
+      <h2 class="sec-h">What the three sums mean</h2>
+      <div class="defs">
+        <div class="def def-brs"><h3>Basic Retirement Sum</h3>
+          <p>What CPF estimates covers basic living needs, assuming you own a property you can live in
+             and pay no rent. You may set aside the BRS instead of the FRS if you pledge that property.</p></div>
+        <div class="def def-frs"><h3>Full Retirement Sum</h3>
+          <p>Exactly double the BRS. The default amount moved into your Retirement Account at 55, and the
+             reference point for withdrawal rules. Savings above it can generally be withdrawn from 55.</p></div>
+        <div class="def def-ers"><h3>Enhanced Retirement Sum</h3>
+          <p>The ceiling you may voluntarily top up to for higher payouts. Since 2025 it has been four
+             times the BRS. It is the one sum that does <em>not</em> lock to your cohort.</p></div>
+      </div>
+
+      <div class="keynote"><strong>The distinction that catches most people out.</strong>
+        Your BRS and FRS are fixed in the year you turn 55 and never change again. The ERS is not tied to
+        your age or cohort at all — it rises every 1 January and applies to everyone aged 55 and above in
+        that year. So if you turned 55 some years ago, your BRS and FRS come from your own row below, but
+        your ERS is the one on <em>this year's</em> row.</div>
+
+      <h2 class="sec-h">Retirement sums by the year you turn 55</h2>
+      <p class="sec-sub">Announced figures from CPF. Your cohort row is marked.</p>
+      <div class="table-scroll"><table class="sums" id="sumsTable"><thead><tr>
+        <th class="c-year">Turn 55 in</th><th class="c-born">Born</th>
+        <th class="c-brs">BRS</th><th class="c-frs">FRS</th>
+        <th class="c-ers">ERS <span class="th-note">that year</span></th>
+      </tr></thead><tbody id="sumsBody"></tbody></table></div>
+
+      <h2 class="sec-h">Projected sums, 2028 onward</h2>
+      <p class="sec-sub">CPF has announced figures through 2027 only. Everything past that is an
+        illustration on the growth rate below, not an official number.</p>
+      <div class="proj-control">
+        <label for="rate">Assumed yearly increase</label>
+        <input type="range" id="rate" min="2" max="5" step="0.1" value="3.5">
+        <output id="rateOut">3.5%</output>
+        <span class="proj-hint">Budget 2022 set the 2023–2027 increases at 3.5% a year. The longer series
+          since 2003 has averaged about 4.5%.</span>
+      </div>
+      <div class="table-scroll"><table class="sums proj" id="projTable"><thead><tr>
+        <th class="c-year">Turn 55 in</th><th class="c-born">Born</th>
+        <th class="c-brs">BRS</th><th class="c-frs">FRS</th><th class="c-ers">ERS</th>
+      </tr></thead><tbody id="projBody"></tbody></table></div>
+      <p class="source">Sources: CPF Board retirement sum tables and Ministry of Finance Budget annexes.
+        Projected rows are estimates produced by this tool and are not CPF figures.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section class="panel" id="p2">
+    <div class="wrap">
+      <h2 class="sec-h">The three CPF LIFE plans</h2>
+      <p class="sec-sub">Monthly payout from age 65 through 95. Pick a retirement sum to compare.</p>
+      <div class="segwrap" id="segSum2"></div>
+      <div class="legend">
+        <span class="lg"><i class="sw sw-std"></i>Standard — level for life</span>
+        <span class="lg"><i class="sw sw-bas"></i>Basic — steps down, largest bequest</span>
+        <span class="lg"><i class="sw sw-esc"></i>Escalating — starts lowest, rises 2% a year</span>
+      </div>
+      <div class="chartbox"><div id="chart2"></div></div>
+      <div class="table-scroll"><table class="sums" id="tbl2"><thead><tr>
+        <th class="c-year">Age</th><th>Standard</th><th>Basic</th><th>Escalating</th>
+      </tr></thead><tbody></tbody></table></div>
+      <div class="keynote" id="note2"></div>
+      <p class="source" id="src2"></p>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section class="panel" id="p3">
+    <div class="wrap">
+      <h2 class="sec-h">Starting at 65 versus later</h2>
+      <p class="sec-sub">Every year you defer raises the payout for life. Nothing is lost by waiting
+        except the payouts you skip.</p>
+      <div class="segwrap nosl" id="segSum3"></div>
+      <div class="chartbox"><div id="chart3"></div></div>
+      <div class="table-scroll"><table class="sums" id="tbl3"><thead><tr>
+        <th class="c-year">Start age</th><th>Standard</th><th>vs 65</th>
+        <th>Basic</th><th>vs 65</th><th>Escalating</th><th>vs 65</th>
+      </tr></thead><tbody></tbody></table></div>
+      <div class="keynote" id="note3"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section class="panel" id="p4">
+    <div class="wrap">
+      <h2 class="sec-h">Where the lines cross</h2>
+      <p class="sec-sub">Two crossover points decide most of this: when deferring catches up, and when
+        Escalating overtakes Standard.</p>
+      <div class="segwrap nosl" id="segSum4"></div>
+      <div class="cards" id="cards4"></div>
+      <h3 class="sub-h">Deferring to each age — cumulative total received</h3>
+      <div class="table-scroll"><table class="sums" id="tbl4"><thead><tr>
+        <th class="c-year">Start age</th><th>Monthly</th><th>Break-even age</th>
+        <th>Premium back by</th><th>Total by 85</th><th>Total by 90</th><th>Total by 95</th>
+      </tr></thead><tbody></tbody></table></div>
+      <div class="keynote" id="note4"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section class="panel" id="p5">
+    <div class="wrap">
+      <h2 class="sec-h">Where you stand, and how to close a gap</h2>
+      <p class="sec-sub">Measured against your own cohort's sums.</p>
+      <div class="verdict"><p class="verdict-eyebrow">Your position</p>
+        <div class="verdict-body" id="gapBody">Enter your balances above.</div></div>
+      <div class="split" id="split5"></div>
+      <div class="bars" id="bars5"></div>
+      <h3 class="sub-h">Routes to close a shortfall</h3>
+      <div class="defs">
+        <div class="def def-brs"><h3>Property pledge</h3>
+          <p>If you own a property, you can set aside the BRS rather than the FRS and withdraw the
+             difference. No cash required. Payouts are correspondingly lower.</p></div>
+        <div class="def def-frs"><h3>Cash top-up (RSTU)</h3>
+          <p>Top up your RA with cash for tax relief of up to $8,000 a year for yourself, and another
+             $8,000 for family members. Top up in January rather than December — CPF pays interest on
+             the lowest balance in the year.</p></div>
+        <div class="def def-ers"><h3>CPF transfer</h3>
+          <p>Move OA savings to your RA to earn 4% instead of 2.5%. No tax relief, and the move cannot
+             be reversed, so only transfer what you will not need for housing.</p></div>
+      </div>
+      <div class="keynote" id="note5"></div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section class="panel" id="p6">
+    <div class="wrap">
+      <h2 class="sec-h">Your income gap</h2>
+      <p class="sec-sub">What CPF LIFE covers, and what is left to plan for.</p>
+      <div class="segwrap nosl" id="segSum6"></div>
+      <div class="gapviz" id="gap6"></div>
+      <div class="keynote" id="note6"></div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section class="panel" id="p7">
+    <div class="wrap">
+      <h2 class="sec-h">What is left behind</h2>
+      <p class="sec-sub">The bequest is any unused premium plus whatever remains in your Retirement
+        Account. Payouts assumed to start at 65.</p>
+      <div class="segwrap" id="segSum7"></div>
+      <div class="legend">
+        <span class="lg"><i class="sw sw-std"></i>Standard — level for life</span>
+        <span class="lg"><i class="sw sw-bas"></i>Basic — steps down, largest bequest</span>
+        <span class="lg"><i class="sw sw-esc"></i>Escalating — starts lowest, rises 2% a year</span>
+      </div>
+      <div class="chartbox"><div id="chart7"></div></div>
+      <div class="table-scroll"><table class="sums" id="tbl7"><thead><tr>
+        <th class="c-year">Age at death</th><th>Standard</th><th>Basic</th><th>Escalating</th>
+      </tr></thead><tbody></tbody></table></div>
+      <div class="keynote" id="note7"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <p class="disclaimer" id="globalDisc"></p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning · AEPP Certified</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+        <a href="client-stories.html">Client Stories</a>
+        <a href="isp.html">ISP</a>
+        <a href="get-started.html">Get Started</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="tel:+6589495099"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>+65 8949 5099</a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>randallteowl@prufa.com.sg</a>
+        <a class="item" href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function checkPw() {
+    var val = document.getElementById('pwInput').value;
+    if (val === 'RandallteowlCPF') {
+      document.getElementById('pw-gate').style.display = 'none';
+      document.body.classList.remove('locked');
+    } else {
+      document.getElementById('pwError').textContent = 'Incorrect password. Please try again.';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pwInput').focus();
+  });
+
+  // Nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Tools dropdown toggle for mobile
+  function toggleDropdown() {
+    document.getElementById('toolsDropdown').classList.toggle('open');
+  }
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    var d = document.getElementById('toolsDropdown');
+    if (!d.contains(e.target)) d.classList.remove('open');
+  });
+
+/* ================= CPF TOOL ================= */
+(function(){
+  "use strict";
+
+  var FRS = {2016:161000,2017:166000,2018:171000,2019:176000,2020:181000,2021:186000,
+             2022:192000,2023:198800,2024:205800,2025:213000,2026:220400,2027:228200};
+  var LAST_ANNOUNCED = 2027, FIRST_ROW = 2016;
+  var NOW = new Date().getFullYear();
+  var MIN_AGE = 45, MAX_AGE = 65;
+  var SUM_AMT = { BRS:110200, FRS:220400, ERS:440800 };
+  var PLANS = ['Standard','Basic','Escalating'];
+  var PAYOUTS = {"Male":{"BRS":{"Basic":{"65":850.0,"66":910.0,"67":970.0,"68":1010.0,"69":1080.0,"70":1150.0},"Escalating":{"65":730.0,"66":790.0,"67":850.0,"68":890.0,"69":960.0,"70":1020.0},"Standard":{"65":930.0,"66":990.0,"67":1060.0,"68":1110.0,"69":1190.0,"70":1270.0}},"FRS":{"Basic":{"65":1600.0,"66":1700.0,"67":1800.0,"68":1910.0,"69":2020.0,"70":2160.0},"Escalating":{"65":1380.0,"66":1480.0,"67":1570.0,"68":1680.0,"69":1780.0,"70":1920.0},"Standard":{"65":1750.0,"66":1860.0,"67":1980.0,"68":2090.0,"69":2210.0,"70":2370.0}},"ERS":{"Basic":{"65":3120.0,"66":3310.0,"67":3490.0,"68":3700.0,"69":390.0,"70":4150.0},"Escalating":{"65":2690.0,"66":2870.0,"67":3040.0,"68":3250.0,"69":3460.0,"70":3680.0},"Standard":{"65":3410.0,"66":3620.0,"67":3820.0,"68":4050.0,"69":4300.0,"70":4550.0}}},"Female":{"BRS":{"Basic":{"65":840.0,"66":880.0,"67":940.0,"68":970.0,"69":1040.0,"70":1100.0},"Escalating":{"65":690.0,"66":720.0,"67":770.0,"68":810.0,"69":870.0,"70":930.0},"Standard":{"65":890.0,"66":930.0,"67":990.0,"68":1030.0,"69":1110.0,"70":1170.0}},"FRS":{"Basic":{"65":1550.0,"66":1640.0,"67":1730.0,"68":1830.0,"69":1940.0,"70":2070.0},"Escalating":{"65":1260.0,"66":1340.0,"67":1430.0,"68":1520.0,"69":1620.0,"70":1740.0},"Standard":{"65":1640.0,"66":1730.0,"67":1840.0,"68":1940.0,"69":2050.0,"70":2190.0}},"ERS":{"Basic":{"65":3010.0,"66":3190.0,"67":3360.0,"68":3550.0,"69":3760.0,"70":3970.0},"Escalating":{"65":2450.0,"66":2610.0,"67":2770.0,"68":2950.0,"69":3130.0,"70":3330.0},"Standard":{"65":3180.0,"66":3370.0,"67":3550.0,"68":3760.0,"69":3980.0,"70":4200.0}}}};
+
+  var $ = function(i){ return document.getElementById(i); };
+  var fmt = function(n){ return 'S$' + Math.round(n).toLocaleString('en-SG'); };
+  var fmt0 = function(n){ return Math.round(n).toLocaleString('en-SG'); };
+
+  var BUILD = '2026-08-27-a';
+  var state = { sum:'FRS', premPct:15, target:3000 };
+
+  function ersMultiple(y){ return y >= 2025 ? 4 : 3; }
+  function projFRS(y, r){
+    if (FRS[y]) return FRS[y];
+    var v = FRS[LAST_ANNOUNCED];
+    for (var k = LAST_ANNOUNCED+1; k <= y; k++) v *= (1 + r/100);
+    return Math.round(v/100)*100;
+  }
+  function sumsFor(y, r){
+    var f = projFRS(y, r), b = f/2;
+    return { brs:b, frs:f, ers:b*ersMultiple(y), projected: !FRS[y] };
+  }
+
+  function payout(gender, sum, plan, startAge){
+    try { return PAYOUTS[gender][sum][plan][startAge]; } catch(e){ return null; }
+  }
+
+  /* Payouts are near-linear in the Retirement Account balance (within 0.4% across the
+     three captured anchors), so any balance is interpolated between them. */
+  /* The captured payouts correspond to the retirement sums as they stand at 65, after
+     compounding from 55. Anchoring on the 55 amount would inflate every payout. */
+  var ANCHOR65 = { BRS:growTo65(SUM_AMT.BRS,55), FRS:growTo65(SUM_AMT.FRS,55), ERS:growTo65(SUM_AMT.ERS,55) };
+  function payoutAt(gender, plan, startAge, amount){
+    var keys=['BRS','FRS','ERS'], pts=[];
+    for (var i=0;i<3;i++){
+      var v=payout(gender,keys[i],plan,startAge);
+      if (v==null) return null;
+      pts.push([ANCHOR65[keys[i]], v]);
+    }
+    if (amount <= pts[0][0]) return lin(pts[0],pts[1],amount);
+    if (amount >= pts[2][0]) return lin(pts[1],pts[2],amount);
+    return amount <= pts[1][0] ? lin(pts[0],pts[1],amount) : lin(pts[1],pts[2],amount);
+  }
+  function lin(a,b,x){ return a[1] + (x-a[0])*(b[1]-a[1])/(b[0]-a[0]); }
+
+  /* Retirement Account compounded from 55 (or from today, if already past 55) to 65. */
+  function raInterest(bal){
+    return bal*0.04 + Math.min(bal,30000)*0.02 + Math.max(0, Math.min(bal-30000,30000))*0.01;
+  }
+  function growTo65(bal, fromAge){
+    // Flat 4%, matching CPF's own basis: the FRS of 220,400 at 55 reaches about 325,000 at 65.
+    var yrs = Math.max(0, 65 - Math.max(fromAge, 55));
+    return bal * Math.pow(1.04, yrs);
+  }
+  var CLIENT = { ra55:null, ra65:null };
+
+  /* SUM_AMT holds the fixed dollar anchors the payout figures were captured at, and must
+     never change — payoutAt interpolates against them. SUMS_LIVE holds the client's own
+     cohort sums from tab 1, which is what the selector shows and what the tabs compute on. */
+  var SUMS_LIVE = { BRS:SUM_AMT.BRS, FRS:SUM_AMT.FRS, ERS:SUM_AMT.ERS, projected:false, cohort:null };
+  function refreshSums(c, rate){
+    if (c.age === null){
+      var n = sumsFor(NOW, rate);
+      SUMS_LIVE = { BRS:n.brs, FRS:n.frs, ERS:n.ers, projected:false, cohort:NOW };
+      SUMS_65 = { BRS:growTo65(n.brs,55), FRS:growTo65(n.frs,55), ERS:growTo65(n.ers,55) };
+      return;
+    }
+    var mine = sumsFor(c.cohort, rate);
+    // BRS and FRS lock to the cohort. The ERS does not: for a member already 55 or over
+    // it is this year's figure, otherwise it is the one in force when they turn 55.
+    var ers = c.under55 ? mine.ers : sumsFor(NOW, rate).ers;
+    SUMS_LIVE = { BRS:mine.brs, FRS:mine.frs, ERS:ers,
+                  projected:mine.projected, cohort:c.cohort };
+    SUMS_65 = { BRS:growTo65(SUMS_LIVE.BRS,55), FRS:growTo65(SUMS_LIVE.FRS,55),
+                ERS:growTo65(SUMS_LIVE.ERS,55) };
+  }
+  var SUMS_65 = { BRS:ANCHOR65.BRS, FRS:ANCHOR65.FRS, ERS:ANCHOR65.ERS };
+  function activeAmount(){ return SUMS_65[state.sum]; }
+  /* The annuity premium is the balance at 65. The client's own figure is already
+     grown to 65; the BRS/FRS/ERS anchors are amounts set aside at 55, so they compound. */
+  // activeAmount is already the balance at 65, so it is the annuity premium as-is.
+  function premiumAt65(){ return activeAmount(); }
+  function activeLabel(){ return 'the ' + state.sum + ' at 65'; }
+
+  /* ---------- Basic Plan model ----------
+     Captured starting payout is the total the client receives.
+     Premium slider sizes the annuity pool; the retained RA is set to drain at 90.
+     Payouts step down as the RA falls through the $60k and $30k extra-interest tiers. */
+  function drainAt(retained, monthly, years){
+    var bal = retained;
+    for (var i=0;i<years;i++){ bal = bal + raInterest(bal) - monthly*12; if (bal<0) return bal; }
+    return bal;
+  }
+  function basicProfile(gender, amount, startAge, premPct){
+    var total0 = payoutAt(gender, 'Basic', startAge, amount);
+    if (total0 == null) return null;
+    var ra0 = amount;
+    var premium = ra0 * premPct/100;
+    var retained = ra0 - premium;
+    var yrs = 90 - startAge;
+
+    // solve for the RA-funded monthly amount that drains the retained balance at 90
+    var lo=0, hi=retained/12, raMonthly=0;
+    for (var it=0; it<60; it++){
+      raMonthly = (lo+hi)/2;
+      if (drainAt(retained, raMonthly, yrs) > 0) lo = raMonthly; else hi = raMonthly;
+    }
+    raMonthly = Math.min(raMonthly, total0);
+    var poolMonthly = Math.max(0, total0 - raMonthly);
+
+    var rows=[], bal=retained, cumPool=0, cur=total0, last=total0;
+    for (var age=startAge; age<=100; age++){
+      var stepped;
+      if (bal <= 0){
+        // Retirement Account exhausted: the annuity pool carries the payout for life,
+        // held at the level reached rather than dropping to the pool's own share.
+        stepped = last;
+      } else {
+        stepped = cur;
+        if (bal < 60000) stepped -= (30000*0.01)/12;  // 1% tier lost
+        if (bal < 30000) stepped -= (30000*0.02)/12;  // 2% tier lost
+        last = stepped;
+      }
+      rows.push({ age:age, total:Math.max(0,stepped), ra:Math.max(0,bal),
+                  prem:Math.max(0, premium-cumPool) });
+      bal = bal + raInterest(bal) - raMonthly*12;
+      if (bal < 0) bal = 0;
+      cumPool += poolMonthly*12;
+    }
+    return { rows:rows, premium:premium, retained:retained,
+             raMonthly:raMonthly, poolMonthly:poolMonthly };
+  }
+
+  function series(gender, amount, plan, startAge, premPct){
+    var out = [];
+    if (plan === 'Basic'){
+      var b = basicProfile(gender, amount, startAge, premPct);
+      if (!b) return out;
+      for (var i=0;i<b.rows.length;i++){
+        for (var m=0;m<12;m++) out.push({ age: b.rows[i].age + m/12, v: b.rows[i].total });
+      }
+      return out;
+    }
+    var p = payoutAt(gender, plan, startAge, amount);
+    if (p == null) return out;
+    for (var m = 0; m <= (100-startAge)*12; m++){
+      var a = startAge + m/12;
+      out.push({ age:a, v: plan==='Escalating' ? p*Math.pow(1.02, m/12) : p });
+    }
+    return out;
+  }
+
+  function bequest(gender, amount, plan, startAge, deathAge, premPct){
+    var ra0 = amount;
+    if (plan === 'Basic'){
+      var b = basicProfile(gender, amount, startAge, premPct);
+      if (!b) return 0;
+      // rows are annual and start at startAge, so index directly rather than
+      // matching on a float age, then interpolate across the year
+      var pos  = deathAge - startAge;
+      var i0   = Math.floor(pos), frac = pos - i0;
+      if (i0 < 0) return Math.max(0, b.rows[0].ra + b.rows[0].prem);
+      if (i0 >= b.rows.length - 1){
+        var last = b.rows[b.rows.length-1];
+        return Math.max(0, last.ra + last.prem);
+      }
+      var vLo = b.rows[i0].ra   + b.rows[i0].prem;
+      var vHi = b.rows[i0+1].ra + b.rows[i0+1].prem;
+      return Math.max(0, vLo + (vHi - vLo) * frac);
+    }
+    var s = series(gender, amount, plan, startAge, premPct), cum = 0;
+    for (var i=0;i<s.length;i++){ if (s[i].age >= deathAge) break; cum += s[i].v; }
+    return Math.max(0, ra0 - cum);
+  }
+
+  /* ---------- tiny SVG chart ---------- */
+  function lineChart(el, sets, opts){
+    opts = opts || {};
+    var W=760, H=330, L=68, R=18, T=18, B=42;
+    var xs = sets[0].pts.map(function(p){ return p.x; });
+    var x0 = Math.min.apply(null,xs), x1 = Math.max.apply(null,xs);
+    var y1 = 0;
+    sets.forEach(function(s){ s.pts.forEach(function(p){ if (p.y>y1) y1=p.y; }); });
+    y1 = y1*1.1 || 1;
+    var px = function(x){ return L + (x-x0)/(x1-x0)*(W-L-R); };
+    var py = function(y){ return T + (1-y/y1)*(H-T-B); };
+    var g = '';
+    for (var i=0;i<=4;i++){
+      var yv = y1*i/4, yy = py(yv);
+      g += '<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" class="grid"/>'
+         + '<text x="'+(L-9)+'" y="'+(yy+4)+'" class="axl" text-anchor="end">'+(opts.money?fmt0(yv):fmt0(yv))+'</text>';
+    }
+    for (var x=x0; x<=x1; x+=5){
+      g += '<text x="'+px(x)+'" y="'+(H-B+22)+'" class="axl" text-anchor="middle">'+x+'</text>';
+    }
+    sets.forEach(function(s){
+      var d = s.pts.map(function(p,i){ return (i?'L':'M')+px(p.x)+' '+py(p.y); }).join(' ');
+      g += '<path d="'+d+'" class="ln '+s.cls+'"/>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" class="cpfchart" role="img" aria-label="'
+      + (opts.label||'chart') + '">' + g + '</svg>';
+  }
+
+  function barChart(el, items, opts){
+    opts = opts||{};
+    var W=760, H=296, L=68, R=18, T=14, B=56;
+    var max = Math.max.apply(null, items.map(function(i){ return i.v; }))*1.15;
+    var bw = (W-L-R)/items.length;
+    var g='';
+    items.forEach(function(it,i){
+      var h = (it.v/max)*(H-T-B), x = L+i*bw+bw*0.18, w = bw*0.64, cx = x+w/2;
+      g += '<rect x="'+x+'" y="'+(H-B-h)+'" width="'+w+'" height="'+h+'" class="br '+(it.cls||'')+'"/>'
+         + '<text x="'+cx+'" y="'+(H-B-h-8)+'" class="axv" text-anchor="middle">'+fmt(it.v)+'</text>'
+         + '<text x="'+cx+'" y="'+(H-B+20)+'" class="axl axb" text-anchor="middle">'+it.label+'</text>'
+         + '<text x="'+cx+'" y="'+(H-B+35)+'" class="axl axsub" text-anchor="middle">(age)</text>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" class="cpfchart">'+g+'</svg>';
+  }
+
+  /* ---------- segmented controls ---------- */
+  function seg(id){
+    var el = $(id); if (!el) return;
+    var withSlider = !el.classList.contains('nosl');
+    var html = ['BRS','FRS','ERS'].map(function(sm){
+      return '<button class="segb'+(sm===state.sum?' on':'')+'" data-s="'+sm+'">'+sm+
+             ' <span>'+fmt(SUMS_65[sm])+' at 65</span>'+
+             '<span class="sub55">'+fmt(SUMS_LIVE[sm])+' at 55</span></button>';
+    }).join('');
+    if (withSlider){
+      html += '<span class="segnote">Basic premium <input type="range" id="'+id+
+        '_p" min="10" max="20" step="1" value="'+state.premPct+'"> <output>'+state.premPct+'%</output></span>';
+    }
+    if (SUMS_LIVE.cohort){
+      html += '<p class="segcap">'+
+        (SUMS_LIVE.projected
+          ? 'Projected sums for the '+SUMS_LIVE.cohort+' cohort, on the growth rate set in the Retirement sums tab. '
+          : 'Announced sums for the '+SUMS_LIVE.cohort+' cohort. ') +
+        'The larger figure is the balance at 65 after compounding at 4% from 55, and that is what the '+
+        'payouts below are based on.' +
+        '</p>';
+    }
+    el.innerHTML = html;
+    el.querySelectorAll('.segb').forEach(function(b){
+      b.addEventListener('click', function(){ state.sum = b.dataset.s; state.touched = true; renderAll(); });
+    });
+    var rp = $(id+'_p');
+    if (rp) rp.addEventListener('input', function(){ state.premPct = +rp.value; renderAll(); });
+  }
+
+  /* ---------- inputs ---------- */
+  function fillYears(){
+    var sel = $('birthYear');
+    sel.innerHTML = '<option value="">Select…</option>';
+    for (var b = NOW-MIN_AGE; b >= NOW-MAX_AGE; b--){
+      sel.insertAdjacentHTML('beforeend','<option value="'+b+'">'+b+'  (age '+(NOW-b)+')</option>');
+    }
+  }
+  function num(el){
+    var raw=(el.value||'').replace(/[^0-9]/g,'');
+    el.value = raw ? Number(raw).toLocaleString('en-SG') : '';
+    return raw?Number(raw):0;
+  }
+  function ctx(){
+    var by = parseInt($('birthYear').value,10);
+    var age = isNaN(by)?null:NOW-by;
+    return { by:by, age:age, cohort:isNaN(by)?null:by+55, under55: age!==null && age<55,
+             gender: $('gender').value };
+  }
+  function projectedRA(c, rate){
+    if (c.age === null) return null;
+    if (!c.under55) return { ra:num($('raBal')), oaLeft:0, saLeft:0, topup:0, capped:false };
+    var yrs = 55 - c.age;
+    var sa55 = num($('saBal')) * Math.pow(1.04, yrs);
+    var oa55 = num($('oaBal')) * Math.pow(1.025, yrs);
+    var cap  = sumsFor(c.cohort, rate).frs;        // RA is filled up to the Full Retirement Sum
+    var fromSA = Math.min(sa55, cap);
+    var need   = Math.max(0, cap - fromSA);
+    var topup  = Math.min(oa55, need);
+    return { ra: fromSA + topup, oaLeft: oa55 - topup, saLeft: sa55 - fromSA,
+             topup: topup, cap: cap, sa55: sa55, oa55: oa55, capped: fromSA >= cap };
+  }
+
+  /* ---------- render ---------- */
+  function renderAll(){
+    var c = ctx(), rate = parseFloat($('rate').value);
+    $('rateOut').textContent = rate.toFixed(1)+'%';
+    $('raField').classList.toggle('hidden', c.age===null || c.under55);
+    $('saField').classList.toggle('hidden', c.age===null || !c.under55);
+    $('oaField').classList.toggle('hidden', c.age===null || !c.under55);
+    $('ageOut').textContent = c.age===null?'—':c.age;
+    $('cohortOut').textContent = c.cohort===null?'':(c.under55?'turns 55 in ':'turned 55 in ')+c.cohort;
+
+    var pra = projectedRA(c, rate);
+    $('raProjLabel').textContent = c.under55 ? 'Projected RA at 55' : 'Retirement Account';
+    $('raProjOut').textContent = (!pra || !pra.ra) ? '—' : fmt(pra.ra);
+    $('raProjSub').textContent = (c.under55 && pra && pra.ra)
+      ? 'SA first, then OA to reach the FRS' : '';
+
+    refreshSums(c, rate);
+    CLIENT.ra55 = (pra && pra.ra) ? pra.ra : null;
+    CLIENT.ra65 = CLIENT.ra55 ? growTo65(CLIENT.ra55, c.age) : null;
+    tab1(c, rate);
+    ['segSum2','segSum3','segSum4','segSum6','segSum7'].forEach(function(id){ seg(id); });
+    tab2(c); tab3(c); tab4(c); tab5(c, rate, pra); tab6(c); tab7(c);
+
+    $('globalDisc').innerHTML = 'Payout figures are from the CPF LIFE Estimator, captured at each ' +
+      'client\u2019s current age, and are illustrations rather than a projection of your own payouts. ' +
+      'The Basic Plan year-by-year curve is modelled by this tool from CPF\u2019s published mechanics, ' +
+      'not supplied by CPF. For figures specific to you, use the CPF LIFE Estimator on cpf.gov.sg.' +
+      ' <span class="buildstamp">build ' + BUILD + '</span>';
+  }
+
+  /* ---- tab 1 ---- */
+  function tab1(c, rate){
+    build($('sumsBody'), FIRST_ROW, LAST_ANNOUNCED, rate, c.cohort);
+    build($('projBody'), LAST_ANNOUNCED+1, LAST_ANNOUNCED+15, rate, c.cohort);
+    var el = $('verdictBody');
+    if (c.age===null){ el.textContent='Choose your year of birth to begin.'; return; }
+    var mine = sumsFor(c.cohort, rate), now = sumsFor(NOW, rate), out;
+    if (c.under55){
+      out = 'You turn 55 in <strong>'+c.cohort+'</strong>, so your sums are not yet announced. On a '+
+        rate.toFixed(1)+'% yearly increase your BRS would be around <span class="v-brs">'+fmt(mine.brs)+
+        '</span> and your FRS around <span class="v-frs">'+fmt(mine.frs)+'</span>. Illustrations, not CPF '+
+        'figures. Your Retirement Account is created at 55, filled from your Special Account first, then '+
+        'your Ordinary Account.';
+    } else {
+      out = 'You turned 55 in <strong>'+c.cohort+'</strong>. Your BRS is <span class="v-brs">'+fmt(mine.brs)+
+        '</span> and your FRS is <span class="v-frs">'+fmt(mine.frs)+'</span>, both fixed for life. Your ERS '+
+        'is <span class="v-ers">'+fmt(now.ers)+'</span> — the '+NOW+' figure, not your cohort\u2019s, because '+
+        'the ERS rises every 1 January for everyone aged 55 and above.';
+      if (mine.ers !== now.ers) out += ' In your own year at 55 the ceiling was '+fmt(mine.ers)+'.';
+    }
+    el.innerHTML = out;
+  }
+  function build(tb, from, to, rate, cohort){
+    var h='';
+    for (var y=from;y<=to;y++){
+      var s=sumsFor(y,rate), isC=(cohort===y), isN=(y===NOW), cls=[];
+      if(isC)cls.push('cohort'); if(isN)cls.push('ersyear');
+      h += '<tr class="'+cls.join(' ')+'"><td class="c-year">'+y+
+        (isN?' <span style="color:#6B3FA0;font-size:11.5px;">this year</span>':'')+'</td>'+
+        '<td class="c-born">'+(y-55)+'</td>'+
+        '<td class="'+(isC?'hit-brs':'')+'">'+fmt(s.brs)+'</td>'+
+        '<td class="'+(isC?'hit-frs':'')+'">'+fmt(s.frs)+'</td>'+
+        '<td class="c-ers">'+fmt(s.ers)+'</td></tr>';
+    }
+    tb.innerHTML=h;
+  }
+
+  /* ---- tab 2 ---- */
+  function tab2(c){
+    if (c.age===null) return;
+    var g=c.gender, amt=activeAmount();
+    var sets = PLANS.map(function(p,i){
+      return { cls:['sw-std','sw-bas','sw-esc'][i],
+               pts: series(g,amt,p,65,state.premPct).filter(function(r){return r.age<=95;})
+                      .map(function(r){ return {x:r.age,y:r.v}; }) };
+    });
+    lineChart($('chart2'), sets, {label:'CPF LIFE monthly payout by plan'});
+    var tb = $('tbl2').querySelector('tbody'), h='';
+    [65,70,75,80,85,90,95].forEach(function(a){
+      h += '<tr><td class="c-year">'+a+'</td>' + PLANS.map(function(p){
+        var r = series(g,amt,p,65,state.premPct).filter(function(x){return Math.abs(x.age-a)<0.01;})[0];
+        return '<td>'+(r?fmt(r.v):'—')+'</td>';
+      }).join('') + '</tr>';
+    });
+    tb.innerHTML=h;
+    var st=payoutAt(g,'Standard',65,amt), es=payoutAt(g,'Escalating',65,amt);
+    var cross=null, sr=series(g,amt,'Escalating',65,state.premPct);
+    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=Math.round(sr[i].age); break; } }
+    $('note2').innerHTML = '<strong>Reading this chart.</strong> Based on '+activeLabel()+' of '+
+      fmt(amt)+' at 65. Escalating starts '+fmt(st-es)+' a month below Standard'+
+      (cross?' and overtakes it at age '+cross:'')+
+      '. Basic pays least throughout and steps down as the Retirement Account drains through the '+
+      '$60,000 and $30,000 extra-interest thresholds, but it is the only plan leaving a meaningful '+
+      'bequest past the late seventies.';
+    $('src2').textContent = 'Starting payouts interpolated from CPF LIFE Estimator figures captured at '+
+      'the BRS, FRS and ERS. Escalating derived at 2% a year. The Basic curve is modelled by this tool.';
+  }
+
+  /* ---- tab 3 ---- */
+  function tab3(c){
+    if (c.age===null) return;
+    var g=c.gender, amt=activeAmount();
+    barChart($('chart3'), [65,66,67,68,69,70].map(function(a){
+      return { label:a, v: payoutAt(g,'Standard',a,amt)||0, cls:'sw-std' };
+    }));
+    var tb=$('tbl3').querySelector('tbody'), h='';
+    [65,66,67,68,69,70].forEach(function(a){
+      h += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td>';
+      PLANS.forEach(function(p){
+        var v=payoutAt(g,p,a,amt), b=payoutAt(g,p,65,amt);
+        h += '<td>'+(v?fmt(v):'—')+'</td><td class="'+(a>65?'up':'')+'">'+
+             (v&&b&&a>65?'+'+Math.round((v/b-1)*100)+'%':'—')+'</td>';
+      });
+      h += '</tr>';
+    });
+    tb.innerHTML=h;
+    var s65=payoutAt(g,'Standard',65,amt), s70=payoutAt(g,'Standard',70,amt);
+    $('note3').innerHTML = '<strong>What deferral buys.</strong> Based on '+activeLabel()+' of '+fmt(amt)+
+      '. Waiting from 65 to 70 lifts the Standard payout from '+fmt(s65)+' to '+fmt(s70)+
+      ' a month, a rise of '+Math.round((s70/s65-1)*100)+'% for life. The trade is five years of payouts '+
+      'never received, worth '+fmt(s65*12*5)+' in total. The Break-even tab shows when that is recovered.';
+  }
+
+  /* ---- tab 4 ---- */
+  function tab4(c){
+    if (c.age===null) return;
+    var g=c.gender, amt=activeAmount();
+    function cumAt(plan,start,age){
+      var sr=series(g,amt,plan,start,state.premPct), t=0;
+      for(var i=0;i<sr.length;i++){ if(sr[i].age>=age) break; t+=sr[i].v; }
+      return t;   // monthly points, so this is already a monthly sum
+    }
+    var rows='';
+    [65,66,67,68,69,70].forEach(function(a){
+      var be=null;
+      if (a>65){ for (var x=a; x<=105; x++){ if (cumAt('Standard',a,x) >= cumAt('Standard',65,x)){ be=x; break; } } }
+      // premium is the balance at the age payouts actually start, not the sum set aside at 55
+      var prem = premiumAt65();
+      var back=null;
+      for (var y=a; y<=115; y++){ if (cumAt('Standard',a,y) >= prem){ back=y; break; } }
+      rows += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td><td>'+
+        fmt(payoutAt(g,'Standard',a,amt))+'</td><td>'+(be?be:'—')+'</td><td>'+(back?back:'beyond 105')+'</td><td>'+
+        fmt(cumAt('Standard',a,85))+'</td><td>'+fmt(cumAt('Standard',a,90))+'</td><td>'+
+        fmt(cumAt('Standard',a,95))+'</td></tr>';
+    });
+    $('tbl4').querySelector('tbody').innerHTML = rows;
+
+    var be70=null; for (var x=70;x<=105;x++){ if (cumAt('Standard',70,x)>=cumAt('Standard',65,x)){ be70=x; break; } }
+    var st=payoutAt(g,'Standard',65,amt), sr=series(g,amt,'Escalating',65,state.premPct), cross=null;
+    for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=Math.round(sr[i].age); break; } }
+    var crossCum=null, ce=0, cs=0, es=series(g,amt,'Escalating',65,state.premPct);
+    for (var j=0;j<es.length;j++){
+      ce += es[j].v; cs += st;
+      if (ce>=cs && es[j].age>65){ crossCum=Math.round(es[j].age); break; }
+    }
+    $('cards4').innerHTML =
+      card('Deferring 65 → 70', be70?('age '+be70):'—', 'When the higher payout has repaid the five years skipped') +
+      card('Escalating overtakes Standard', cross?('age '+cross):'—', 'Monthly payout crosses over') +
+      card('Escalating repays in total', crossCum?('age '+crossCum):'beyond 105', 'Cumulative received catches up');
+
+    $('note4').innerHTML = '<strong>Two different questions.</strong> <em>Break-even age</em> compares '+
+      'starting later against starting at 65 — where the bigger payout has repaid the years skipped. '+
+      '<em>Premium back by</em> is when payouts have returned your own capital. Note that capital is not '+
+      'the sum set aside at 55: '+fmt(amt)+' left untouched grows to about '+fmt(premiumAt65())+
+      ' by 65, and that larger figure is what has to be repaid. Both are longevity bets — right if you '+
+      'live long, wrong if you do not.';
+  }
+
+  function card(t,v,s){
+    return '<div class="card"><p class="card-t">'+t+'</p><p class="card-v">'+v+'</p><p class="card-s">'+s+'</p></div>';
+  }
+
+  /* ---- tab 5 ---- */
+  function tab5(c, rate, pra){
+    var el=$('gapBody');
+    if (c.age===null || !pra || !pra.ra){
+      el.textContent='Enter your balances above.'; $('bars5').innerHTML=''; $('split5').innerHTML=''; return;
+    }
+    var mine=sumsFor(c.cohort,rate), now=sumsFor(NOW,rate);
+
+    if (c.under55){
+      $('split5').innerHTML =
+        '<h3 class="sub-h">How your accounts move at 55</h3>' +
+        '<div class="steps">' +
+        step('Special Account at 55', fmt(pra.sa55), 'Grown at 4% from today') +
+        step('Into the Retirement Account', fmt(Math.min(pra.sa55, pra.cap)), 'SA is used first') +
+        (pra.topup>0
+          ? step('Topped up from Ordinary Account', fmt(pra.topup), 'Only the shortfall to the FRS is taken')
+          : step('Topped up from Ordinary Account', 'none', 'Your SA alone reaches the FRS')) +
+        step('Ordinary Account left liquid', fmt(pra.oaLeft), 'Stays in your OA, not swept into the RA') +
+        (pra.saLeft>0 ? step('SA above the FRS', fmt(pra.saLeft), 'Withdrawable from 55') : '') +
+        '</div>';
+    } else { $('split5').innerHTML=''; }
+
+    var targets=[{k:'BRS',v:SUMS_LIVE.BRS,c:'sw-brs'},{k:'FRS',v:SUMS_LIVE.FRS,c:'sw-frs'},
+                 {k:'ERS',v:SUMS_LIVE.ERS,c:'sw-ers'}];
+    $('bars5').innerHTML = targets.map(function(t){
+      var pct=Math.min(100,pra.ra/t.v*100), gap=t.v-pra.ra;
+      return '<div class="barrow"><span class="barlab">'+t.k+' '+fmt(t.v)+'</span>'+
+        '<span class="bartrack"><i class="barfill '+t.c+'" style="width:'+pct.toFixed(1)+'%"></i></span>'+
+        '<span class="barval">'+(gap>0?'short '+fmt(gap):'met')+'</span></div>';
+    }).join('');
+
+    var reached = pra.ra>=now.ers?'the ERS':(pra.ra>=mine.frs?'the FRS':(pra.ra>=mine.brs?'the BRS':'below the BRS'));
+    var gapFRS = mine.frs - pra.ra;
+    el.innerHTML = (c.under55
+      ? 'On current balances your Retirement Account at 55 is projected at <strong>'+fmt(pra.ra)+'</strong>, '+
+        'with <strong>'+fmt(pra.oaLeft)+'</strong> remaining liquid in your Ordinary Account. '
+      : 'Your Retirement Account holds <strong>'+fmt(pra.ra)+'</strong>. ')
+      + 'That puts you at <strong>'+reached+'</strong>.'
+      + (gapFRS>0 ? ' You are '+fmt(gapFRS)+' short of the Full Retirement Sum.'
+                  : ' The Full Retirement Sum is met.')
+      + (c.under55 && !pra.capped && pra.topup>0
+          ? ' Note that only the shortfall was drawn from your OA — the balance stays available to you.'
+          : '');
+
+    $('note5').innerHTML = '<strong>Timing matters more than people expect.</strong> CPF computes interest '+
+      'on the lowest balance in each month and credits it yearly, so a top-up made in January earns a '+
+      'full year of interest while the same top-up in December earns almost none.';
+  }
+  function step(t,v,s){
+    return '<div class="stepbox"><p class="step-t">'+t+'</p><p class="step-v">'+v+'</p><p class="step-s">'+s+'</p></div>';
+  }
+
+  /* ---- tab 6 ---- */
+  function tab6(c){
+    if (c.age===null) return;
+    var t=state.target||0, g=c.gender, amt=activeAmount();
+    var rows = PLANS.map(function(p){
+      var v=payoutAt(g,p,65,amt)||0, pct=t?Math.min(100,v/t*100):0;
+      return '<div class="barrow"><span class="barlab">'+p+' '+fmt(v)+'</span>'+
+        '<span class="bartrack"><i class="barfill '+({'Standard':'sw-std','Basic':'sw-bas','Escalating':'sw-esc'}[p])+
+        '" style="width:'+pct.toFixed(1)+'%"></i></span>'+
+        '<span class="barval">'+(t? (v>=t?'covered':'gap '+fmt(t-v)) :'—')+'</span></div>';
+    }).join('');
+    $('gap6').innerHTML = rows;
+    var st=payoutAt(g,'Standard',65,amt)||0;
+    $('note6').innerHTML = t ? '<strong>The gap is the planning question.</strong> On '+activeLabel()+
+      ', the Standard Plan covers '+Math.round(st/t*100)+'% of a '+fmt(t)+' target, leaving '+
+      fmt(Math.max(0,t-st))+' a month to come from elsewhere — other savings, investments, rental, or '+
+      'continued work.' : 'Enter a target monthly income above.';
+  }
+
+  /* ---- tab 7 ---- */
+  function tab7(c){
+    if (c.age===null) return;
+    var g=c.gender, amt=activeAmount(), prem=premiumAt65();
+    var sets = PLANS.map(function(p,i){
+      var pts=[];
+      for (var m=0;m<=30*12;m++){
+        var a=65+m/12;
+        pts.push({x:a, y:bequest(g,prem,p,65,a,state.premPct)});
+      }
+      return { cls:['sw-std','sw-bas','sw-esc'][i], pts:pts };
+    });
+    lineChart($('chart7'), sets, {label:'Bequest by age at death'});
+    var tb=$('tbl7').querySelector('tbody'), h='';
+    [70,75,80,85,90,95].forEach(function(a){
+      h+='<tr><td class="c-year">'+a+'</td>'+PLANS.map(function(p){
+        return '<td>'+fmt(bequest(g,prem,p,65,a,state.premPct))+'</td>'; }).join('')+'</tr>';
+    });
+    tb.innerHTML=h;
+    var zero=null;
+    for (var a=66;a<=105;a+=0.5){ if (bequest(g,prem,'Standard',65,a,state.premPct)<=0){ zero=Math.round(a); break; } }
+    $('note7').innerHTML = '<strong>CPF LIFE is longevity insurance, not a legacy vehicle.</strong> '+
+      'Based on '+activeLabel()+', which grows to about '+fmt(prem)+' by 65 — that larger balance is the '+
+      'annuity premium. Under the Standard Plan your payouts have returned the whole premium by around '+
+      'age '+(zero||'—')+', and from that point there is nothing left to pass on. Basic holds a bequest '+
+      'much longer, because '+Math.round(100-state.premPct)+'% of the Retirement Account stays yours and '+
+      'is drawn down slowly rather than converted upfront. If leaving money behind matters to your '+
+      'client, that is a job for cover held outside CPF.';
+  }
+
+  /* ---------- wiring ---------- */
+  document.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('active'); });
+      document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); $(b.dataset.panel).classList.add('active');
+    });
+  });
+  fillYears();
+  ['birthYear','gender','rate'].forEach(function(i){
+    $(i).addEventListener(i==='rate'?'input':'change', renderAll);
+  });
+  ['raBal','saBal','oaBal'].forEach(function(i){
+    $(i).addEventListener('input', function(){ num(this); renderAll(); });
+  });
+  $('target').addEventListener('input', function(){ state.target = num(this); renderAll(); });
+  renderAll();
+
+})();
+
+</script>
+</body>
+</html>

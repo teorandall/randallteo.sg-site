@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estate &amp; Legacy | Randall Teo</title>
+<meta name="description" content="Practical guides and articles on Wills, Lasting Powers of Attorney, estate planning and legacy conversations — by Randall Teo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ── Hub hero ── */
+  .hub-hero{
+    background:var(--color-green-deep);
+    padding:60px 0 52px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hub-hero::before{
+    content:'';
+    position:absolute;
+    top:0;right:0;
+    width:380px;height:380px;
+    background:radial-gradient(circle at top right,rgba(164,113,72,0.18) 0%,transparent 68%);
+    pointer-events:none;
+  }
+  .hub-hero-inner{position:relative;z-index:1;}
+  .hub-hero .eyebrow{color:var(--color-copper);}
+  .hub-hero h1{font-size:42px;line-height:1.1;color:#fff;max-width:560px;margin-top:10px;}
+  .hub-hero p{font-size:17px;color:rgba(250,247,240,0.72);max-width:520px;margin-top:14px;line-height:1.65;}
+
+  /* ── Article grid ── */
+  .hub-body{padding:56px 0 80px;}
+
+  .articles-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .article-card{
+    background:#fff;
+    border:1px solid var(--color-line);
+    border-radius:4px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:box-shadow 0.2s ease,transform 0.2s ease;
+  }
+  .article-card:hover{box-shadow:0 4px 20px rgba(31,61,43,0.1);transform:translateY(-2px);}
+  .article-card-img{
+    height:140px;
+    background:var(--color-sage);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .article-card-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;}
+  .article-card-date{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-copper-text);margin-bottom:8px;}
+  .article-card-title{font-family:var(--font-display);font-size:18px;color:var(--color-green-deep);font-weight:500;line-height:1.25;margin-bottom:8px;}
+  .article-card-excerpt{font-size:13.5px;color:var(--color-ink-soft);line-height:1.6;margin:0 0 18px;flex:1;}
+  .article-card-link{font-size:13.5px;font-weight:600;color:var(--color-copper-text);display:inline-flex;align-items:center;gap:6px;}
+  .article-card-link svg{transition:transform 0.2s ease;}
+  .article-card:hover .article-card-link svg{transform:translateX(3px);}
+
+  /* Placeholder */
+  .article-card.placeholder{opacity:0.45;pointer-events:none;}
+  .article-card.placeholder .article-card-img{background:var(--color-cream-soft);}
+  .placeholder-label{font-size:12px;color:var(--color-ink-soft);font-style:italic;}
+
+  /* ── Coming soon banner ── */
+  .coming-soon-banner{
+    background:var(--color-sage);
+    border:1px solid var(--color-line);
+    border-radius:4px;
+    padding:36px 40px;
+    margin-bottom:40px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+  .coming-soon-banner svg{flex-shrink:0;opacity:0.5;}
+  .coming-soon-banner h3{font-size:20px;margin-bottom:6px;}
+  .coming-soon-banner p{font-size:14.5px;color:var(--color-ink-soft);margin:0;}
+
+  .hub-divider{border:none;border-top:1px solid var(--color-line);margin:48px 0 40px;}
+  .hub-section-title{font-family:var(--font-display);font-size:22px;color:var(--color-green-deep);font-weight:500;margin:0 0 24px;}
+
+  @media(max-width:880px){
+    .hub-hero h1{font-size:32px;}
+    .articles-grid{grid-template-columns:1fr 1fr;}
+    .coming-soon-banner{flex-direction:column;gap:14px;padding:24px 22px;}
+  }
+  @media(max-width:600px){
+    .articles-grid{grid-template-columns:1fr;}
+    .hub-body{padding:36px 0 56px;}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='7' y='7' width='50' height='50' rx='4' fill='%231F3D2B'/%3E%3Crect x='11' y='11' width='42' height='42' rx='2' fill='none' stroke='%23C8A15A' stroke-width='2'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='25' font-weight='600' fill='%23FAF7F0'%3ERT%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">Randall Teo</span>
+        <span class="brand-sub">Estate &amp; Legacy Planning</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
+      <a href="finance.html">Finance</a>
+      <a href="estate-legacy.html" class="active">Estate &amp; Legacy</a>
+      <a href="client-stories.html">Client Stories</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool</a>
+          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
+        </div>
+      </div>
+      <a href="get-started.html">Get Started</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HUB HERO -->
+<div class="hub-hero">
+  <div class="wrap hub-hero-inner">
+    <p class="eyebrow">Estate &amp; Legacy</p>
+    <h1>Practical guides on Wills, LPA &amp; legacy planning.</h1>
+    <p>Straightforward articles on the decisions that matter most — written to help Singapore families plan with confidence and clarity.</p>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div class="hub-body">
+  <div class="wrap">
+
+    <div class="coming-soon-banner reveal" style="display:none;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-deep)" stroke-width="1.4" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <polyline points="10 9 9 9 8 9"/>
+      </svg>
+      <div>
+        <h3>Articles coming soon.</h3>
+        <p>Guides on Will writing, Lasting Powers of Attorney, estate distribution and legacy planning for Singapore families will be published here. Check back soon, or reach out directly to start a conversation.</p>
+      </div>
+    </div>
+
+    <div class="articles-grid" id="articlesGrid">
+
+      <a href="article-estate-lpa-donee.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · LPA</div>
+          <div class="article-card-title">Who Should Be Your Donee? A Decision Worth Taking Seriously</div>
+          <p class="article-card-excerpt">Choosing a donee goes beyond picking someone you trust. Age, availability, temperament and family dynamics all play a role.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-lpa-no-lpa.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · LPA</div>
+          <div class="article-card-title">What Happens If You Don't Set Up an LPA?</div>
+          <p class="article-card-excerpt">Without an LPA, your family faces deputyship — a process that can take over a year and cost $5,000 to $10,000 just to get started.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-lpa-how-it-works.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · LPA</div>
+          <div class="article-card-title">How Does an LPA Actually Work? Clearing Up the Confusion</div>
+          <p class="article-card-excerpt">From activation to what it actually covers — the most common LPA misconceptions answered plainly.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-cpf-nomination.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Estate Planning</div>
+          <div class="article-card-title">What Happens to Your CPF When You Die?</div>
+          <p class="article-card-excerpt">Your CPF does not follow your Will. Here is what actually happens to your CPF savings — and what you need to do about it.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-will-misconceptions.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="10" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Estate Planning</div>
+          <div class="article-card-title">Why Your Will Might Not Mean What You Think</div>
+          <p class="article-card-excerpt">Joint assets, CPF, insurance nominees — common situations where Wills do not do what people expect.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-family-conversation.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Legacy Planning</div>
+          <div class="article-card-title">The Family Conversation Nobody Wants to Have — and Why You Should Have It Anyway</div>
+          <p class="article-card-excerpt">The families who talk about inheritance and wishes are far better prepared when something actually happens.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-letter-of-administration.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Estate Planning</div>
+          <div class="article-card-title">What Is a Letter of Administration and When Is It Needed?</div>
+          <p class="article-card-excerpt">Most people have heard of a Will. Far fewer know what a Letter of Administration is — until their family needs one.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-blended-families.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Legacy Planning</div>
+          <div class="article-card-title">Blended Families and Estate Planning — Why the Standard Approach Does Not Work</div>
+          <p class="article-card-excerpt">Standard estate planning assumptions often break down in blended family situations. Here is what to think about and what to do.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="article-estate-letter-of-wishes.html" class="article-card reveal">
+        <div class="article-card-img" style="background:var(--color-green-deep);">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(164,113,72,0.7)" stroke-width="1.2" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-date">July 2026 · Legacy Planning</div>
+          <div class="article-card-title">Writing a Letter of Wishes Alongside Your Will</div>
+          <p class="article-card-excerpt">A Will sets out who gets what. A letter of wishes fills in the gaps — the reasoning, the personal instructions, the things you want people to understand.</p>
+          <span class="article-card-link">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Load more button -->
+    <div id="loadMoreWrap" style="text-align:center;margin-top:36px;display:none;">
+      <button id="loadMoreBtn" class="btn btn-ghost">
+        Load more articles
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
+        </div>
+        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning · AEPP Certified</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <a href="index.html#about">About</a>
+        <a href="finance.html">Finance</a>
+        <a href="estate-legacy.html">Estate &amp; Legacy</a>
+        <a href="client-stories.html">Client Stories</a>
+        <a href="isp.html">ISP</a>
+        <a href="get-started.html">Get Started</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Get in touch</h4>
+        <a class="item" href="https://maps.app.goo.gl/VTTpCj8CKtKTAmtx9" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          1 Pasir Panjang Rd, Labrador Tower
+        </a>
+        <a class="item" href="tel:+6589495099">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>
+          +65 8949 5099
+        </a>
+        <a class="item" href="mailto:randallteowl@prufa.com.sg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          randallteowl@prufa.com.sg
+        </a>
+        <a class="item" href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Randall Teo. All rights reserved.</span>
+      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+
+  // Load more logic
+  (function(){
+    var BATCH = 6;
+    var grid = document.getElementById('articlesGrid');
+    var btn = document.getElementById('loadMoreBtn');
+    var wrap = document.getElementById('loadMoreWrap');
+    if (!grid) return;
+    var cards = Array.prototype.slice.call(grid.children);
+    function applyVisibility() {
+      var hidden = [];
+      cards.forEach(function(card, i) {
+        if (i >= BATCH) { card.style.display = 'none'; hidden.push(card); }
+      });
+      if (hidden.length > 0) wrap.style.display = 'block';
+    }
+    function loadMore() {
+      var hidden = cards.filter(function(c){ return c.style.display === 'none'; });
+      hidden.slice(0, BATCH).forEach(function(card){
+        card.style.display = '';
+        setTimeout(function(){ card.classList.add('in'); }, 50);
+      });
+      if (cards.filter(function(c){ return c.style.display === 'none'; }).length === 0) {
+        wrap.style.display = 'none';
+      }
+    }
+    applyVisibility();
+    if (btn) btn.addEventListener('click', loadMore);
+  })();
+function toggleDropdown(){document.getElementById('toolsDropdown').classList.toggle('open');}document.addEventListener('click',function(e){var d=document.getElementById('toolsDropdown');if(d&&!d.contains(e.target))d.classList.remove('open');});
+</script>
+
+</body>
+</html>
