@@ -1,96 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1F3D2B">
 <title>Client Questionnaire | Randall Teo</title>
+<meta name="description" content="Confidential client intake questionnaire.">
+<meta name="robots" content="noindex, nofollow">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script>document.documentElement.className+=" js";</script>
 <style>
-#pw-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #1F3D2B;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.pw-box {
-  background: #FAF7F0;
-  border-radius: 4px;
-  padding: 40px 36px;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-.pw-title {
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  color: #1F3D2B;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.pw-sub {
-  font-size: 14px;
-  color: #8C8A80;
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-.pw-input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(31,61,43,0.2);
-  border-radius: 3px;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  color: #2A2A26;
-  background: #fff;
-  box-sizing: border-box;
-  margin-bottom: 12px;
-  text-align: center;
-  letter-spacing: 0.05em;
-}
-.pw-input:focus {
-  outline: none;
-  border-color: #1F3D2B;
-}
-.pw-btn {
-  width: 100%;
-  padding: 13px;
-  background: #8B5A34;
-  color: #FAF7F0;
-  border: none;
-  border-radius: 3px;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.pw-btn:hover {
-  background: #7A4F2E;
-}
-.pw-error {
-  font-size: 13px;
-  color: #9B3A2A;
-  margin-top: 10px;
-  min-height: 18px;
-}
-body.locked {
-  overflow: hidden;
-}
-.coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:48px 28px;}
-.coming-soon h1{font-family:'Fraunces',serif;font-size:36px;color:#1F3D2B;font-weight:500;margin-bottom:16px;}
-.coming-soon p{font-size:16px;color:#5C5A52;line-height:1.7;max-width:440px;}
-.coming-soon .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#A47148;margin-bottom:12px;}
-.coming-soon .badge{display:inline-flex;align-items:center;gap:8px;background:#FAF7F0;border:1px solid rgba(31,61,43,0.15);border-radius:30px;padding:8px 20px;font-size:13px;color:#5C5A52;margin-top:24px;}
-
-
 /* ===========================================================
    randallteo.sg — questionnaire
    Palette: deep green / cream / copper
@@ -146,7 +68,15 @@ body>header{
 }
 body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+.brand{display:flex;align-items:center;text-decoration:none;color:var(--stone)}
+.brand-logo{height:44px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{
+  text-decoration:none;color:var(--muted-dark);font-size:14px;
+  letter-spacing:.02em;transition:color .25s;position:relative;padding-bottom:2px;
+}
 .nav-links a:hover{color:var(--stone)}
+.nav-links a.here{color:var(--stone)}
 .nav-links a.only-mobile{display:none}
 .nav-links a.here:after{
   content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--brass);
@@ -260,7 +190,16 @@ body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
 .cta-band{background:var(--ink-2);color:var(--stone);padding:82px 0}
 .cta-band h2{color:var(--stone);max-width:20ch;margin:0 0 18px}
 .cta-band p{color:#B4BCC6;max-width:52ch;margin:0 0 30px}
+
+/* ─────────── footer ─────────── */
+footer{
+  background:var(--ink);color:var(--muted-dark);border-top:1px solid var(--line-dark);
+  padding:40px 0 54px;font-size:13.5px;
+}
+.foot{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:flex-start}
+.foot a{color:var(--muted-dark);text-decoration:none}
 .foot a:hover{color:var(--stone)}
+.foot-logo{width:168px;height:auto;display:block;margin-bottom:4px}
 .disclaimer{max-width:64ch;margin-top:22px;font-size:12.5px;line-height:1.65;color:#7A838E}
 
 /* ─────────── reveal ─────────── */
@@ -431,6 +370,15 @@ body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
 @media(max-width:900px){
   .cons-row{grid-template-columns:210px 1fr;gap:24px}
 }
+
+</style>
+<style>
+/* ── password gate ── */
+#gate{
+  position:fixed;inset:0;z-index:200;background:var(--stone);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.gate-card{width:100%;max-width:420px;text-align:center}
 .gate-card img{width:170px;height:auto;margin:0 auto 30px}
 .gate-card h1{font-size:30px;font-weight:300;margin:0 0 10px;color:var(--ink)}
 .gate-card p{color:var(--muted-light);font-size:15.5px;margin:0 0 26px}
@@ -446,6 +394,10 @@ body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
   border-radius:3px;cursor:pointer;transition:background .25s;
 }
 .gate-card button:hover{background:#B98D4D}
+.gate-err{color:#A3432F;font-size:14px;margin-top:14px;min-height:20px}
+
+/* ── form sheet ── */
+body.locked{overflow:hidden}
 .sheet{max-width:880px;margin:0 auto;padding:0 28px 90px}
 .qhead{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:34px}
 .qhead h1{font-size:clamp(28px,4vw,40px);font-weight:300;margin:0 0 14px;max-width:18ch;line-height:1.15}
@@ -551,54 +503,35 @@ section.block{margin-bottom:40px}
 }
 </style>
 </head>
-<body class="locked">
+<body>
 
-<div id="pw-gate">
-  <div class="pw-box">
-    <div style="margin-bottom:20px;">
-      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </div>
-    <div class="pw-title">Client Questionnaire</div>
-    <div class="pw-sub">Complete this before we draft your Will, so your estate plan is built on a full and current picture of what you own and owe.<br>Please enter your access password to continue.</div>
-    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
-    <button class="pw-btn" onclick="checkPw()">Open Questionnaire</button>
-    <div class="pw-error" id="pwError"></div>
-  </div>
-</div>
-
-<header class="site-nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html#about">About</a>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+    <nav class="nav-links">
+      <a href="index.html">About</a>
       <a href="finance.html">Finance</a>
       <a href="estate-legacy.html">Estate &amp; Legacy</a>
       <a href="client-stories.html">Client Stories</a>
-      <div class="nav-dropdown" id="toolsDropdown">
-        <button class="nav-dropdown-toggle active" onclick="toggleDropdown()">
-          Tools
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="isp.html">ISP Comparison</a>
-          <a href="cpf-tool.html">CPF Tool</a>
-          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
-          <a href="questionnaire.html">Questionnaire</a>
-        </div>
-      </div>
-      <a href="get-started.html">Get Started</a>
+      <a href="isp.html">ISP Comparison</a>
+      <a href="cpf-tool.html">CPF Tool</a>
+      <a href="questionnaire.html" class="here">Questionnaire</a>
+      <a href="get-started.html" class="only-mobile">Schedule a consultation</a>
     </nav>
-    <div class="nav-cta">
-      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    </div>
+    <a class="nav-cta" href="get-started.html">Schedule a consultation</a>
+    <button class="menu-btn" aria-expanded="false">Menu</button>
   </div>
 </header>
-
-<!-- build: 2026-08-27-a  bequest interpolation by row index -->
+<div id="gate">
+  <div class="gate-card">
+    <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <h1>Client questionnaire</h1>
+    <p>Complete this before we draft your Will, so your estate plan is built on a full and current picture of what you own and owe. Please enter the access password provided to you.</p>
+    <input type="password" id="pw" placeholder="Access password" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button id="unlock">Open questionnaire</button>
+    <p class="gate-err" id="err"></p>
+  </div>
+</div>
 
 <div class="sheet" id="sheet" style="padding-top:120px">
 
@@ -719,63 +652,210 @@ section.block{margin-bottom:40px}
 </div>
 <footer>
   <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-about">
-        <div class="footer-brand">
-          <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span class="brand-name" style="color:var(--color-cream);">Randall Teo</span>
-        </div>
-        <p>Will Writer · LPA Planning · Estate &amp; Legacy Planning · AEPP Certified</p>
+    <div class="foot">
+      <div>
+        <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div style="margin-top:6px">Randall Teo &middot; Wealth Manager</div>
       </div>
-      <div class="footer-links">
-        <h4>Quick links</h4>
-        <a href="index.html#about">About</a>
-        <a href="finance.html">Finance</a>
-        <a href="estate-legacy.html">Estate &amp; Legacy</a>
-        <a href="client-stories.html">Client Stories</a>
-        <a href="isp.html">ISP</a>
+      <div>
+        <a href="index.html">About</a> &nbsp;&middot;&nbsp;
+        <a href="finance.html">Finance</a> &nbsp;&middot;&nbsp;
+        <a href="estate-legacy.html">Estate &amp; Legacy</a> &nbsp;&middot;&nbsp;
+        <a href="client-stories.html">Client Stories</a> &nbsp;&middot;&nbsp;
+        <a href="questionnaire.html">Questionnaire</a> &nbsp;&middot;&nbsp;
         <a href="get-started.html">Get Started</a>
       </div>
-      <div class="footer-contact">
-        <h4>Get in touch</h4>
-        <a class="item" href="tel:+6589495099"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.34 1.9.62 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.28 1.85.49 2.81.62A2 2 0 0 1 22 16.92z"/></svg>+65 8949 5099</a>
-        <a class="item" href="mailto:randallteowl@prufa.com.sg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>randallteowl@prufa.com.sg</a>
-        <a class="item" href="https://wa.me/6589495099?text=Hi%20Randall%2C%20I%27d%20like%20to%20speak%20with%20you%20about..." target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 9.5 19.6L3 21z"/></svg>WhatsApp</a>
+      <div style="text-align:right">
+        <div>randallteo.sg</div>
+        <div style="margin-top:6px">&copy; 2026 Randall Teo</div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Randall Teo. All rights reserved.</span>
-      <span>Estate, legacy and wealth transfer planning conversations for Singapore families.</span>
-    </div>
+    <p class="disclaimer">
+      This form is provided for planning purposes and does not constitute legal, tax or financial advice.
+      Information you enter stays in your browser and is not transmitted anywhere.
+    </p>
   </div>
 </footer>
 
+
+
+<template id="tpl-property">
+  <div class="panel">
+    <p class="row-title">Property</p>
+    <div class="grid">
+      <div class="field span2"><label>Address / description</label><input type="text"></div>
+      <div class="field"><label>Country / jurisdiction</label><input type="text" placeholder="e.g. Singapore"></div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Estimated value</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="property-value" data-step="50000" placeholder="0"><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Ownership</label>
+        <select><option>Sole name</option><option>Joint (tenants-in-common)</option><option>Joint (joint tenants)</option><option>Held in trust</option></select>
+      </div>
+      <div class="field"><label>Outstanding mortgage</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="property-mortgage" data-step="50000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Mortgagee / bank</label><input type="text"></div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-account">
+  <div class="panel">
+    <p class="row-title">Account</p>
+    <div class="grid">
+      <div class="field"><label>Bank / institution</label><input type="text"></div>
+      <div class="field"><label>Account type</label>
+        <select><option>Savings</option><option>Current</option><option>Fixed deposit</option><option>Foreign currency</option><option>Cash on hand</option></select>
+      </div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Country / jurisdiction</label><input type="text" placeholder="e.g. Singapore"></div>
+      <div class="field"><label>Balance</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="account-value" data-step="10000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Ownership</label>
+        <select><option>Sole name</option><option>Joint account</option></select>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-investment">
+  <div class="panel">
+    <p class="row-title">Investment</p>
+    <div class="grid">
+      <div class="field span2"><label>Description (broker / fund / asset)</label><input type="text"></div>
+      <div class="field"><label>Type</label>
+        <select><option>Shares / equities</option><option>Bonds</option><option>Unit trust / fund</option><option>Investment-linked product (ILP)</option><option>CPF / retirement account</option><option>Cryptocurrency</option><option>Other</option></select>
+      </div>
+      <div class="field"><label>Country / jurisdiction</label><input type="text" placeholder="e.g. Singapore"></div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Current value</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="investment-value" data-step="10000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Ownership</label>
+        <select><option>Sole name</option><option>Joint</option><option>Held in trust</option></select>
+      </div>
+      <div class="field"><label>Nomination made?</label>
+        <select><option></option><option>Yes</option><option>No</option><option>Unsure</option></select>
+      </div>
+      <div class="field span4"><label>Nominee(s), if applicable</label><input type="text"></div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-business">
+  <div class="panel">
+    <p class="row-title">Business interest</p>
+    <div class="grid">
+      <div class="field span2"><label>Entity name</label><input type="text"></div>
+      <div class="field"><label>Nature of interest</label>
+        <select><option>Sole proprietorship</option><option>Partnership share</option><option>Shareholding</option><option>Directorship (with equity)</option></select>
+      </div>
+      <div class="field"><label>Ownership percentage</label><input type="text" placeholder="e.g. 40%"></div>
+      <div class="field"><label>Country of incorporation</label><input type="text" placeholder="e.g. Singapore"></div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Estimated value of interest</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="business-value" data-step="50000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Any shareholder / buy-sell agreement?</label>
+        <select><option>No</option><option>Yes</option><option>Unsure</option></select>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-personalty">
+  <div class="panel">
+    <p class="row-title">Item</p>
+    <div class="grid">
+      <div class="field span2"><label>Description</label><input type="text"></div>
+      <div class="field"><label>Estimated value</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="personalty-value" data-step="5000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Ownership</label>
+        <select><option>Sole name</option><option>Joint</option></select>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-liability">
+  <div class="panel">
+    <p class="row-title">Liability</p>
+    <div class="grid">
+      <div class="field span2"><label>Creditor / description</label><input type="text"></div>
+      <div class="field"><label>Type</label>
+        <select><option>Personal loan</option><option>Credit card</option><option>Line of credit</option><option>Guarantee given</option><option>Tax liability</option><option>Other</option></select>
+      </div>
+      <div class="field"><label>Country / jurisdiction</label><input type="text" placeholder="e.g. Singapore"></div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Amount outstanding</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="liability-value" data-step="10000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Sole or joint liability</label>
+        <select><option>Sole</option><option>Joint</option></select>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
+<template id="tpl-policy">
+  <div class="panel">
+    <p class="row-title">Policy</p>
+    <div class="grid">
+      <div class="field"><label>Insurer</label><input type="text"></div>
+      <div class="field"><label>Policy type</label>
+        <select><option>Life (term)</option><option>Life (whole-of-life)</option><option>Universal life (UL)</option><option>Accident plan</option><option>Health / hospitalisation</option><option>Critical illness</option><option>Disability income</option><option>Property / fire</option><option>Other</option></select>
+      </div>
+      <div class="field"><label>Policy number</label><input type="text"></div>
+      <div class="field"><label>Currency</label><input type="text" placeholder="e.g. SGD"></div>
+      <div class="field"><label>Sum assured / coverage</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="policy-cover" data-step="50000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Annual premium</label>
+        <div class="money"><span class="cur">$</span><input type="text" inputmode="numeric" class="calc" data-group="policy-premium" data-step="1000" placeholder=""><span class="spin"><button type="button" tabindex="-1" onclick="bump(this,1)">&#9650;</button><button type="button" tabindex="-1" onclick="bump(this,-1)">&#9660;</button></span></div>
+      </div>
+      <div class="field"><label>Nomination made?</label>
+        <select><option></option><option>Revocable nomination</option><option>Trust (irrevocable) nomination</option><option>No nomination made</option><option>Unsure</option></select>
+      </div>
+      <div class="field"><label>Named beneficiary(ies)</label><input type="text"></div>
+    </div>
+    <button class="remove-btn" onclick="removeRow(this)">Remove</button>
+  </div>
+</template>
+
 <script>
 /* ── access code ───────────────────────────────────────── */
-function checkPw(){
-  var input = document.getElementById('pwInput');
-  var err   = document.getElementById('pwError');
-  if (input.value.trim().toUpperCase() === 'RTWLFORM'){
-    document.getElementById('pw-gate').style.display = 'none';
-    document.body.classList.remove('locked');
-    try { sessionStorage.setItem('rt_q','1'); } catch(e){}
-  } else {
-    err.textContent = 'Incorrect password. Please try again.';
-    input.value = ''; input.focus();
-  }
-}
 (function(){
-  var already=false;
-  try { already = sessionStorage.getItem('rt_q')==='1'; } catch(e){}
-  if (already){
-    document.getElementById('pw-gate').style.display='none';
+  var CODE = "RTWLFORM";
+  var gate = document.getElementById('gate');
+  var pw   = document.getElementById('pw');
+  var err  = document.getElementById('err');
+
+  function unlockNow(){
+    gate.style.display = 'none';
     document.body.classList.remove('locked');
-  } else {
-    document.body.classList.add('locked');
-    setTimeout(function(){ var i=document.getElementById('pwInput'); if(i) i.focus(); },250);
+    try{ sessionStorage.setItem('rt_q','1'); }catch(e){}
   }
-  var inp=document.getElementById('pwInput');
-  if (inp) inp.addEventListener('input',function(){ document.getElementById('pwError').textContent=''; });
+  function tryCode(){
+    if(pw.value.trim().toUpperCase() === CODE){ unlockNow(); }
+    else { err.textContent = 'That code is not correct. Please try again.'; pw.value=''; pw.focus(); }
+  }
+  document.getElementById('unlock').addEventListener('click', tryCode);
+  pw.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); tryCode(); } });
+  pw.addEventListener('input', function(){ err.textContent = ''; });
+
+  var already = false;
+  try{ already = sessionStorage.getItem('rt_q') === '1'; }catch(e){}
+  if(already){ unlockNow(); }
+  else { document.body.classList.add('locked'); setTimeout(function(){ pw.focus(); }, 250); }
 })();
 
 /* ── money helpers ─────────────────────────────────────── */
