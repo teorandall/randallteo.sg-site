@@ -445,9 +445,9 @@ body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
       <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
     </div>
     <div class="pw-title">Client Questionnaire</div>
-    <div class="pw-sub">Guide on CPF numbers, accounts and structures.<br>Please enter your access password to continue.</div>
+    <div class="pw-sub">Complete this before we draft your Will, so your estate plan is built on a full and current picture of what you own and owe.<br>Please enter your access password to continue.</div>
     <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
-    <button class="pw-btn" onclick="checkPw()">Access Tool</button>
+    <button class="pw-btn" onclick="checkPw()">Open Questionnaire</button>
     <div class="pw-error" id="pwError"></div>
   </div>
 </div>
@@ -638,29 +638,36 @@ body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
 
 <script>
 /* ── access code ───────────────────────────────────────── */
-(function(){
-  var CODE = "RTWLFORM";
-  var gate = document.getElementById('pw-gate');
-  var pw   = document.getElementById('pwInput');
-  var err  = document.getElementById('pwError');
-
-  function unlockNow(){
-    gate.style.display = 'none';
+/* ---- access gate (matches the other tools) ---- */
+function checkPw(){
+  var input = document.getElementById('pwInput');
+  var err   = document.getElementById('pwError');
+  if (input.value.trim().toUpperCase() === 'RTWLFORM'){
+    document.getElementById('pw-gate').style.display = 'none';
     document.body.classList.remove('locked');
-    try{ sessionStorage.setItem('rt_q','1'); }catch(e){}
+    try { sessionStorage.setItem('rt_q','1'); } catch(e){}
+  } else {
+    err.textContent = 'Incorrect password. Please try again.';
+    input.value = '';
+    input.focus();
   }
-  function tryCode(){
-    if(pw.value.trim().toUpperCase() === CODE){ unlockNow(); }
-    else { err.textContent = 'That code is not correct. Please try again.'; pw.value=''; pw.focus(); }
-  }
-  document.getElementById('pwBtn').addEventListener('click', tryCode);
-  pw.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); tryCode(); } });
-  pw.addEventListener('input', function(){ err.textContent = ''; });
-
+}
+(function(){
   var already = false;
-  try{ already = sessionStorage.getItem('rt_q') === '1'; }catch(e){}
-  if(already){ unlockNow(); }
-  else { document.body.classList.add('locked'); setTimeout(function(){ pw.focus(); }, 250); }
+  try { already = sessionStorage.getItem('rt_q') === '1'; } catch(e){}
+  if (already){
+    document.getElementById('pw-gate').style.display = 'none';
+    document.body.classList.remove('locked');
+  } else {
+    document.body.classList.add('locked');
+    setTimeout(function(){
+      var i = document.getElementById('pwInput'); if (i) i.focus();
+    }, 250);
+  }
+  var inp = document.getElementById('pwInput');
+  if (inp) inp.addEventListener('input', function(){
+    document.getElementById('pwError').textContent = '';
+  });
 })();
 
 /* ── money helpers ─────────────────────────────────────── */
