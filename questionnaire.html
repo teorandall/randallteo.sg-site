@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <script>document.documentElement.className+=" js";</script>
 <style>
 /* ===========================================================
@@ -68,29 +69,12 @@ body>header{
 }
 body>header.solid{box-shadow:0 6px 24px rgba(0,0,0,.28)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
-.brand{display:flex;align-items:center;text-decoration:none;color:var(--stone)}
-.brand-logo{height:44px;width:auto;display:block}
-.nav-links{display:flex;align-items:center;gap:30px}
-.nav-links a{
-  text-decoration:none;color:var(--muted-dark);font-size:14px;
-  letter-spacing:.02em;transition:color .25s;position:relative;padding-bottom:2px;
-}
 .nav-links a:hover{color:var(--stone)}
-.nav-links a.here{color:var(--stone)}
 .nav-links a.only-mobile{display:none}
 .nav-links a.here:after{
   content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--brass);
 }
-.nav-cta{
-  display:inline-block;text-decoration:none;font-size:13.5px;font-weight:500;
-  color:var(--stone);border:1px solid var(--line-dark);padding:10px 20px;
-  transition:background .25s,border-color .25s,color .25s;
-}
 .nav-cta:hover{background:var(--brass);border-color:var(--brass);color:#fff}
-.menu-btn{
-  display:none;background:none;border:0;color:var(--stone);font-size:13px;
-  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--body);
-}
 
 /* ─────────── buttons ─────────── */
 .btn{
@@ -505,21 +489,35 @@ section.block{margin-bottom:40px}
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="index.html"><svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg></a>
-    <nav class="nav-links">
-      <a href="index.html">About</a>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark rt-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="brand-text"><span class="brand-name">Randall Teo</span><span class="brand-sub">Estate &amp; Legacy Planning</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#about">About</a>
       <a href="finance.html">Finance</a>
       <a href="estate-legacy.html">Estate &amp; Legacy</a>
       <a href="client-stories.html">Client Stories</a>
-      <a href="isp.html">ISP Comparison</a>
-      <a href="cpf-tool.html">CPF Tool</a>
-      <a href="questionnaire.html" class="here">Questionnaire</a>
-      <a href="get-started.html" class="only-mobile">Schedule a consultation</a>
+      <div class="nav-dropdown" id="toolsDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="isp.html">ISP Comparison</a>
+          <a href="cpf-tool.html">CPF Tool</a>
+          <a href="legacy-vault.html">Legacy Vault <span class="tool-badge">Soon</span></a>
+          <a href="questionnaire.html" class="active">Questionnaire</a>
+        </div>
+      </div>
+      <a href="get-started.html">Get Started</a>
     </nav>
-    <a class="nav-cta" href="get-started.html">Schedule a consultation</a>
-    <button class="menu-btn" aria-expanded="false">Menu</button>
+    <div class="nav-cta">
+      <a href="get-started.html#contact" class="btn btn-primary"><span class="btn-desktop">Schedule a consultation</span><span class="btn-mobile">Let's Talk</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 <div id="gate">
@@ -938,6 +936,32 @@ function recalc(){
 }
 
 ['property','account','investment','business','personalty','liability','policy'].forEach(function(k){ addRow(k); });
+
+/* ---- site nav ---- */
+(function(){
+  var toggle=document.getElementById('navToggle');
+  var links=document.getElementById('navLinks');
+  if(toggle&&links){
+    toggle.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+})();
+function toggleDropdown(){
+  var d=document.getElementById('toolsDropdown');
+  if(d) d.classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  var d=document.getElementById('toolsDropdown');
+  if(d && !d.contains(e.target)) d.classList.remove('open');
+});
 </script>
 
 </body>
