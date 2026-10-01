@@ -358,11 +358,8 @@ footer{
 </style>
 <style>
 /* ── password gate ── */
-#gate{
-  position:fixed;inset:0;z-index:200;background:var(--stone);
-  display:flex;align-items:center;justify-content:center;padding:24px;
-}
-.gate-card{width:100%;max-width:420px;text-align:center}
+
+
 .gate-card img{width:170px;height:auto;margin:0 auto 30px}
 .gate-card h1{font-size:30px;font-weight:300;margin:0 0 10px;color:var(--ink)}
 .gate-card p{color:var(--muted-light);font-size:15.5px;margin:0 0 26px}
@@ -378,7 +375,7 @@ footer{
   border-radius:3px;cursor:pointer;transition:background .25s;
 }
 .gate-card button:hover{background:#B98D4D}
-.gate-err{color:#A3432F;font-size:14px;margin-top:14px;min-height:20px}
+
 
 /* ── form sheet ── */
 body.locked{overflow:hidden}
@@ -485,7 +482,91 @@ section.block{margin-bottom:40px}
   .field.span2{grid-column:span 1}
   .sheet{padding:0 20px 70px}
 }
+
+/* access gate — matches the other tools */
+#pw-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1F3D2B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pw-box {
+  background: #FAF7F0;
+  border-radius: 4px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.pw-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #1F3D2B;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pw-sub {
+  font-size: 14px;
+  color: #8C8A80;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pw-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #2A2A26;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pw-input:focus {
+  outline: none;
+  border-color: #1F3D2B;
+}
+.pw-btn {
+  width: 100%;
+  padding: 13px;
+  background: #8B5A34;
+  color: #FAF7F0;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover {
+  background: #7A4F2E;
+}
+.pw-error {
+  font-size: 13px;
+  color: #9B3A2A;
+  margin-top: 10px;
+  min-height: 18px;
+}
+body.locked {
+  overflow: hidden;
+}
 </style>
+  <link rel="canonical" href="https://randallteo.sg/questionnaire.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Client Questionnaire | Randall Teo">
+  <meta property="og:description" content="Confidential client intake questionnaire.">
+  <meta property="og:url" content="https://randallteo.sg/questionnaire.html">
+  <meta property="og:site_name" content="Randall Teo">
+  <meta property="og:locale" content="en_SG">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -520,14 +601,16 @@ section.block{margin-bottom:40px}
     </div>
   </div>
 </header>
-<div id="gate">
-  <div class="gate-card">
-    <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
-    <h1>Client questionnaire</h1>
-    <p>Complete this before we draft your Will, so your estate plan is built on a full and current picture of what you own and owe. Please enter the access password provided to you.</p>
-    <input type="password" id="pw" placeholder="Access password" autocomplete="off" autocapitalize="off" spellcheck="false">
-    <button id="unlock">Open questionnaire</button>
-    <p class="gate-err" id="err"></p>
+<div id="pw-gate">
+  <div class="pw-box">
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <div class="pw-title">Client Questionnaire</div>
+    <div class="pw-sub">Complete this before we draft your Will, so your estate plan is built on a full and current picture of what you own and owe.<br>Please enter your access password to continue.</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Open Questionnaire</button>
+    <div class="pw-error" id="pwError"></div>
   </div>
 </div>
 
@@ -833,9 +916,9 @@ section.block{margin-bottom:40px}
 /* ── access code ───────────────────────────────────────── */
 (function(){
   var CODE = "RTWLFORM";
-  var gate = document.getElementById('gate');
-  var pw   = document.getElementById('pw');
-  var err  = document.getElementById('err');
+  var gate = document.getElementById('pw-gate');
+  var pw   = document.getElementById('pwInput');
+  var err  = document.getElementById('pwError');
 
   function unlockNow(){
     gate.style.display = 'none';
@@ -844,9 +927,9 @@ section.block{margin-bottom:40px}
   }
   function tryCode(){
     if(pw.value.trim().toUpperCase() === CODE){ unlockNow(); }
-    else { err.textContent = 'That code is not correct. Please try again.'; pw.value=''; pw.focus(); }
+    else { err.textContent = 'Incorrect password. Please try again.'; pw.value=''; pw.focus(); }
   }
-  document.getElementById('unlock').addEventListener('click', tryCode);
+  window.checkPw = tryCode;
   pw.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); tryCode(); } });
   pw.addEventListener('input', function(){ err.textContent = ''; });
 

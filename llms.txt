@@ -1,0 +1,56 @@
+# Randall Teo — Estate & Legacy Planning, Singapore
+
+> Randall Teo Wei Lun is a Singapore-based Wealth Manager with Prudential Financial Advisers, specialising in estate and legacy planning, Will writing, Lasting Power of Attorney (LPA), CPF structuring and retirement income planning for pre-retirees and retirees. This site publishes plain-English guidance on Singapore estate and retirement rules.
+
+## Core pages
+- [About Randall Teo](https://randallteo.sg/): Background, practice focus and how the estate and legacy planning process works.
+- [Estate & Legacy](https://randallteo.sg/estate-legacy.html): Guidance hub on Wills, LPAs, CPF nomination, intestacy and estate administration in Singapore.
+- [Finance](https://randallteo.sg/finance.html): Guidance hub on CPF, retirement income and cash management in Singapore.
+- [Client Stories](https://randallteo.sg/client-stories.html): Anonymised accounts of real planning situations and how they were resolved.
+- [Get Started](https://randallteo.sg/get-started.html): How to arrange a consultation.
+
+## Estate & legacy guidance
+- [Blended Families and Estate Planning](https://randallteo.sg/article-estate-blended-families.html): Standard estate planning assumptions often break down in blended family situations. Here is what to think about and what to do about it.
+- [What Happens to Your CPF When You Die?](https://randallteo.sg/article-estate-cpf-nomination.html): Your CPF does not follow your Will. Here's what actually happens to your CPF savings when you pass — and what you need to do about it.
+- [The Family Conversation Nobody Wants to Have](https://randallteo.sg/article-estate-family-conversation.html): Most families avoid talking about money, death and inheritance. The ones who do are far better prepared when something actually happens.
+- [What Is a Letter of Administration and When Is It Needed?](https://randallteo.sg/article-estate-letter-of-administration.html): Most people have heard of a Will. Far fewer have heard of a Letter of Administration — yet many families end up needing one at the worst possible time.
+- [Writing a Letter of Wishes Alongside Your Will](https://randallteo.sg/article-estate-letter-of-wishes.html): A Will sets out who gets what. A letter of wishes fills in the gaps — the reasoning, the personal instructions, the things you actually want people to understand.
+- [Who Should Be Your Donee?](https://randallteo.sg/article-estate-lpa-donee.html): Choosing a donee for your LPA is one of the most important decisions in estate planning. Here's what to consider before you decide.
+- [How Does an LPA Actually Work?](https://randallteo.sg/article-estate-lpa-how-it-works.html): Common misconceptions about the Lasting Power of Attorney — answered plainly. From activation to what it actually covers.
+- [What Happens If You Don't Set Up an LPA?](https://randallteo.sg/article-estate-lpa-no-lpa.html): Without an LPA, your family faces a costly and lengthy deputyship process. Here's what that really means — and what it costs.
+- [Why Your Will Might Not Mean What You Think](https://randallteo.sg/article-estate-will-misconceptions.html): A Will is not a catch-all document. Here are the most common situations where people discover their Will did not do what they expected.
+
+## Finance & CPF guidance
+- [CPF at 55 — What Actually Happens to Your Money?](https://randallteo.sg/article-finance-cpf-at-55.html): A plain-language breakdown of what happens to your CPF at 55 — retirement sums, CPF LIFE plans, and what it means for your retirement.
+- [Foreign Currency Holdings in Retirement](https://randallteo.sg/article-finance-foreign-currency.html): Many Singaporeans head into retirement with money in foreign currencies. Here are the risks worth thinking through carefully.
+- [Financial Recap — H1 2026](https://randallteo.sg/article-finance-h1-2026.html): A review of major global market events and trends shaping H1 2026, together with a focused analysis of PRULink top and bottom fund performers.
+- [What Should You Do With Idle Cash?](https://randallteo.sg/article-finance-idle-cash.html): Comparing SSBs, T-bills, money market funds and fixed deposits — and why the bigger question is what your idle cash should be doing for your future.
+- [How to Build a Retirement Income Ladder in Singapore](https://randallteo.sg/article-finance-income-ladder.html): Different income sources that kick in at different times, each doing a different job. Here is how a retirement income ladder works in Singapore.
+- [Retirement Income — How Much Is Actually Enough?](https://randallteo.sg/article-finance-retirement-income.html): Most people guess at a retirement number. Here is a clearer way to think about what you actually need and where it should come from.
+- [Your Whole Life Plan Between 55 and 65](https://randallteo.sg/article-finance-whole-life-review.html): As you approach retirement, your whole life plan may need a second look. Here's what changes between 55 and 65 and what your options are.
+
+## Client stories
+- [Alan Chen, 47 | Client Stories](https://randallteo.sg/story-alan.html): Civil servant — married, two children in university, parents aged 74 and 76
+- [Benjamin Teo, 36 | Client Stories](https://randallteo.sg/story-benjamin.html): Tech lead — single, renting, no dependants, high income
+- [David K, 54 | Client Stories](https://randallteo.sg/story-david.html): Sales director — remarried, three children across two families
+- [Mohd Farid, 44 | Client Stories](https://randallteo.sg/story-farid.html): Operations manager, married with three daughters. Had investment-linked plans for each child that were quietly working against them.
+- [Grace Ng, 49 | Client Stories](https://randallteo.sg/story-grace.html): Accountant — eldest daughter, two siblings
+- [Jason Lim, 48 | Client Stories](https://randallteo.sg/story-jason.html): Project manager — married, two teenage children
+- [Margaret T, 67 | Client Stories](https://randallteo.sg/story-margaret.html): Retired teacher — widowed, two adult children
+- [Michael R, 38 | Client Stories](https://randallteo.sg/story-michael.html): Software professional, working in Singapore for over ten years. A newborn changed everything about how he thought about the future.
+- [Patricia M, 53 | Client Stories](https://randallteo.sg/story-patricia.html): Business owner — married, three children, F&B industry
+- [Priya S, 42 | Client Stories](https://randallteo.sg/story-priya.html): Marketing manager — divorced two years ago, one child aged nine
+- [Raymond J, 62 | Client Stories](https://randallteo.sg/story-raymond.html): Architect — single, no children, semi-retired
+- [Robert C, 63 | Client Stories](https://randallteo.sg/story-robert.html): Former engineer — married, two grown children, retired eight months ago
+- [Susan L, 57 | Client Stories](https://randallteo.sg/story-susan.html): HR manager — married, one adult child, caring for elderly mother
+- [Mdm Tan BH, 61 | Client Stories](https://randallteo.sg/story-tan.html): Homemaker — married 35 years, HDB flat fully paid
+- [Vincent H, 44 | Client Stories](https://randallteo.sg/story-vincent.html): Management consultant — self-employed nine years, married, one child
+- [Mdm Wong YL & Mr Wong | Client Stories](https://randallteo.sg/story-wongs.html): Two children: one teenager, one son aged 12 with autism spectrum disorder
+
+## Optional
+- Client tools (ISP comparison, CPF planning, questionnaire) are password-protected and not publicly accessible.
+
+## Contact
+- Randall Teo Wei Lun, Wealth Manager, Prudential Financial Advisers Singapore Pte Ltd
+- 1 Pasir Panjang Road, #05-01L, Labrador Tower, Singapore 118479
+- randallteowl@prufa.com.sg
