@@ -514,7 +514,7 @@ td.up{color:#2C6E63;font-weight:600;}
       <h3 class="sub-h">Deferring to each age — cumulative total received</h3>
       <div class="table-scroll"><table class="sums" id="tbl4"><thead><tr>
         <th class="c-year">Start age</th><th>Monthly</th><th>Break-even age</th>
-        <th>Premium back by</th><th>Total by 85</th><th>Total by 90</th><th>Total by 95</th>
+        <th>Total by 85</th><th>Total by 90</th><th>Total by 95</th>
       </tr></thead><tbody></tbody></table></div>
       <div class="keynote" id="note4"></div>
     </div>
@@ -1083,12 +1083,8 @@ td.up{color:#2C6E63;font-weight:600;}
     [65,66,67,68,69,70].forEach(function(a){
       var be=null;
       if (a>65){ for (var x=a; x<=105; x++){ if (cumAt('Standard',a,x) >= cumAt('Standard',65,x)){ be=x; break; } } }
-      // premium is the balance at the age payouts actually start, not the sum set aside at 55
-      var prem = premiumAt65();
-      var back=null;
-      for (var y=a; y<=115; y++){ if (cumAt('Standard',a,y) >= prem){ back=y; break; } }
       rows += '<tr'+(a===65?' class="cohort"':'')+'><td class="c-year">'+a+'</td><td>'+
-        fmt(payoutAt(g,'Standard',a,amt))+'</td><td>'+(be?be:'—')+'</td><td>'+(back?back:'beyond 105')+'</td><td>'+
+        fmt(payoutAt(g,'Standard',a,amt))+'</td><td>'+(be?be:'—')+'</td><td>'+
         fmt(cumAt('Standard',a,85))+'</td><td>'+fmt(cumAt('Standard',a,90))+'</td><td>'+
         fmt(cumAt('Standard',a,95))+'</td></tr>';
     });
@@ -1107,12 +1103,11 @@ td.up{color:#2C6E63;font-weight:600;}
       card('Escalating overtakes Standard', cross?('age '+cross):'—', 'Monthly payout crosses over') +
       card('Escalating repays in total', crossCum?('age '+crossCum):'beyond 105', 'Cumulative received catches up');
 
-    $('note4').innerHTML = '<strong>Two different questions.</strong> <em>Break-even age</em> compares '+
-      'starting later against starting at 65 — where the bigger payout has repaid the years skipped. '+
-      '<em>Premium back by</em> is when payouts have returned your own capital. Note that capital is not '+
-      'the sum set aside at 55: '+fmt(amt)+' left untouched grows to about '+fmt(premiumAt65())+
-      ' by 65, and that larger figure is what has to be repaid. Both are longevity bets — right if you '+
-      'live long, wrong if you do not.';
+    $('note4').innerHTML = '<strong>What break-even age means.</strong> It compares starting later '+
+      'against starting at 65 — the age at which the bigger payout has repaid the years of payments '+
+      'skipped. The payouts here are based on the balance at 65, not the sum set aside at 55: '+
+      fmt(SUMS_LIVE[state.sum])+' left untouched grows to about '+fmt(activeAmount())+
+      ' by 65 at 4% a year. Deferring is a longevity bet — right if you live long, wrong if you do not.';
   }
 
   function card(t,v,s){
