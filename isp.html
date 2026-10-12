@@ -1076,9 +1076,46 @@ nav.nav-links a:hover,nav.nav-links a.active{color:var(--color-copper-text);}
   .brand-sub{display:none;}
 }
 header.site-nav{z-index:400;}
+
+/* ── Password gate ─────────────────────────────────────────────────────── */
+#pw-gate { position: fixed; inset: 0; z-index: 9999; background: #1F3D2B;
+  display: flex; align-items: center; justify-content: center; padding: 24px; }
+.pw-box { background: #FAF7F0; border-radius: 4px; padding: 40px 36px;
+  max-width: 400px; width: 100%; text-align: center; }
+.pw-title { font-family: 'Fraunces', Georgia, serif; font-size: 22px; color: #1F3D2B;
+  margin-bottom: 8px; font-weight: 500; }
+.pw-sub { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; color: #8C8A80;
+  margin-bottom: 24px; line-height: 1.5; }
+.pw-input { width: 100%; padding: 12px 14px; border: 1px solid rgba(31,61,43,0.2);
+  border-radius: 3px; font-size: 15px; font-family: 'Inter', system-ui, sans-serif;
+  color: #2A2A26; background: #fff; box-sizing: border-box; margin-bottom: 12px;
+  text-align: center; letter-spacing: 0.05em; }
+.pw-input:focus { outline: none; border-color: #1F3D2B; }
+.pw-btn { width: 100%; padding: 13px; background: #8B5A34; color: #FAF7F0; border: none;
+  border-radius: 3px; font-size: 15px; font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif; cursor: pointer; transition: background 0.2s; }
+.pw-btn:hover { background: #7A4F2E; }
+.pw-error { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; color: #9B3A2A;
+  margin-top: 10px; min-height: 18px; }
+body.locked { overflow: hidden; }
+@media print { #pw-gate { display: none !important; } }
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- ═══ PASSWORD GATE ═══════════════════════════════════════════════════ -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true"><rect x="7" y="7" width="50" height="50" rx="4" fill="#1F3D2B"/><rect x="11" y="11" width="42" height="42" rx="2" fill="none" stroke="#C8A15A" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="25" font-weight="500" letter-spacing="-1" fill="#FAF7F0">RT</text><path d="M20 47h24" stroke="#C8A15A" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <div class="pw-title">Integrated Shield Plan Toolkit</div>
+    <div class="pw-sub">Premium calculator, benefits comparison and hospital bill scenarios across every ISP in Singapore.<br>Please enter your access password to continue.</div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Access Tool</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
 
 <!-- ═══ HEADER ══════════════════════════════════════════════════════════ -->
 <header class="site-nav">
@@ -3002,6 +3039,22 @@ function toggleDropdown(){
   var d = document.getElementById('toolsDropdown');
   if (d) d.classList.toggle('open');
 }
+function checkPw() {
+  var val = document.getElementById('pwInput').value;
+  if (val === 'RTWLISP') {
+    document.getElementById('pw-gate').style.display = 'none';
+    document.body.classList.remove('locked');
+    window.dispatchEvent(new Event('resize'));
+  } else {
+    document.getElementById('pwError').textContent = 'Incorrect password. Please try again.';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+window.addEventListener('DOMContentLoaded', function(){
+  var i = document.getElementById('pwInput');
+  if (i) i.focus();
+});
 </script>
 </body>
 </html>
