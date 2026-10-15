@@ -283,8 +283,10 @@ td.up{color:#2C6E63;font-weight:600;}
 .cpfchart .axsub{font-size:10.5px;fill:var(--color-ink-soft);}
 
 .cpfchart{shape-rendering:geometricPrecision;}
-.segb.mine{border-color:var(--color-copper);}
-.segb.mine.on{background:var(--color-copper);border-color:var(--color-copper);}
+.segb.mine{border-color:var(--color-copper);color:var(--color-copper-text);}
+.segb.mine span{color:var(--color-copper-text);}
+.segb.mine.on{background:var(--color-copper-button);border-color:var(--color-copper-button);color:var(--color-cream);}
+.segb.mine.on span,.segb.mine.on .sub55{color:#F3E4D2;opacity:1;}
 .legend{margin-bottom:14px;}
 
 .segcap{flex:1 1 100%;font-size:12.5px;color:var(--color-ink-soft);margin:4px 0 0;}
@@ -673,7 +675,7 @@ td.up{color:#2C6E63;font-weight:600;}
   var fmt = function(n){ return 'S$' + Math.round(n).toLocaleString('en-SG'); };
   var fmt0 = function(n){ return Math.round(n).toLocaleString('en-SG'); };
 
-  var BUILD = '2026-08-27-a';
+  var BUILD = '2026-10-15-a';
   var state = { sum:'FRS', premPct:15, target:3000 };
 
   function ersMultiple(y){ return y >= 2025 ? 4 : 3; }
@@ -720,6 +722,9 @@ td.up{color:#2C6E63;font-weight:600;}
     return bal * Math.pow(1.04, yrs);
   }
   var CLIENT = { ra55:null, ra65:null };
+  /* $5,000 of the Ordinary Account is always left behind when the RA is formed at 55. */
+  var OA_KEEP = 5000;
+  var MINE_SUB = 'at 55';
 
   /* SUM_AMT holds the fixed dollar anchors the payout figures were captured at, and must
      never change — payoutAt interpolates against them. SUMS_LIVE holds the client's own
@@ -747,7 +752,14 @@ td.up{color:#2C6E63;font-weight:600;}
      grown to 65; the BRS/FRS/ERS anchors are amounts set aside at 55, so they compound. */
   // activeAmount is already the balance at 65, so it is the annuity premium as-is.
   function premiumAt65(){ return activeAmount(); }
-  function activeLabel(){ return 'the ' + state.sum + ' at 65'; }
+  function activeLabel(){
+    if (state.sum === 'MINE'){
+      return MINE_SUB === 'today'
+        ? 'this client’s own Retirement Account at 65'
+        : 'this client’s projected Retirement Account at 65';
+    }
+    return 'the ' + state.sum + ' at 65';
+  }
 
   /* ---------- Basic Plan model ----------
      Captured starting payout is the total the client receives.
@@ -888,10 +900,14 @@ td.up{color:#2C6E63;font-weight:600;}
   function seg(id){
     var el = $(id); if (!el) return;
     var withSlider = !el.classList.contains('nosl');
-    var html = ['BRS','FRS','ERS'].map(function(sm){
-      return '<button class="segb'+(sm===state.sum?' on':'')+'" data-s="'+sm+'">'+sm+
+    var keys = ['BRS','FRS','ERS'];
+    if (SUMS_65.MINE) keys.push('MINE');
+    var html = keys.map(function(sm){
+      var mine = sm === 'MINE';
+      return '<button class="segb'+(mine?' mine':'')+(sm===state.sum?' on':'')+'" data-s="'+sm+'">'+
+             (mine?'Yours':sm)+
              ' <span>'+fmt(SUMS_65[sm])+' at 65</span>'+
-             '<span class="sub55">'+fmt(SUMS_LIVE[sm])+' at 55</span></button>';
+             '<span class="sub55">'+fmt(SUMS_LIVE[sm])+' '+(mine?MINE_SUB:'at 55')+'</span></button>';
     }).join('');
     if (withSlider){
       html += '<span class="segnote">Basic premium <input type="range" id="'+id+
@@ -904,6 +920,10 @@ td.up{color:#2C6E63;font-weight:600;}
           : 'Announced sums for the '+SUMS_LIVE.cohort+' cohort. ') +
         'The larger figure is the balance at 65 after compounding at 4% from 55, and that is what the '+
         'payouts below are based on.' +
+        (SUMS_65.MINE
+          ? ' <b>Yours</b> is this client’s own Retirement Account, projected from the balances '+
+            'entered above and grown to 65 on the same basis.'
+          : '') +
         '</p>';
     }
     el.innerHTML = html;
@@ -942,9 +962,12 @@ td.up{color:#2C6E63;font-weight:600;}
     var cap  = sumsFor(c.cohort, rate).frs;        // RA is filled up to the Full Retirement Sum
     var fromSA = Math.min(sa55, cap);
     var need   = Math.max(0, cap - fromSA);
-    var topup  = Math.min(oa55, need);
+    // The OA is never swept bare: $5,000 always stays behind, even if the FRS is not reached.
+    var oaAvail = Math.max(0, oa55 - OA_KEEP);
+    var topup  = Math.min(oaAvail, need);
     return { ra: fromSA + topup, oaLeft: oa55 - topup, saLeft: sa55 - fromSA,
-             topup: topup, cap: cap, sa55: sa55, oa55: oa55, capped: fromSA >= cap };
+             topup: topup, cap: cap, sa55: sa55, oa55: oa55, capped: fromSA >= cap,
+             oaFloor: Math.min(oa55, OA_KEEP), oaShort: topup < need };
   }
 
   /* ---------- render ---------- */
@@ -966,6 +989,15 @@ td.up{color:#2C6E63;font-weight:600;}
     refreshSums(c, rate);
     CLIENT.ra55 = (pra && pra.ra) ? pra.ra : null;
     CLIENT.ra65 = CLIENT.ra55 ? growTo65(CLIENT.ra55, c.age) : null;
+    // The client's own Retirement Account becomes a fourth option beside BRS / FRS / ERS.
+    MINE_SUB = c.under55 ? 'at 55' : 'today';
+    if (CLIENT.ra65){
+      SUMS_65.MINE   = CLIENT.ra65;
+      SUMS_LIVE.MINE = CLIENT.ra55;
+    } else {
+      delete SUMS_65.MINE; delete SUMS_LIVE.MINE;
+      if (state.sum === 'MINE') state.sum = 'FRS';
+    }
     tab1(c, rate);
     ['segSum2','segSum3','segSum4','segSum6','segSum7'].forEach(function(id){ seg(id); });
     tab2(c); tab3(c); tab4(c); tab5(c, rate, pra); tab6(c); tab7(c);
@@ -1036,7 +1068,7 @@ td.up{color:#2C6E63;font-weight:600;}
     var cross=null, sr=series(g,amt,'Escalating',65,state.premPct);
     for (var i=0;i<sr.length;i++){ if (sr[i].v>=st){ cross=Math.round(sr[i].age); break; } }
     $('note2').innerHTML = '<strong>Reading this chart.</strong> Based on '+activeLabel()+' of '+
-      fmt(amt)+' at 65. Escalating starts '+fmt(st-es)+' a month below Standard'+
+      fmt(amt)+'. Escalating starts '+fmt(st-es)+' a month below Standard'+
       (cross?' and overtakes it at age '+cross:'')+
       '. Basic pays least throughout and steps down as the Retirement Account drains through the '+
       '$60,000 and $30,000 extra-interest thresholds, but it is the only plan leaving a meaningful '+
@@ -1129,9 +1161,15 @@ td.up{color:#2C6E63;font-weight:600;}
         step('Special Account at 55', fmt(pra.sa55), 'Grown at 4% from today') +
         step('Into the Retirement Account', fmt(Math.min(pra.sa55, pra.cap)), 'SA is used first') +
         (pra.topup>0
-          ? step('Topped up from Ordinary Account', fmt(pra.topup), 'Only the shortfall to the FRS is taken')
-          : step('Topped up from Ordinary Account', 'none', 'Your SA alone reaches the FRS')) +
-        step('Ordinary Account left liquid', fmt(pra.oaLeft), 'Stays in your OA, not swept into the RA') +
+          ? step('Topped up from Ordinary Account', fmt(pra.topup),
+                 pra.oaShort ? 'The OA is tapped down to its last ' + fmt(OA_KEEP)
+                             : 'Only the shortfall to the FRS is taken')
+          : step('Topped up from Ordinary Account', 'none',
+                 pra.capped ? 'Your SA alone reaches the FRS'
+                            : 'Your OA holds ' + fmt(OA_KEEP) + ' or less, so none of it moves')) +
+        step('Ordinary Account left liquid', fmt(pra.oaLeft),
+             pra.oaLeft>0 ? 'Includes the ' + fmt(pra.oaFloor) + ' that always stays in the OA'
+                          : 'Stays in your OA, not swept into the RA') +
         (pra.saLeft>0 ? step('SA above the FRS', fmt(pra.saLeft), 'Withdrawable from 55') : '') +
         '</div>';
     } else { $('split5').innerHTML=''; }
@@ -1154,8 +1192,11 @@ td.up{color:#2C6E63;font-weight:600;}
       + 'That puts you at <strong>'+reached+'</strong>.'
       + (gapFRS>0 ? ' You are '+fmt(gapFRS)+' short of the Full Retirement Sum.'
                   : ' The Full Retirement Sum is met.')
-      + (c.under55 && !pra.capped && pra.topup>0
-          ? ' Note that only the shortfall was drawn from your OA — the balance stays available to you.'
+      + (c.under55 && pra.topup>0
+          ? (pra.oaShort
+              ? ' Your OA was drawn on down to the ' + fmt(OA_KEEP) + ' that always stays behind, so it '+
+                'could not close the gap on its own.'
+              : ' Note that only the shortfall was drawn from your OA \u2014 the balance stays available to you.')
           : '');
 
     $('note5').innerHTML = '<strong>Timing matters more than people expect.</strong> CPF computes interest '+
@@ -1207,7 +1248,7 @@ td.up{color:#2C6E63;font-weight:600;}
     var zero=null;
     for (var a=66;a<=105;a+=0.5){ if (bequest(g,prem,'Standard',65,a,state.premPct)<=0){ zero=Math.round(a); break; } }
     $('note7').innerHTML = '<strong>CPF LIFE is longevity insurance, not a legacy vehicle.</strong> '+
-      'Based on '+activeLabel()+', which grows to about '+fmt(prem)+' by 65 — that larger balance is the '+
+      'Based on '+activeLabel()+' of '+fmt(prem)+' — that balance is the '+
       'annuity premium. Under the Standard Plan your payouts have returned the whole premium by around '+
       'age '+(zero||'—')+', and from that point there is nothing left to pass on. Basic holds a bequest '+
       'much longer, because '+Math.round(100-state.premPct)+'% of the Retirement Account stays yours and '+
