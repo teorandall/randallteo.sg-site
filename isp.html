@@ -482,10 +482,10 @@ h3.section-head {
 /* ── Hero ───────────────────────────────────────────────────────────── */
 .fw-hero {
   background: linear-gradient(160deg, var(--fw-teal-deep) 0%, var(--fw-teal) 55%, var(--fw-teal-mid) 100%);
-  padding: 30px 48px 28px; position: relative; overflow: hidden;
+  padding: 30px 48px 28px; position: relative; overflow: visible;
 }
 .fw-hero::before {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; overflow: hidden;
   background: radial-gradient(ellipse 50% 120% at 100% 60%, rgba(164,113,72,0.18) 0%, transparent 65%),
               radial-gradient(ellipse 30% 60% at -5% 20%, rgba(164,113,72,0.08) 0%, transparent 60%);
 }
